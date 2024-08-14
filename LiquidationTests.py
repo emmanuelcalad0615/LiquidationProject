@@ -109,7 +109,7 @@ class LiquidationTest(unittest.TestCase):
         resultado = Liquidation.Empleados.calculos(salario,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion)
         self.assertEqual( total_liquidacion,resultado)
 
-    # Casos excepcionales
+    # Casos extraordinarios
     def testLiquidation7(self): 
         """ Días trabajados y días de prima exagerados """  
         salario = 5689500
