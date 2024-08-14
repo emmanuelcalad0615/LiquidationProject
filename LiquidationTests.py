@@ -2,11 +2,23 @@
 import unittest
 from datetime import datetime
 
+"""""
+salario : salario básico
+auxilio transporte : auxilio_t
+días trabajados : días_t
+días liquidados prima : dias_lp
+dias vacaciones acumulados:dias_v
+fecha inicio trabajo:fecha_i
+fecha finalizacion:fecha_f
+tipo contrato: int(1-3)
+motivo finalizacion: int(1-4)
+"""
+
+
 class LiquidationTest(unittest.TestCase):
     # Cada método de prueba debe llamar un método assert
 
     # Casos normales
-
     def testLiquidation1(self):
         salario = 5,689.500
         prima_v = 5,741.427
@@ -98,7 +110,8 @@ class LiquidationTest(unittest.TestCase):
         self.assertEqual( total_liquidacion,resultado)
 
     # Casos excepcionales
-    def testLiquidation7(self):   
+    def testLiquidation7(self): 
+        """ Días trabajados y días de prima exagerados """  
         salario = 5,689.500
         prima_v = 7,894.181
         auxilio_t = 0
@@ -113,7 +126,8 @@ class LiquidationTest(unittest.TestCase):
         resultado = Liquidation.Empleados.calculos(salario,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion)
         self.assertEqual( total_liquidacion,resultado)
 
-    def testLiquidation8(self):   
+    def testLiquidation8(self):
+        """ Despido del día después de trabajo"""   
         salario = 900,803
         prima_v = 0
         auxilio_t = 80,500
@@ -128,7 +142,8 @@ class LiquidationTest(unittest.TestCase):
         resultado = Liquidation.Empleados.calculos(salario,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion)
         self.assertEqual( total_liquidacion,resultado)
 
-    def testLiquidation9(self):   
+    def testLiquidation9(self):
+        """ Prima liquidada cero"""   
         salario = 3,450.023
         prima_v = 0
         auxilio_t = 0
@@ -143,7 +158,8 @@ class LiquidationTest(unittest.TestCase):
         resultado = Liquidation.Empleado.calculos(salario,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion)
         self.assertEqual( total_liquidacion,resultado)
 
-    def testLiquidation10(self):   
+    def testLiquidation10(self): 
+        """ Despido al mismo día de comienzo de trabajo """  
         salario = 26,660.000
         prima_v = 0
         auxilio_t = 0
@@ -158,12 +174,13 @@ class LiquidationTest(unittest.TestCase):
         resultado = Liquidation.Empleado.calculos(salario,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion)
         self.assertEqual( total_liquidacion,resultado)
 
-    def testLiquidation11(self):   
+    def testLiquidation11(self):  
+        """ Muchos días de vacaciones acumulados""" 
         salario = 2,230.000
         prima_v = 180.000
         auxilio_t = 0
-        dias_t = 20
-        dias_lp = 20
+        dias_t = 200
+        dias_lp = 200
         dias_v = 100
         fecha_i = datetime(2019,12,18)
         fecha_f = datetime(2022,7,28)
@@ -173,7 +190,8 @@ class LiquidationTest(unittest.TestCase):
         resultado = Liquidation.Empleado.calculos(salario,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion)
         self.assertEqual( total_liquidacion,resultado)
 
-    def testLiquidation12(self):   
+    def testLiquidation12(self): 
+        """ Despido a los 15 días sin liquidación"""  
         salario = 4,300.000
         prima_v = 100.000
         auxilio_t = 100.000
