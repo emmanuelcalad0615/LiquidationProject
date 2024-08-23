@@ -12,7 +12,7 @@ indemnizacion(por contrato a 1 año) : indem_1
 indemnizacion(por contrato a menos de 1 año) : indem_2
 indemnizacion(por contrato a termino indefinido) : indem_3
 dias faltantes del contrato : dias_f
-meses de contrato cumplido : meses_c
+meses de contrato cumplido : meses_c.
 dias faltantes del mes(con respecto al contrato) : dias_fm
 ingreso en UVT : ingreso_uvt
 porcentaje con respecto al ingreso de uvt : porcentaje_uvt
