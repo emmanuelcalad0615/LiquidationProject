@@ -1,7 +1,13 @@
 # Este archivo contiene las pruebas
 import unittest
 from datetime import datetime
+import sys
 
+# Agrega una ruta de Python que debe buscar a los módulos que se importen en el código
+sys.path.append("src")
+
+# Las pruebas importan los módulos que hacen el trabajo
+from Logic import Liquidation
 """""
 salario : salario básico
 auxilio transporte : auxilio_t
