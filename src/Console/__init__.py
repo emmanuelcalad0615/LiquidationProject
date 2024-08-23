@@ -1,1 +1,1 @@
-# Este archivo es útil para la importanción de módulos 
+# Este archivo permite la ordenación de carpetas
