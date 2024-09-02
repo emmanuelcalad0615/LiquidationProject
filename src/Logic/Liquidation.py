@@ -75,7 +75,7 @@ try:
     def calculate_service_bonus(employee):
         if employee.int_HALF_A_SEMESTER_WORKED == 0:
             raise DivisionByZero("Error: 'HALF_A_SEMESTER_WORKED' no puede ser cero.")
-        service_bonus = round((employee.basic_salary + employee.one_twelfth_vacation_bonus + employee.transportation_allowance) /employee.HALF_A_SEMESTER_WORKED /employee.int_DAYS_WORKED_IN_THE_SEMESTER * employee.severance_pay_for_accrued_leave_days)
+        service_bonus = round((employee.basic_salary + employee.one_twelfth_vacation_bonus + employee.transportation_allowance) /employee.int_HALF_A_SEMESTER_WORKED /employee.int_DAYS_WORKED_IN_THE_SEMESTER * employee.severance_pay_for_accrued_leave_days)
         return service_bonus
 
     def calcute_vacation(employee):
