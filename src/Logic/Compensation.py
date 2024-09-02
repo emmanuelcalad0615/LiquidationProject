@@ -8,7 +8,7 @@ from employee import Employee
 int_MINIMUM_COMPENSATION_DAYS = 15
 int_DAYS_OF_SALARY_PER_YEAR = 20
 
-def calculate_compensation_for_dismissal(employee: Employee, type_of_contract: str, start_date: str, end_date: str) -> float:
+def calculate_compensation(employee: Employee, type_of_contract: str, start_date: str, end_date: str) -> float:
     """
     Calcula la indemnización según el tipo de contrato y el tiempo de trabajo.
 
@@ -43,45 +43,44 @@ def calculate_compensation_for_dismissal(employee: Employee, type_of_contract: s
             raise ValueError("Las fechas deben estar en el formato YYYY-MM-DD")
 
         # Resto del cálculo...
-        delta = end_date - start_date
-        worked_days = delta.days
+        difference_of_dates = end_date - start_date
+        worked_days = difference_of_dates.days
 
         worked_years = worked_days // employee.int_DAYS_OF_THE_YEAR
-        meses_trabajados = (worked_days % employee.int_DAYS_OF_THE_YEAR) // employee.int_DAYS_PER_MONTH
+        worked_months = (worked_days % employee.int_DAYS_OF_THE_YEAR) // employee.int_DAYS_PER_MONTH
 
         if type_of_contract == 'fijo_1_anio':
-            meses_restantes = employee.meses_del_año - meses_trabajados
-            indemnizacion = employee.salario_basico * meses_restantes
+            remaining_months = employee.int_MONTHS_OF_THE_YEAR - worked_months
+            compensation = employee.basic_salary * remaining_months
 
         elif type_of_contract == 'fijo_inferior_1_anio':
-            meses_restantes = employee.meses_del_año - meses_trabajados
-            indemnizacion = max(employee.salario_basico * (meses_restantes / employee.meses_del_año) * employee.dias_por_mes,
-                                employee.salario_basico * (MINIMUM_COMPENSATION_DAYS / employee.dias_por_mes))
+            remaining_months = employee.int_MONTHS_OF_THE_YEAR - worked_months
+            compensation = max(employee.basic_salary * (remaining_months / employee.int_MONTHS_OF_THE_YEAR) * employee.int_DAYS_PER_MONTH,
+                                employee.basic_salary * (int_MINIMUM_COMPENSATION_DAYS / employee.int_DAYS_PER_MONTH))
 
         elif type_of_contract == 'indeterminado':
             if worked_years <= 1:
-                indemnizacion = employee.salario_basico * employee.dias_por_mes
+                compensation = employee.basic_salary * employee.int_DAYS_PER_MONTH
             else:
-                indemnizacion = (employee.salario_basico * employee.dias_por_mes) + (employee.salario_basico * days of salary per year * (worked_years - 1))
-
-        return indemnizacion
+                compensation = (employee.basic_salary * employee.int_DAYS_PER_MONTH) + (employee.basic_salary * int_DAYS_OF_SALARY_PER_YEAR * (worked_years - 1))
+        return compensation
 
     except Exception as e:
         print(f"Error en el cálculo de la indemnización: {str(e)}")
         return None
 
 # Crear una instancia de employee con todos los parámetros
-employee = employee(
-    salario_basico=2000,
-    un_doceavo_prima_de_vacaciones=125,
-    auxilio_de_transporte=150,
+employee = Employee(
+    basic_salary=2000,
+    one_twelfth_vacation_bonus=125,
+    transportation_allowance=150,
     worked_days=730,  # 2 años
-    dias_liquidados_prima=365  # 1 año
+    severance_pay_for_accrued_leave_days=365  # 1 año
 )
 
 # Probar cálculo de indemnización
 try:
-    indemnizacion = calcular_indemnizacion(employee, type_of_contract='indeterminado', start_date='2020-01-01', end_date='2015-01-01')
-    print(f'Indemnización calculada: {indemnizacion}')
+    compensation = calculate_compensation(employee, type_of_contract='indeterminado', start_date='2020-01-01', end_date='2015-01-01')
+    print(f'Indemnización calculada: {compensation}')
 except Exception as e:
     print(f"Error: {str(e)}")

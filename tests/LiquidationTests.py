@@ -8,6 +8,7 @@ sys.path.append("src")
 
 # Las pruebas importan los módulos que hacen el trabajo
 from Logic import Liquidation, employee
+
 class LiquidationTest(unittest.TestCase):
     # Cada método de prueba debe llamar un método assert
 
