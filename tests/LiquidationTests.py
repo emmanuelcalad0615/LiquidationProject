@@ -7,27 +7,14 @@ import sys
 sys.path.append("src")
 
 # Las pruebas importan los módulos que hacen el trabajo
-from Logic import Liquidation
-"""""
-salario : salario básico
-auxilio transporte : auxilio_t
-días trabajados : días_t
-días liquidados prima : dias_lp
-dias vacaciones acumulados:dias_v
-fecha inicio trabajo:fecha_i
-fecha finalizacion:fecha_f
-tipo contrato: int(1-3)
-motivo finalizacion: int(1-4)
-"""
-
-
+from Logic import Liquidation, employee
 class LiquidationTest(unittest.TestCase):
     # Cada método de prueba debe llamar un método assert
 
     # Casos normales
     def testLiquidation1(self):
-        salario = 5689500
-        prima_v = 5741427
+        basic_salary = 5689500
+        vacation_bonus = 5741427
         auxilio_t = 0
         dias_t = 729
         dias_lp = 310
@@ -37,12 +24,12 @@ class LiquidationTest(unittest.TestCase):
         tipo_contrato = 3
         motivo_finalizacion = 4
         total_liquidacion = 30741427
-        resultado = Liquidation.Empleados.calculos(salario,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion)
+        resultado = Liquidation.employee.calculos(basic_salary,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion)
         self.assertEqual( total_liquidacion,resultado)
 
     def testLiquidation2(self):
-        salario = 900803
-        prima_v = 160825
+        basic_salary = 900803
+        vacation_bonus = 160825
         auxilio_t = 80500
         dias_t = 80
         dias_lp = 59
@@ -52,12 +39,12 @@ class LiquidationTest(unittest.TestCase):
         tipo_contrato = 3
         motivo_finalizacion = 2
         total_liquidacion = 584886
-        resultado = Liquidation.Empleados.calculos(salario,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion)
+        resultado = Liquidation.Empleados.calculos(basic_salary,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion)
         self.assertEqual( total_liquidacion,resultado)
 
     def testLiquidation3(self):
-        salario = 1450023
-        prima_v = 340353
+        basic_salary = 1450023
+        vacation_bonus = 340353
         auxilio_t = 120018
         dias_t = 169
         dias_lp = 30
@@ -67,12 +54,12 @@ class LiquidationTest(unittest.TestCase):
         tipo_contrato = 2
         motivo_finalizacion = 4
         total_liquidacion = 1590109
-        resultado = Liquidation.Empleados.calculos(salario,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion)
+        resultado = Liquidation.Empleados.calculos(basic_salary,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion)
         self.assertEqual( total_liquidacion,resultado)
 
     def testLiquidation4(self):
-        salario = 3638092
-        prima_v = 4486980
+        basic_salary = 3638092
+        vacation_bonus = 4486980
         auxilio_t = 0
         dias_t = 888
         dias_lp = 154
@@ -82,12 +69,12 @@ class LiquidationTest(unittest.TestCase):
         tipo_contrato = 1
         motivo_finalizacion = 2
         total_liquidacion = 22160508
-        resultado = Liquidation.Empleados.calculos(salario,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion)
+        resultado = Liquidation.Empleados.calculos(basic_salary,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion)
         self.assertEqual( total_liquidacion,resultado)
     
     def testLiquidation5(self):
-        salario = 5128350
-        prima_v = 854725
+        basic_salary = 5128350
+        vacation_bonus = 854725
         auxilio_t = 500854
         dias_t = 120
         dias_lp = 79
@@ -97,12 +84,12 @@ class LiquidationTest(unittest.TestCase):
         tipo_contrato = 1
         motivo_finalizacion = 1
         total_liquidacion = 4896205
-        resultado = Liquidation.Empleados.calculos(salario,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion)
+        resultado = Liquidation.Empleados.calculos(basic_salary,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion)
         self.assertEqual( total_liquidacion,resultado)
 
     def testLiquidation6(self):
-        salario = 877803
-        prima_v = 256026
+        basic_salary = 877803
+        vacation_bonus = 256026
         auxilio_t = 102854
         dias_t = 210
         dias_lp = 169
@@ -112,14 +99,14 @@ class LiquidationTest(unittest.TestCase):
         tipo_contrato = 3
         motivo_finalizacion = 2
         total_liquidacion = 1584509
-        resultado = Liquidation.Empleados.calculos(salario,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion)
+        resultado = Liquidation.Empleados.calculos(basic_salary,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion)
         self.assertEqual( total_liquidacion,resultado)
 
     # Casos extraordinarios
     def testLiquidation7(self): 
         """ Días trabajados y días de prima exagerados """  
-        salario = 5689500
-        prima_v = 7894181
+        basic_salary = 5689500
+        vacation_bonus = 7894181
         auxilio_t = 0
         dias_t = 999
         dias_lp = 999
@@ -129,13 +116,13 @@ class LiquidationTest(unittest.TestCase):
         tipo_contrato = 2
         motivo_finalizacion = 2
         total_liquidacion = 52622612
-        resultado = Liquidation.Empleados.calculos(salario,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion)
+        resultado = Liquidation.Empleados.calculos(basic_salary,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion)
         self.assertEqual( total_liquidacion,resultado)
 
     def testLiquidation8(self):
         """ Despido del día después de trabajo"""   
-        salario = 900803
-        prima_v = 0
+        basic_salary = 900803
+        vacation_bonus = 0
         auxilio_t = 80500
         dias_t = 1
         dias_lp = 1
@@ -145,13 +132,13 @@ class LiquidationTest(unittest.TestCase):
         tipo_contrato = 3
         motivo_finalizacion = 3
         total_liquidacion = 7955
-        resultado = Liquidation.Empleados.calculos(salario,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion)
+        resultado = Liquidation.Empleados.calculos(basic_salary,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion)
         self.assertEqual( total_liquidacion,resultado)
 
     def testLiquidation9(self):
         """ Prima liquidada cero"""   
-        salario = 3450023
-        prima_v = 0
+        basic_salary = 3450023
+        vacation_bonus = 0
         auxilio_t = 0
         dias_t = 69
         dias_lp = 0
@@ -161,13 +148,13 @@ class LiquidationTest(unittest.TestCase):
         tipo_contrato = 3
         motivo_finalizacion = 1
         total_liquidacion = 1337718
-        resultado = Liquidation.Empleado.calculos(salario,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion)
+        resultado = Liquidation.Empleado.calculos(basic_salary,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion)
         self.assertEqual( total_liquidacion,resultado)
 
     def testLiquidation10(self): 
         """ Despido al mismo día de comienzo de trabajo """  
-        salario = 26660000
-        prima_v = 0
+        basic_salary = 26660000
+        vacation_bonus = 0
         auxilio_t = 0
         dias_t = 0
         dias_lp = 0
@@ -177,13 +164,13 @@ class LiquidationTest(unittest.TestCase):
         tipo_contrato = 1
         motivo_finalizacion = 2
         total_liquidacion = 0
-        resultado = Liquidation.Empleado.calculos(salario,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion)
+        resultado = Liquidation.Empleado.calculos(basic_salary,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion)
         self.assertEqual( total_liquidacion,resultado)
 
     def testLiquidation11(self):  
         """ Muchos días de vacaciones acumulados""" 
-        salario = 2230000
-        prima_v = 180000
+        basic_salary = 2230000
+        vacation_bonus = 180000
         auxilio_t = 0
         dias_t = 200
         dias_lp = 200
@@ -193,13 +180,13 @@ class LiquidationTest(unittest.TestCase):
         tipo_contrato = 3
         motivo_finalizacion = 1
         total_liquidacion = 2490169
-        resultado = Liquidation.Empleado.calculos(salario,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion)
+        resultado = Liquidation.Empleado.calculos(basic_salary,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion)
         self.assertEqual( total_liquidacion,resultado)
 
     def testLiquidation12(self): 
         """ Despido a los 15 días sin liquidación"""  
-        salario = 4300000
-        prima_v = 100000
+        basic_salary = 4300000
+        vacation_bonus = 100000
         auxilio_t = 100000
         dias_t = 1
         dias_lp = 1
@@ -209,14 +196,14 @@ class LiquidationTest(unittest.TestCase):
         tipo_contrato = 1
         motivo_finalizacion = 2
         total_liquidacion = 35837
-        resultado = Liquidation.Empleado.calculos(salario,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion)
+        resultado = Liquidation.Empleado.calculos(basic_salary,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion)
         self.assertEqual( total_liquidacion,resultado)
 
     
     # Casos de error
     def testliquidation13(self):
-        """ salario negativo """
-        salario= -895516
+        """ basic_salary negativo """
+        basic_salary= -895516
         auxilio_t=5654889
         dias_t=156
         dias_lp= 18
@@ -227,15 +214,15 @@ class LiquidationTest(unittest.TestCase):
         motivo_finalizacion= 3
         
         try:
-            resultado = Liquidation.Empleado.calculos(salario,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion)
+            resultado = Liquidation.Empleado.calculos(basic_salary,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion)
             # si no generó excepcion, quedo mal hecho el codigo
             self.assertEqual( resultado, 0 )  # Forzar fallo caso
-        except  Liquidation.Empleado.SalarioNegativo  :
+        except  Liquidation.Empleado.basic_salaryNegativo  :
             pass  # Forzar Exito
 
     def testliquidation14(self):
         """ fecha incorrecta """
-        salario = 12895516
+        basic_salary = 12895516
         auxilio_t=5654889
         dias_t=156
         dias_lp= 18
@@ -246,7 +233,7 @@ class LiquidationTest(unittest.TestCase):
         motivo_finalizacion=3
         
         try:
-            resultado = Liquidation.Empleado.calculos( salario,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion)
+            resultado = Liquidation.Empleado.calculos( basic_salary,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion)
             # si no generó excepcion, quedo mal hecho el codigo
             self.assertEqual( resultado, 0 )  # Forzar fallo caso
         except  Liquidation.Empleado.FechaIncorrecta  :
@@ -254,7 +241,7 @@ class LiquidationTest(unittest.TestCase):
 
     def testliquidation15(self):
         """ dias trabajados negativos """
-        salario = 12895
+        basic_salary = 12895
         auxilio_t=5654889
         dias_t=-8
         dias_lp= 18
@@ -265,7 +252,7 @@ class LiquidationTest(unittest.TestCase):
         motivo_finalizacion=3
         
         try:
-            resultado = Liquidation.Empleado.calculos(salario,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion )
+            resultado = Liquidation.Empleado.calculos(basic_salary,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion )
             # si no generó excepcion, quedo mal hecho el codigo
             self.assertEqual( resultado, 0 )  # Forzar fallo caso
         except  Liquidation.Empleado.DiasNegativos  :
@@ -273,7 +260,7 @@ class LiquidationTest(unittest.TestCase):
 
     def testliquidation16(self):
         """ dias prima negativos """
-        salario = 18492
+        basic_salary = 18492
         auxilio_t = 0
         dias_t=8
         dias_lp= -1
@@ -284,7 +271,7 @@ class LiquidationTest(unittest.TestCase):
         motivo_finalizacion=3
         
         try:
-            resultado = Liquidation.Empleado.calculos(salario,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion )
+            resultado = Liquidation.Empleado.calculos(basic_salary,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion )
             # si no generó excepcion, quedo mal hecho el codigo
             self.assertEqual( resultado, 0 )  # Forzar fallo caso
         except  Liquidation.Empleado.DiasNegativos  :
@@ -292,7 +279,7 @@ class LiquidationTest(unittest.TestCase):
 
     def testliquidation17(self):
         """ dias vacaciones negativos """
-        salario= 18492
+        basic_salary= 18492
         auxilio_t = 0
         dias_t=8
         dias_lp= 18
@@ -303,7 +290,7 @@ class LiquidationTest(unittest.TestCase):
         motivo_finalizacion=3
         
         try:
-            resultado = Liquidation.Empleado.calculos(salario,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion )
+            resultado = Liquidation.Empleado.calculos(basic_salary,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion )
             # si no generó excepcion, quedo mal hecho el codigo
             self.assertEqual( resultado, 0 )  # Forzar fallo caso
         except  Liquidation.Empleado.DiasNegativos  :
@@ -311,7 +298,7 @@ class LiquidationTest(unittest.TestCase):
 
     def testliquidation18(self):
         """ tipo de contrato se sale del rango """
-        salario= 18492
+        basic_salary= 18492
         auxilio_t = 0
         dias_t=8
         dias_lp= 19
@@ -322,7 +309,7 @@ class LiquidationTest(unittest.TestCase):
         motivo_finalizacion=3
         
         try:
-            resultado = Liquidation.Empleado.calculos(salario,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion )
+            resultado = Liquidation.Empleado.calculos(basic_salary,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion )
             # si no generó excepcion, quedo mal hecho el codigo
             self.assertEqual( resultado, 0 )  # Forzar fallo caso
         except  Liquidation.Empleado.FueradeRango :
@@ -330,7 +317,7 @@ class LiquidationTest(unittest.TestCase):
 
     def testliquidation19(self):
         """ motivo de finalizacion fuera de rango """
-        salario= 18492
+        basic_salary= 18492
         auxilio_t = 0
         dias_t=8
         dias_lp= 19
@@ -341,7 +328,7 @@ class LiquidationTest(unittest.TestCase):
         motivo_finalizacion=18
         
         try:
-            resultado = Liquidation.Empleado.calculos( salario,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion )
+            resultado = Liquidation.Empleado.calculos( basic_salary,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion )
             # si no generó excepcion, quedo mal hecho el codigo
             self.assertEqual( resultado, 0 )  # Forzar fallo caso
         except  Liquidation.Empleado.Fueraderango  :
@@ -349,7 +336,7 @@ class LiquidationTest(unittest.TestCase):
 
     def testliquidation20(self):
         """ coloca un string cuando era un entero"""
-        salario= 1849879
+        basic_salary= 1849879
         auxilio_t = 0
         dias_t="hola soy pobre"
         dias_lp= 19
@@ -360,7 +347,7 @@ class LiquidationTest(unittest.TestCase):
         motivo_finalizacion=1
         
         try:
-            resultado = Liquidation.Empleado.calculos(salario,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion )
+            resultado = Liquidation.Empleado.calculos(basic_salary,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion )
             # si no generó excepcion, quedo mal hecho el codigo
             self.assertEqual( resultado, 0 )  # Forzar fallo caso
         except  Liquidation.Empleado.valorincorrecto  :
