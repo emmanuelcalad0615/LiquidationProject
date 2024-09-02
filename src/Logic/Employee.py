@@ -10,9 +10,9 @@ class Employee:
         self.transportation_allowance = transportation_allowance
         self.worked_days = worked_days
         self.severance_pay_for_accrued_leave_days = severance_pay_for_accrued_leave_days
-        self.months_of_the_year = 0.12
-        self.days_of_the_year = 360
-        self.vacation_per_year = 15
-        self.days_per_month = 30
-        self.half_a_semester_worked = 2
-        self.days_worked_in_the_semester = 180   
+        self.int_MONTHS_OF_THE_YEAR = 0.12
+        self.int_DAYS_OF_THE_YEAR = 360
+        self.int_VACATION_PER_YEAR = 15
+        self.int_DAYS_PER_MONTH = 30
+        self.int_HALF_A_SEMESTER_WORKED = 2
+        self.int_DAYS_WORKED_IN_THE_SEMESTER = 180   
