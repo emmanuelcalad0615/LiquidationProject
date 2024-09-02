@@ -29,7 +29,7 @@ def calculate_compensation(employee: Employee, type_of_contract: str, start_date
     """
     try:
         # Verificar tipo de contrato
-        if type_of_contract not in ['fijo_1_anio', 'fijo_inferior_1_anio', 'indeterminado']:
+        if type_of_contract not in ['fijo_1_ano', 'fijo_inferior_1_ano', 'indeterminado']:
             raise ValueError("Tipo de contrato inválido")
 
         # Validar fechas
@@ -80,7 +80,7 @@ employee = Employee(
 
 # Probar cálculo de indemnización
 try:
-    compensation = calculate_compensation(employee, type_of_contract='indeterminado', start_date='2020-01-01', end_date='2015-01-01')
+    compensation = calculate_compensation(employee, type_of_contract='indeterminado', start_date='2020-01-01', end_date='2022-01-01')
     print(f'Indemnización calculada: {compensation}')
 except Exception as e:
     print(f"Error: {str(e)}")
