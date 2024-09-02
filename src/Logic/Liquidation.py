@@ -1,7 +1,7 @@
 import sys
 sys.path.append("Logic")
 
-from Employee import Employee
+from employee import Employee
 
 # Definición de excepciones personalizadas
 class EmployeeException(Exception):
@@ -13,7 +13,7 @@ class NegativeValue(EmployeeException):
     def __init__(self, variable, value):
         self.variable = variable
         self.value = value
-        super().__init__(f"Error: El value '{value}' en el variable '{variable}' no puede ser negativo.")
+        super().__init__(f"Error: El valor '{value}' en el variable '{variable}' no puede ser negativo.")
 
 class IncorrectDataType(EmployeeException):  
     """Exception for incorrect data types."""  
@@ -44,7 +44,7 @@ def validate_input(variable, value, expected_type):
         raise NegativeValue(variable, value)
 
 # Crear una instancia deEmployee con valuees de prueba
-Employee = Employee(
+employee = Employee(
     basic_salary=877803,
     one_twelfth_vacation_bonus=0,
     transportation_allowance=102854,
@@ -54,19 +54,19 @@ Employee = Employee(
 
 # Validate inputs to avoid exceptions  
 try:  
-    validate_input("basic_salary", Employee.basic_salary, (int, float))  
-    validate_input("one_twelfth_vacation_bonus", Employee.one_twelfth_vacation_bonus, (int, float))  
-    validate_input("transportation_allowance", Employee.transportation_allowance, (int, float))  
-    validate_input("worked_days", Employee.worked_days, int)  
-    validate_input("severance_pay_for_accrued_leave_days", Employee.severance_pay_for_accrued_leave_days, int)
+    validate_input("basic_salary", employee.basic_salary, (int, float))  
+    validate_input("one_twelfth_vacation_bonus", employee.one_twelfth_vacation_bonus, (int, float))  
+    validate_input("transportation_allowance", employee.transportation_allowance, (int, float))  
+    validate_input("worked_days", employee.worked_days, int)  
+    validate_input("severance_pay_for_accrued_leave_days", employee.severance_pay_for_accrued_leave_days, int)
 
-    def calculate_severance_pay_interest(Employee:Employee):
+    def calculate_severance_pay_interest(employee:Employee):
         if Employee.int_DAYS_OF_THE_YEAR == 0:
             raise DivisionByZero("Error: 'int_DAYS_OF_THE_YEAR' no puede ser cero.")
         severance_pay = round((Employee.basic_salary + Employee.one_twelfth_vacation_bonus +Employee.transportation_allowance) /Employee.int_DAYS_OF_THE_YEAR *Employee.worked_days)
         return severance_pay
 
-    def severance_pay_interest(Employee:Employee, severance_pay):
+    def severance_pay_interest(Employee, severance_pay):
         if Employee.int_DAYS_OF_THE_YEAR == 0:
             raise DivisionByZero("Error: 'int_DAYS_OF_THE_YEAR' no puede ser cero.")
         severance_pay_interest = round((severance_pay *Employee.int_MONTHS_OF_THE_YEAR ) /Employee.int_DAYS_OF_THE_YEAR *Employee.worked_days)
