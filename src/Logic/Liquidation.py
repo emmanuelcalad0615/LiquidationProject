@@ -1,116 +1,114 @@
-# Este archivo contiene toda la lógica del programa
-"""
-Nombres de las variables
-salario : salario básico
-prima de vacaciones :  prima_v
-auxilio transporte : auxilio_t
-días trabajados : días_t
-intereses cesantías : interes_c
-prima servicios : prima_s
-días liquidados prima : dias_lp
-indemnizacion(por contrato a 1 año) : indem_1
-indemnizacion(por contrato a menos de 1 año) : indem_2
-indemnizacion(por contrato a termino indefinido) : indem_3
-dias faltantes del contrato : dias_f
-meses de contrato cumplido : meses_c.
-dias faltantes del mes(con respecto al contrato) : dias_fm
-ingreso en UVT : ingreso_uvt
-porcentaje con respecto al ingreso de uvt : porcentaje_uvt
-porcentaje de retencion : porcentaje_r
-"""
-class EmpleadoException(Exception):
-    """Clase base para excepciones relacionadas con la clase Empleado."""
+import sys
+sys.path.append("Logic")
 
-class ValorNegativo(Exception):
-    """Excepción para valores negativos."""
+from Employee import Employee
+
+# Definición de excepciones personalizadas
+class EmployeeException(Exception):
+    """Clase base para excepciones relacionadas con la claseEmployee."""
     pass
 
-class TipoDatosIncorrecto(Exception):
-    """Excepción para tipos de datos incorrectos."""
-    pass
+class NegativeValue(EmployeeException):
+    """Exception for negative values."""
+    def __init__(self, variable, value):
+        self.variable = variable
+        self.value = value
+        super().__init__(f"Error: El value '{value}' en el variable '{variable}' no puede ser negativo.")
 
-class DivisionPorCero(Exception):
-    """Excepción para divisiones por cero."""
-    pass
+class IncorrectDataType(EmployeeException):  
+    """Exception for incorrect data types."""  
+    def __init__(self, variable, expected_type, actual_type):  
+        self.variable = variable  
+        self.expected_type = expected_type  
+        self.actual_type = actual_type  
+        super().__init__(f"Error: The data type of variable '{variable}' should be '{expected_type.__name__}' but received '{actual_type.__name__}'.")
 
-class NumeroFueraDeRango(Exception):
-    """Excepción para números fuera de rango."""
-    pass
+class DivisionByZero(EmployeeException):  
+    """Exception for division by zero."""  
+    def __init__(self, message="Error: Division by zero detected."):  
+        super().__init__(message)
 
-class Empleado:
+class NumberOutOfRange(EmployeeException):  
+    """Exception for numbers out of range."""  
+    def __init__(self, variable, allowed_range, value):  
+        self.variable = variable  
+        self.allowed_range = allowed_range  
+        self.value = value  
+        super().__init__(f"Error: The value '{value}' for variable '{variable}' is out of the allowed range {allowed_range}.")
 
-    def __init__(self, salario, prima_v, auxilio_t, dias_t, dias_lp, dias_f, meses_c, dias_fm, porcentaje_uvt, porcentaje_r, tipo_contrato):
-        self.salario = salario
-        self.prima_v = prima_v
-        self.auxilio_t = auxilio_t
-        self.dias_t = dias_t
-        self.dias_lp = dias_lp
-        self.dias_f = dias_f
-        self.meses_c = meses_c
-        self.dias_fm = dias_fm
-        self.porcentaje_uvt = porcentaje_uvt
-        self.porcentaje_r = porcentaje_r
-        self.tipo_contrato = tipo_contrato
+# Function to validate input values  
+def validate_input(variable, value, expected_type):  
+    if not isinstance(value, expected_type):  
+        raise IncorrectDataType(variable, expected_type, type(value))  
+    if value < 0:  
+        raise NegativeValue(variable, value)
 
-    def calcular_cesantias(self, salario, prima_v, auxilio_t, dias_t):
-        if dias_t <= 0:
-            raise ValorNegativo("Los días trabajados deben ser mayores que cero.")
-        try:
-            cesantias = (salario + (1/12) * prima_v + auxilio_t) / (366 * dias_t)
-        except ZeroDivisionError:
-            raise DivisionPorCero() from None
-        return cesantias
+# Crear una instancia deEmployee con valuees de prueba
+employee = Employee(
+    basic_salary=877803,
+    one_twelfth_vacation_bonus=0,
+    transportation_allowance=102854,
+    worked_days=200,
+    severance_pay_for_accrued_leave_days=169,
+)
 
-    def calcular_intereses(self, cesantias, dias_t):
-        if cesantias <= 0:
-            raise ValorNegativo("Las cesantías deben ser mayores que cero.")
-        try:
-            interes_c = (cesantias * 0.12) / 366 * dias_t
-        except ZeroDivisionError:
-            raise DivisionPorCero() from None
-        return interes_c
-    
-    def calcular_prima_servicios(self, salario, prima_v, auxilio_t, dias_lp):
-        if dias_lp <= 0:
-            raise ValorNegativo("Los días de licencia pagada deben ser mayores que cero.")
-        try:
-            prima_s = ((salario + (1/12 * prima_v) + auxilio_t) / 2) / (180 * dias_lp)
-        except ZeroDivisionError:
-            raise DivisionPorCero() from None
-        return prima_s
+# Validate inputs to avoid exceptions  
+try:  
+    validate_input("basic_salary", employee.basic_salary, (int, float))  
+    validate_input("one_twelfth_vacation_bonus", employee.one_twelfth_vacation_bonus, (int, float))  
+    validate_input("transportation_allowance", employee.transportation_allowance, (int, float))  
+    validate_input("worked_days", employee.worked_days, int)  
+    validate_input("severance_pay_for_accrued_leave_days", employee.severance_pay_for_accrued_leave_days, int)
 
-    def calcular_prima_vacaciones(self, salario, dias_t):
-        if dias_t <= 0:
-            raise ValorNegativo("Los días trabajados deben ser mayores que cero.")
-        try:
-            prima_v = (salario / 30) * (dias_t * 15 / 360)
-        except ZeroDivisionError:
-            raise DivisionPorCero() from None
-        return prima_v
+    def calculate_severance_pay_interest(Employee:Employee):
+        if employee.int_DAYS_OF_THE_YEAR == 0:
+            raise DivisionByZero("Error: 'int_DAYS_OF_THE_YEAR' no puede ser cero.")
+        severance_pay = round((Employee.basic_salary + Employee.one_twelfth_vacation_bonus +Employee.transportation_allowance) /Employee.int_DAYS_OF_THE_YEAR *Employee.worked_days)
+        return severance_pay
 
-    def calcular_retencion(self, ingreso_uvt, porcentaje_uvt, porcentaje_r, salario):
-        if self.salario > 3900000:
-            ingreso_uvt = (salario / 42.412)
-            retencion = (ingreso_uvt - porcentaje_uvt) * porcentaje_r
-        else:
-            print("El trabajador no debe pagar retención a la fuente")
-            return 0
+    def severance_pay_interest(Employee:Employee, severance_pay):
+        if employee.int_DAYS_OF_THE_YEAR == 0:
+            raise DivisionByZero("Error: 'int_DAYS_OF_THE_YEAR' no puede ser cero.")
+        severance_pay_interest = round((severance_pay *Employee.meses_del_año) /Employee.int_DAYS_OF_THE_YEAR *Employee.worked_days)
+        return severance_pay_interest
 
+    def calculate_service_bonus(Employee:Employee):
+        if employee.HALF_A_SEMESTER_WORKED == 0:
+            raise DivisionByZero("Error: 'HALF_A_SEMESTER_WORKED' no puede ser cero.")
+        service_bonus = round((Employee.basic_salary +Employee.one_twelfth_vacation_bonus +Employee.transportation_allowance) /Employee.HALF_A_SEMESTER_WORKED /Employee.int_DAYS_WORKED_IN_THE_SEMESTER *Employee.severance_pay_for_accrued_leave_days)
+        return service_bonus
 
-    def calculos(self, salario, prima_v, auxilio_t, dias_t, dias,lp, dias_f, meses_c, dias_fm, porcentaje_uvt, porcentaje_r,dias_lp,tipo_contrato,ingreso_uvt):
-        cesantias = self.calcular_cesantias(salario,prima_v,auxilio_t, dias_t)
-        intereses_c = self.calcular_intereses(cesantias,dias_t)
-        prima_s = self.calcular_prima_servicios(salario,prima_v,auxilio_t,dias_lp)
-        indem = self.calcular_indemnizacion(salario,dias_f,meses_c,dias_fm,tipo_contrato)
-        retencion = self.calcular_retencion(ingreso_uvt,porcentaje_uvt,porcentaje_r,salario)
+    def vacation(Employee:Employee):
+        if Employee.int_DAYS_PER_MONTH == 0:
+            raise DivisionByZero("Error: 'int_DAYS_PER_MONTH' no puede ser cero.")
+        vacation = round((Employee.basic_salary /Employee.int_DAYS_PER_MONTH) * (Employee.worked_days *Employee.int_VACATION_PER_YEAR /Employee.int_DAYS_OF_THE_YEAR))
+        return vacation
 
+    def calculate_vacation_bonus(Employee:Employee):
+        if Employee.int_DAYS_PER_MONTH == 0:
+            raise DivisionByZero("Error: 'int_DAYS_PER_MONTH' no puede ser cero.")
+        vacation_bonus = round((Employee.basic_salary /Employee.int_DAYS_PER_MONTH) * (Employee.worked_days *Employee.int_VACATION_PER_YEAR /Employee.int_DAYS_OF_THE_YEAR))
+        return vacation_bonus
 
-        resultado_final = {
-            'cesantias': cesantias,
-            'intereses_c': intereses_c,
-            'prima_s': prima_s,
-            'indemnizacion': indem,
-            'retencion': retencion
-        }
+    # calculate todos los valuees
+    severance_pay = calculate_severance_pay_interest(Employee)
+    severance_pay_interest = severance_pay_interest(Employee, severance_pay)
+    service_bonus = calculate_service_bonus(Employee)
+    vacation = vacation(Employee)
+    vacation_bonus = calculate_vacation_bonus(Employee)
 
-        return resultado_final
+    # Imprimir resultados
+    print(f"Cesantías: {severance_pay}")
+    print(f"severance_pay_interest: {severance_pay_interest}")
+    print(f"Prima de servicios: {service_bonus}")
+    print(f"vacationes: {vacation}")
+    print(f"Prima de vacationes: {vacation_bonus}")
+
+    # calculate la liquidación total
+    liquidacion = severance_pay + severance_pay_interest + service_bonus + vacation + vacation_bonus
+
+    # Imprimir la liquidación calculada
+    print(f"Liquidación calculada: {liquidacion}")
+
+except EmployeeException as e:
+    print(e)
