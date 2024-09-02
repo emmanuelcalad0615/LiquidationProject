@@ -10,4 +10,4 @@ Los integrantes y colaboradores del proyecto son:
 
 ## **Que es y para que es?**
 
-Este proyecto se encarga de realizar la liquidación de un empleado del sector privado. Además, de ser necesario también se encarga de realizar la indemnización de dicho empleado.
+Es un proyecto de liquidación de nómina para un empleado del sector privado. Se encarga de realizar la liquidación de un empleado cuando ha finalizado su contrato laboral.
