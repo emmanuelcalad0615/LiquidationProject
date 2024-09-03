@@ -14,8 +14,16 @@ Es un proyecto de liquidación de nómina para un empleado del sector privado. S
 
 ## **Cómo lo hago funcionar?**
 
-Antes de poder ejecutar el proyecto, asegúrate de cumplir con los siguientes requisitos:
+- Antes de poder ejecutar el proyecto, asegúrate de cumplir con los siguientes requisitos:
 
 1. Instalar Python: Descargar e instalar Python desde http://python.org. Marcar la opción "Add Python to PATH" para facilitar la ejecución de comandos de Python desde la terminal.
 
 2. Instalar Git: Descargar e instalar Git desde http://git-scm.com.
+
+- Pasos para ejecutar el proyecto desde la consola de windows:
+
+1. Abrir la Consola de Windows y navegar al directorio donde deseas clonar el repositorio.
+```cd C:\Users\TuUsuario\Proyectos```
+
+2. Clonar el Repositorio: Usar el comando **git clone** seguido de la URL del repositorio.
+```git clone https://github.com/usuario/nombre-del-repositorio.git```
