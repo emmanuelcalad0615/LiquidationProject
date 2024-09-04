@@ -1,164 +1,164 @@
 import unittest
 from datetime import datetime
-from Logic.empleado import Empleado
-from Logic.liquidacion import (
-    calcular_cesantias,
-    intereses,
-    calcular_prima_de_servicios,
-    vacaciones,
-    prima_de_vacaciones,
-    verificar_excepciones,
-    EmpleadoException,
-    ValorNegativo,
-    TipoDatosIncorrecto,
-    DivisionPorCero,
-    NumeroFueraDeRango,
-    ValorNoNumerico
+from Logic.employee import Employee
+from Logic.Liquidation import (
+    calculate_severance_pay_amount,
+    calculate_severance_pay_severance_pay_interestt,
+    calculate_service_bonus,
+    calculate_vacation,
+    calculate_vacation_bonus,
+    verify_exceptions,  
+    EmployeeException,
+    NegativeValue,
+    IncorrectDataType,
+    DivisionByZero,
+    NumberOutOfRange
+    #ValorNoNumerico
 )
 class LiquidationTest(unittest.TestCase):
     def setUp(self):
         """Configura el estado inicial para cada prueba"""
-        self.fecha_inicio = datetime(2019, 10, 28)
-        self.fecha_final = datetime(2020, 8, 8)
+        self.start_date = datetime(2019, 10, 28)
+        self.end_date = datetime(2020, 8, 8)
 
     def testLiquidation1(self):
-        empleado = Empleado(
-            salario_basico=5689500,
-            un_doceavo_prima_de_vacaciones=5741427,
-            auxilio_de_transporte=0,
-            dias_trabajados=729,
-            dias_liquidados_prima=310,
+        employee = Employee(
+            basic_salary=5689500,
+            one_twelfth_vacation_bonus=5741427,
+            transportation_allowance=0,
+            worked_days=729,
+            severance_pay_for_accrued_leave_days=310,
         )
-        valor_esperado=50137036
+        expected_value=50137036
         try:
-            verificar_excepciones(empleado)
-            cesantia = calcular_cesantias(empleado)
-            interes = intereses(empleado, cesantia)
-            prima_servicio = calcular_prima_de_servicios(empleado)
-            vacacion = vacaciones(empleado)
-            prima_vacacion = prima_de_vacaciones(empleado)
+            verify_exceptions(employee)
+            severance_pay = calculate_severance_pay_amount(employee)
+            severance_pay_interest = calculate_severance_pay_interest(employee, severance_pay)
+            service_bonus = calculate_service_bonus(employee)
+            vacation = calculate_vacation(employee)
+            vacation_bonus = calculate_vacation_bonus(employee)
 
-            total_liquidacion = cesantia + interes + prima_servicio + vacacion + prima_vacacion
-            self.assertEqual(total_liquidacion, valor_esperado)
+            total_liquidacion = severance_pay + severance_pay_interest + service_bonus + vacation + vacation_bonus
+            self.assertEqual(total_liquidacion, expected_value)
 
-        except EmpleadoException as e:
+        except employeeException as e:
             self.fail(f"Error al calcular la liquidación: {str(e)}")
 
     def testLiquidation2(self):
-            empleado = Empleado(
-                salario_basico=900803,
-                un_doceavo_prima_de_vacaciones=0,
-                auxilio_de_transporte=80500,
-                dias_trabajados=80,
-                dias_liquidados_prima=59,
+            employee = employee(
+                basic_salary=900803,
+                one_twelfth_vacation_bonus=0,
+                transportation_allowance=80500,
+                worked_days=80,
+                severance_pay_for_accrued_leave_days=59,
             )
-            valor_esperado=584885
+            expected_value=584885
             try:
-                verificar_excepciones(empleado)
-                cesantia = calcular_cesantias(empleado)
-                interes = intereses(empleado, cesantia)
-                prima_servicio = calcular_prima_de_servicios(empleado)
-                vacacion = vacaciones(empleado)
-                prima_vacacion = prima_de_vacaciones(empleado)
+                verify_exceptions(employee)
+                severance_pay = calculate_severance_pay_amount(employee)
+                severance_pay_interest = severance_pay_interestes(employee, severance_pay)
+                service_bonus = calculate_service_bonus(employee)
+                vacacion = calculate_vacation(employee)
+                vacation_bonus = prima_de_calculate_vacation(employee)
 
-                total_liquidacion = cesantia + interes + prima_servicio + vacacion + prima_vacacion
-                self.assertEqual(total_liquidacion, valor_esperado)
+                total_liquidacion = severance_pay + severance_pay_interest + service_bonus + vacacion + vacation_bonus
+                self.assertEqual(total_liquidacion, expected_value)
 
-            except EmpleadoException as e:
+            except employeeException as e:
                 self.fail(f"Error al calcular la liquidación: {str(e)}")
     def testLiquidation3(self):
-            empleado = Empleado(
-                salario_basico=1450023,
-                un_doceavo_prima_de_vacaciones=0,
-                auxilio_de_transporte=120018,
-                dias_trabajados=169,
-                dias_liquidados_prima=30,
+            employee = employee(
+                basic_salary=1450023,
+                one_twelfth_vacation_bonus=0,
+                transportation_allowance=120018,
+                worked_days=169,
+                severance_pay_for_accrued_leave_days=30,
             )
-            valor_esperado=1590110
+            expected_value=1590110
             try:
-                verificar_excepciones(empleado)
-                cesantia = calcular_cesantias(empleado)
-                interes = intereses(empleado, cesantia)
-                prima_servicio = calcular_prima_de_servicios(empleado)
-                vacacion = vacaciones(empleado)
-                prima_vacacion = prima_de_vacaciones(empleado)
+                verify_exceptions(employee)
+                severance_pay = calculate_severance_pay_amount(employee)
+                severance_pay_interest = severance_pay_interestes(employee, severance_pay)
+                service_bonus = calculate_service_bonus(employee)
+                vacacion = calculate_vacation(employee)
+                vacation_bonus = prima_de_calculate_vacation(employee)
 
-                total_liquidacion = cesantia + interes + prima_servicio + vacacion + prima_vacacion
-                self.assertEqual(total_liquidacion, valor_esperado)
+                total_liquidacion = severance_pay + severance_pay_interest + service_bonus + vacacion + vacation_bonus
+                self.assertEqual(total_liquidacion, expected_value)
 
-            except EmpleadoException as e:
+            except employeeException as e:
                 self.fail(f"Error al calcular la liquidación: {str(e)}")
 
     def testLiquidation4(self):
-            empleado = Empleado(
-                salario_basico=3638092,
-                un_doceavo_prima_de_vacaciones=0,
-                auxilio_de_transporte=0,
-                dias_trabajados=888,
-                dias_liquidados_prima=154,
+            employee = employee(
+                basic_salary=3638092,
+                one_twelfth_vacation_bonus=0,
+                transportation_allowance=0,
+                worked_days=888,
+                severance_pay_for_accrued_leave_days=154,
             )
-            valor_esperado=22160507
+            expected_value=22160507
             try:
-                verificar_excepciones(empleado)
-                cesantia = calcular_cesantias(empleado)
-                interes = intereses(empleado, cesantia)
-                prima_servicio = calcular_prima_de_servicios(empleado)
-                vacacion = vacaciones(empleado)
-                prima_vacacion = prima_de_vacaciones(empleado)
+                verify_exceptions(employee)
+                severance_pay = calculate_severance_pay_amount(employee)
+                severance_pay_interest = severance_pay_interestes(employee, severance_pay)
+                service_bonus = calculate_service_bonus(employee)
+                vacacion = calculate_vacation(employee)
+                vacation_bonus = prima_de_calculate_vacation(employee)
 
-                total_liquidacion = cesantia + interes + prima_servicio + vacacion + prima_vacacion
-                self.assertEqual(total_liquidacion, valor_esperado)
+                total_liquidacion = severance_pay + severance_pay_interest + service_bonus + vacacion + vacation_bonus
+                self.assertEqual(total_liquidacion, expected_value)
 
-            except EmpleadoException as e:
+            except employeeException as e:
 
 
 
                 self.fail(f"Error al calcular la liquidación: {str(e)}")
 
     def testLiquidation5(self):
-        empleado = Empleado(
-            salario_basico=5128350,
-            un_doceavo_prima_de_vacaciones=854725,
-            auxilio_de_transporte=500854,
-            dias_trabajados=120,
-            dias_liquidados_prima=79,
+        employee = employee(
+            basic_salary=5128350,
+            one_twelfth_vacation_bonus=854725,
+            transportation_allowance=500854,
+            worked_days=120,
+            severance_pay_for_accrued_leave_days=79,
         )
-        valor_esperado = 5380074
+        expected_value = 5380074
         try:
-            verificar_excepciones(empleado)
-            cesantia = calcular_cesantias(empleado)
-            interes = intereses(empleado, cesantia)
-            prima_servicio = calcular_prima_de_servicios(empleado)
-            vacacion = vacaciones(empleado)
-            prima_vacacion = prima_de_vacaciones(empleado)
+            verify_exceptions(employee)
+            severance_pay = calculate_severance_pay_amount(employee)
+            severance_pay_interest = severance_pay_interestes(employee, severance_pay)
+            service_bonus = calculate_service_bonus(employee)
+            vacacion = calculate_vacation(employee)
+            vacation_bonus = prima_de_calculate_vacation(employee)
 
-            total_liquidacion = cesantia + interes + prima_servicio + vacacion + prima_vacacion
-            self.assertEqual(total_liquidacion, valor_esperado)
+            total_liquidacion = severance_pay + severance_pay_interest + service_bonus + vacacion + vacation_bonus
+            self.assertEqual(total_liquidacion, expected_value)
 
-        except EmpleadoException as e:
+        except employeeException as e:
             self.fail(f"Error al calcular la liquidación: {str(e)}")
 
     def testLiquidation6(self):
-        empleado = Empleado(
-            salario_basico=877803,
-            un_doceavo_prima_de_vacaciones=0,
-            auxilio_de_transporte=102854,
-            dias_trabajados=210,
-            dias_liquidados_prima=169,
+        employee = employee(
+            basic_salary=877803,
+            one_twelfth_vacation_bonus=0,
+            transportation_allowance=102854,
+            worked_days=210,
+            severance_pay_for_accrued_leave_days=169,
         )
-        valor_esperado=1584510
+        expected_value=1584510
         try:
-            verificar_excepciones(empleado)
-            cesantia = calcular_cesantias(empleado)
-            interes = intereses(empleado, cesantia)
-            prima_servicio = calcular_prima_de_servicios(empleado)
-            vacacion = vacaciones(empleado)
-            prima_vacacion = prima_de_vacaciones(empleado)
+            verify_exceptions(employee)
+            severance_pay = calculate_severance_pay_amount(employee)
+            severance_pay_interest = severance_pay_interestes(employee, severance_pay)
+            service_bonus = calculate_service_bonus(employee)
+            vacacion = calculate_vacation(employee)
+            vacation_bonus = prima_de_calculate_vacation(employee)
 
-            total_liquidacion = cesantia + interes + prima_servicio + vacacion + prima_vacacion
-            self.assertEqual(total_liquidacion, valor_esperado)
+            total_liquidacion = severance_pay + severance_pay_interest + service_bonus + vacacion + vacation_bonus
+            self.assertEqual(total_liquidacion, expected_value)
 
-        except EmpleadoException as e:
+        except employeeException as e:
 
 
 
@@ -166,251 +166,251 @@ class LiquidationTest(unittest.TestCase):
     # Casos extraordinarios
 
     def testLiquidation7(self):
-            empleado = Empleado(
-                salario_basico=5689500,
-                un_doceavo_prima_de_vacaciones=0,
-                auxilio_de_transporte=0,
-                dias_trabajados=999,
-                dias_liquidados_prima=999,
+            employee = employee(
+                basic_salary=5689500,
+                one_twelfth_vacation_bonus=0,
+                transportation_allowance=0,
+                worked_days=999,
+                severance_pay_for_accrued_leave_days=999,
             )
-            valor_esperado=52622611
+            expected_value=52622611
             try:
-                verificar_excepciones(empleado)
-                cesantia = calcular_cesantias(empleado)
-                interes = intereses(empleado, cesantia)
-                prima_servicio = calcular_prima_de_servicios(empleado)
-                vacacion = vacaciones(empleado)
-                prima_vacacion = prima_de_vacaciones(empleado)
+                verify_exceptions(employee)
+                severance_pay = calculate_severance_pay_amount(employee)
+                severance_pay_interest = severance_pay_interestes(employee, severance_pay)
+                service_bonus = calculate_service_bonus(employee)
+                vacacion = calculate_vacation(employee)
+                vacation_bonus = prima_de_calculate_vacation(employee)
 
-                total_liquidacion = cesantia + interes + prima_servicio + vacacion + prima_vacacion
-                self.assertEqual(total_liquidacion, valor_esperado)
+                total_liquidacion = severance_pay + severance_pay_interest + service_bonus + vacacion + vacation_bonus
+                self.assertEqual(total_liquidacion, expected_value)
 
-            except EmpleadoException as e:
+            except employeeException as e:
                 self.fail(f"Error al calcular la liquidación: {str(e)}")
 
 
     def testLiquidation8(self):
-            empleado = Empleado(
-                salario_basico=900803,
-                un_doceavo_prima_de_vacaciones=0,
-                auxilio_de_transporte=80500,
-                dias_trabajados=0,
-                dias_liquidados_prima=0,
+            employee = employee(
+                basic_salary=900803,
+                one_twelfth_vacation_bonus=0,
+                transportation_allowance=80500,
+                worked_days=0,
+                severance_pay_for_accrued_leave_days=0,
             )
-            valor_esperado=0
+            expected_value=0
             try:
-                verificar_excepciones(empleado)
-                cesantia = calcular_cesantias(empleado)
-                interes = intereses(empleado, cesantia)
-                prima_servicio = calcular_prima_de_servicios(empleado)
-                vacacion = vacaciones(empleado)
-                prima_vacacion = prima_de_vacaciones(empleado)
+                verify_exceptions(employee)
+                severance_pay = calculate_severance_pay_amount(employee)
+                severance_pay_interest = severance_pay_interestes(employee, severance_pay)
+                service_bonus = calculate_service_bonus(employee)
+                vacacion = calculate_vacation(employee)
+                vacation_bonus = prima_de_calculate_vacation(employee)
 
-                total_liquidacion = cesantia + interes + prima_servicio + vacacion + prima_vacacion
-                self.assertEqual(total_liquidacion, valor_esperado)
+                total_liquidacion = severance_pay + severance_pay_interest + service_bonus + vacacion + vacation_bonus
+                self.assertEqual(total_liquidacion, expected_value)
 
-            except EmpleadoException as e:
+            except employeeException as e:
 
 
 
                 self.fail(f"Error al calcular la liquidación: {str(e)}")
 
     def testLiquidation9(self):
-            empleado = Empleado(
-                salario_basico=3450023,
-                un_doceavo_prima_de_vacaciones=0,
-                auxilio_de_transporte=0,
-                dias_trabajados=69,
-                dias_liquidados_prima=0,
+            employee = employee(
+                basic_salary=3450023,
+                one_twelfth_vacation_bonus=0,
+                transportation_allowance=0,
+                worked_days=69,
+                severance_pay_for_accrued_leave_days=0,
             )
-            valor_esperado=1337717
+            expected_value=1337717
             try:
-                verificar_excepciones(empleado)
-                cesantia = calcular_cesantias(empleado)
-                interes = intereses(empleado, cesantia)
-                prima_servicio = calcular_prima_de_servicios(empleado)
-                vacacion = vacaciones(empleado)
-                prima_vacacion = prima_de_vacaciones(empleado)
+                verify_exceptions(employee)
+                severance_pay = calculate_severance_pay_amount(employee)
+                severance_pay_interest = severance_pay_interestes(employee, severance_pay)
+                service_bonus = calculate_service_bonus(employee)
+                vacacion = calculate_vacation(employee)
+                vacation_bonus = prima_de_calculate_vacation(employee)
 
-                total_liquidacion = cesantia + interes + prima_servicio + vacacion + prima_vacacion
-                self.assertEqual(total_liquidacion, valor_esperado)
+                total_liquidacion = severance_pay + severance_pay_interest + service_bonus + vacacion + vacation_bonus
+                self.assertEqual(total_liquidacion, expected_value)
 
-            except EmpleadoException as e:
+            except employeeException as e:
                 self.fail(f"Error al calcular la liquidación: {str(e)}")
 
     def testLiquidation10(self):
-            empleado = Empleado(
-                salario_basico=26660000,
-                un_doceavo_prima_de_vacaciones=0,
-                auxilio_de_transporte=0,
-                dias_trabajados=0,
-                dias_liquidados_prima=0,
+            employee = employee(
+                basic_salary=26660000,
+                one_twelfth_vacation_bonus=0,
+                transportation_allowance=0,
+                worked_days=0,
+                severance_pay_for_accrued_leave_days=0,
             )
-            valor_esperado=0
+            expected_value=0
             try:
-                verificar_excepciones(empleado)
-                cesantia = calcular_cesantias(empleado)
-                interes = intereses(empleado, cesantia)
-                prima_servicio = calcular_prima_de_servicios(empleado)
-                vacacion = vacaciones(empleado)
-                prima_vacacion = prima_de_vacaciones(empleado)
+                verify_exceptions(employee)
+                severance_pay = calculate_severance_pay_amount(employee)
+                severance_pay_interest = severance_pay_interestes(employee, severance_pay)
+                service_bonus = calculate_service_bonus(employee)
+                vacacion = calculate_vacation(employee)
+                vacation_bonus = prima_de_calculate_vacation(employee)
 
-                total_liquidacion = cesantia + interes + prima_servicio + vacacion + prima_vacacion
-                self.assertEqual(total_liquidacion, valor_esperado)
+                total_liquidacion = severance_pay + severance_pay_interest + service_bonus + vacacion + vacation_bonus
+                self.assertEqual(total_liquidacion, expected_value)
 
-            except EmpleadoException as e:
+            except employeeException as e:
 
 
 
                 self.fail(f"Error al calcular la liquidación: {str(e)}")
 
     def testLiquidation11(self):
-            empleado = Empleado(
-                salario_basico=2230000,
-                un_doceavo_prima_de_vacaciones=0,
-                auxilio_de_transporte=0,
-                dias_trabajados=1,
-                dias_liquidados_prima=400,
+            employee = employee(
+                basic_salary=2230000,
+                one_twelfth_vacation_bonus=0,
+                transportation_allowance=0,
+                worked_days=1,
+                severance_pay_for_accrued_leave_days=400,
             )
-            valor_esperado=2490168
+            expected_value=2490168
             try:
-                verificar_excepciones(empleado)
-                cesantia = calcular_cesantias(empleado)
-                interes = intereses(empleado, cesantia)
-                prima_servicio = calcular_prima_de_servicios(empleado)
-                vacacion = vacaciones(empleado)
-                prima_vacacion = prima_de_vacaciones(empleado)
+                verify_exceptions(employee)
+                severance_pay = calculate_severance_pay_amount(employee)
+                severance_pay_interest = severance_pay_interestes(employee, severance_pay)
+                service_bonus = calculate_service_bonus(employee)
+                vacacion = calculate_vacation(employee)
+                vacation_bonus = prima_de_calculate_vacation(employee)
 
-                total_liquidacion = cesantia + interes + prima_servicio + vacacion + prima_vacacion
-                self.assertEqual(total_liquidacion, valor_esperado)
+                total_liquidacion = severance_pay + severance_pay_interest + service_bonus + vacacion + vacation_bonus
+                self.assertEqual(total_liquidacion, expected_value)
 
-            except EmpleadoException as e:
+            except employeeException as e:
 
 
 
                 self.fail(f"Error al calcular la liquidación: {str(e)}")
 
     def testLiquidation12(self):
-            empleado = Empleado(
-                salario_basico=4300000,
-                un_doceavo_prima_de_vacaciones=0,
-                auxilio_de_transporte=0,
-                dias_trabajados=1,
-                dias_liquidados_prima=1,
+            employee = employee(
+                basic_salary=4300000,
+                one_twelfth_vacation_bonus=0,
+                transportation_allowance=0,
+                worked_days=1,
+                severance_pay_for_accrued_leave_days=1,
             )
-            valor_esperado=35836
+            expected_value=35836
             try:
-                verificar_excepciones(empleado)
-                cesantia = calcular_cesantias(empleado)
-                interes = intereses(empleado, cesantia)
-                prima_servicio = calcular_prima_de_servicios(empleado)
-                vacacion = vacaciones(empleado)
-                prima_vacacion = prima_de_vacaciones(empleado)
+                verify_exceptions(employee)
+                severance_pay = calculate_severance_pay_amount(employee)
+                severance_pay_interest = severance_pay_interestes(employee, severance_pay)
+                service_bonus = calculate_service_bonus(employee)
+                vacacion = calculate_vacation(employee)
+                vacation_bonus = prima_de_calculate_vacation(employee)
 
-                total_liquidacion = cesantia + interes + prima_servicio + vacacion + prima_vacacion
-                self.assertEqual(total_liquidacion, valor_esperado)
+                total_liquidacion = severance_pay + severance_pay_interest + service_bonus + vacacion + vacation_bonus
+                self.assertEqual(total_liquidacion, expected_value)
 
-            except EmpleadoException as e:
+            except employeeException as e:
                 self.fail(f"Error al calcular la liquidación: {str(e)}")
 
     # Casos de error
     def testLiquidation13(self):
         """ Salario básico negativo """
-        empleado = Empleado(
-            salario_basico=-12895,
-            un_doceavo_prima_de_vacaciones=0,
-            auxilio_de_transporte=5654889,
-            dias_trabajados=8,
-            dias_liquidados_prima=18,
+        employee = employee(
+            basic_salary=-12895,
+            one_twelfth_vacation_bonus=0,
+            transportation_allowance=5654889,
+            worked_days=8,
+            severance_pay_for_accrued_leave_days=18,
         )
         with self.assertRaises(ValorNegativo):
-            verificar_excepciones(empleado)
+            verify_exceptions(employee)
 
 
 
     def testLiquidation14(self):
         """ Salario dias trabajados negativo """
-        empleado = Empleado(
-            salario_basico=-1000000,  # Valor negativo
-            un_doceavo_prima_de_vacaciones=50000,
-            auxilio_de_transporte=20000,
-            dias_trabajados=-30,
-            dias_liquidados_prima=10,
+        employee = employee(
+            basic_salary=-1000000,  # Valor negativo
+            one_twelfth_vacation_bonus=50000,
+            transportation_allowance=20000,
+            worked_days=-30,
+            severance_pay_for_accrued_leave_days=10,
         )
         with self.assertRaises(ValorNegativo):
-            verificar_excepciones(empleado)
+            verify_exceptions(employee)
 
     def testLiquidation15(self):
         """ Días trabajados negativos """
-        empleado = Empleado(
-            salario_basico=-12895,
-            un_doceavo_prima_de_vacaciones=0,
-            auxilio_de_transporte=5654889,
-            dias_trabajados=8,
-            dias_liquidados_prima=18,
+        employee = employee(
+            basic_salary=-12895,
+            one_twelfth_vacation_bonus=0,
+            transportation_allowance=5654889,
+            worked_days=8,
+            severance_pay_for_accrued_leave_days=18,
         )
         with self.assertRaises(ValorNegativo):
-            verificar_excepciones(empleado)
+            verify_exceptions(employee)
 
     def testLiquidation16(self):
         """ Salario básico negativo """
-        empleado = Empleado(
-            salario_basico=-1000000,  # Valor negativo
-            un_doceavo_prima_de_vacaciones=50000,
-            auxilio_de_transporte=20000,
-            dias_trabajados=30,
-            dias_liquidados_prima=10,
+        employee = employee(
+            basic_salary=-1000000,  # Valor negativo
+            one_twelfth_vacation_bonus=50000,
+            transportation_allowance=20000,
+            worked_days=30,
+            severance_pay_for_accrued_leave_days=10,
         )
         with self.assertRaises(ValorNegativo):
-            verificar_excepciones(empleado)
+            verify_exceptions(employee)
 
     def testLiquidation17(self):
         """ dato incorrecto """
-        empleado = Empleado(
-            salario_basico="sapo",
-            un_doceavo_prima_de_vacaciones=0,
-            auxilio_de_transporte=5654889,
-            dias_trabajados=8,
-            dias_liquidados_prima=18,
+        employee = employee(
+            basic_salary="sapo",
+            one_twelfth_vacation_bonus=0,
+            transportation_allowance=5654889,
+            worked_days=8,
+            severance_pay_for_accrued_leave_days=18,
         )
         with self.assertRaises(ValorNoNumerico):
-            verificar_excepciones(empleado)
+            verify_exceptions(employee)
 
     def testLiquidation18(self):
         """ dato incorrecto """
-        empleado = Empleado(
-            salario_basico=194985,
-            un_doceavo_prima_de_vacaciones=0,
-            auxilio_de_transporte=5654889,
-            dias_trabajados=8,
-            dias_liquidados_prima="no me dijieron en la empresa",
+        employee = employee(
+            basic_salary=194985,
+            one_twelfth_vacation_bonus=0,
+            transportation_allowance=5654889,
+            worked_days=8,
+            severance_pay_for_accrued_leave_days="no me dijieron en la empresa",
         )
         with self.assertRaises(ValorNoNumerico):
-            verificar_excepciones(empleado)
+            verify_exceptions(employee)
 
     def testLiquidation19(self):
         """ dato incorrecto """
-        empleado = Empleado(
-            salario_basico=18999,
-            un_doceavo_prima_de_vacaciones="soy pobre",
-            auxilio_de_transporte=5654889,
-            dias_trabajados=8,
-            dias_liquidados_prima=18,
+        employee = employee(
+            basic_salary=18999,
+            one_twelfth_vacation_bonus="soy pobre",
+            transportation_allowance=5654889,
+            worked_days=8,
+            severance_pay_for_accrued_leave_days=18,
         )
         with self.assertRaises(ValorNoNumerico):
-            verificar_excepciones(empleado)
+            verify_exceptions(employee)
 
     def testLiquidation20(self):
         """ dato incorrecto """
-        empleado = Empleado(
-            salario_basico="sapo",
-            un_doceavo_prima_de_vacaciones=0,
-            auxilio_de_transporte="error_data",
-            dias_trabajados=8,
-            dias_liquidados_prima=18,
+        employee = employee(
+            basic_salary="sapo",
+            one_twelfth_vacation_bonus=0,
+            transportation_allowance="error_data",
+            worked_days=8,
+            severance_pay_for_accrued_leave_days=18,
         )
         with self.assertRaises(ValorNoNumerico):
-            verificar_excepciones(empleado)
+            verify_exceptions(employee)
 
 
 if __name__ == "__main__":
