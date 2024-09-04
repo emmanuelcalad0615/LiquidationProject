@@ -55,26 +55,24 @@ Para la realización de este proyecto se hizo uso de varias librerias, como:
 
 El proyecto está organizado en tres carpetas principales, cada una con un propósito específico:
 
-1. .vscode:
+1. **.vscode**:
 Esta carpeta almacena configuraciones específicas del editor Visual Studio Code. Dentro de ella se encuentra el archivo ```settings.json```, que configura el entorno para usar la librería ```unittest```, la cual ejecuta las pruebas unitarias del proyecto.
 
-2. src:
-
+2. **src**:
 Esta carpeta contiene un archivo ```__init__.py``` que permite que Python reconozca la carpeta como un módulo, facilitando la importación de sus componentes. Además, incluye dos subcarpetas:
 
-- Console: Contiene dos archivos: ```__init__.py```, que permite el reconocimiento de la carpeta como un módulo, y LiquidationConsole.py, que implementa la interfaz con el usuario.
+- *Console*: Contiene dos archivos: ```__init__.py```, que permite el reconocimiento de la carpeta como un módulo, y LiquidationConsole.py, que implementa la interfaz con el usuario.
 
-- Logic: Esta carpeta alberga tres archivos:
+- *Logic*: Esta carpeta alberga tres archivos:
 
 1. ```__init__.py```, que permite el reconocimiento de la carpeta como un módulo.
 
 2. ```employee.py```, que define las variables necesarias para la lógica del programa.
 
-3. ```Liquidation.py```, que contiene la lógica completa del proceso de liquidación, importando las variables desde ```employee.py```.
-También incluye una subcarpeta ```__pycache__```, una optimización automática de Python para acelerar la ejecución del código.
+3. ```Liquidation.py```, que contiene la lógica completa del proceso de liquidación, importando las variables desde ```employee.py```.También incluye una subcarpeta ```__pycache__```, una optimización automática de Python para acelerar la ejecución del código.
 
 
-3. tests:
+3. **tests**:
 
 Esta carpeta está dedicada a las pruebas unitarias del proyecto. Contiene dos archivos:
 
