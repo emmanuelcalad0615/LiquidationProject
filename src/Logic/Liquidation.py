@@ -70,7 +70,7 @@ employee = Employee(
 )
 
 #This function is used to calculate the severance pay amount
-def calculate_severance_pay_interest_amount(employee:Employee):       
+def calculate_severance_pay_amount(employee:Employee):       
     severance_pay = round((employee.basic_salary + employee.one_twelfth_vacation_bonus + employee.transportation_allowance) / employee.int_DAYS_OF_THE_YEAR* employee.worked_days)
     return severance_pay
 
@@ -99,7 +99,7 @@ def calculate_liquidation(employee):
     verify_exceptions(employee)
 
     # Calcular todos los valores
-    severance_pay = calculate_severance_pay_interest_amount(employee)
+    severance_pay = calculate_severance_pay_amount(employee)
     severance_pay_interest = calculate_severance_pay_interest(employee, severance_pay)
     service_bonus = calculate_service_bonus(employee)
     vacation = calcute_vacation(employee)
