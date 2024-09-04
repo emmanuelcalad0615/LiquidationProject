@@ -27,3 +27,6 @@ Es un proyecto de liquidación de nómina para un empleado del sector privado. S
 
 2. Clonar el Repositorio: Usar el comando **git clone** seguido de la URL del repositorio.
 ```git clone https://github.com/usuario/nombre-del-repositorio.git```
+
+3. Navegar al Directorio del Proyecto: Después de clonar el repositorio, ir al directorio del proyecto.
+```cd nombre-del-repositorio```
