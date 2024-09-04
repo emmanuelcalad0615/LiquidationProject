@@ -1,7 +1,7 @@
 import sys
-sys.path.append("Logic")
+sys.path.append("src")
 
-from employee import Employee
+from Logic.employee import Employee
 
 # Definition of custom exceptions
 class EmployeeException(Exception):
