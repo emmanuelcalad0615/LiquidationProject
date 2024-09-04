@@ -69,26 +69,32 @@ employee = Employee(
     severance_pay_for_accrued_leave_days=169,
 )
 
+#This function is used to calculate the severance pay amount
 def calculate_severance_pay_interest_amount(employee:Employee):       
     severance_pay = round((employee.basic_salary + employee.one_twelfth_vacation_bonus + employee.transportation_allowance) / employee.int_DAYS_OF_THE_YEAR* employee.worked_days)
     return severance_pay
 
+#This function serves to calculate the interest amount on a severance pay
 def calculate_severance_pay_interest(employee: Employee, severance_pay):
     severance_pay_interest = round((severance_pay *employee.int_MONTHS_OF_THE_YEAR ) /employee.int_DAYS_OF_THE_YEAR * employee.worked_days)
     return severance_pay_interest
 
+#This function is used to calculate the service bonus amount
 def calculate_service_bonus(employee):
     service_bonus = round((employee.basic_salary + employee.one_twelfth_vacation_bonus + employee.transportation_allowance) /employee.int_HALF_A_SEMESTER_WORKED /employee.int_DAYS_WORKED_IN_THE_SEMESTER * employee.severance_pay_for_accrued_leave_days)
     return service_bonus
 
+#This function is used to calculate vacation days
 def calcute_vacation(employee):
     vacation = round((employee.basic_salary /employee.int_DAYS_PER_MONTH) * (employee.worked_days * employee.int_VACATION_PER_YEAR /employee.int_DAYS_OF_THE_YEAR))
     return vacation
 
+#This function is used to calculate the vacation bonus amount
 def calculate_vacation_bonus(employee):
     vacation_bonus = round((employee.basic_salary /employee.int_DAYS_PER_MONTH) * (employee.worked_days * employee.int_VACATION_PER_YEAR /employee.int_DAYS_OF_THE_YEAR))
     return vacation_bonus
 
+#This function is used to calculate the final settlement amount
 def calculate_liquidation(employee):
     verify_exceptions(employee)
 
