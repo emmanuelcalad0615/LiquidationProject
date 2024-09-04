@@ -32,7 +32,7 @@ Es un proyecto de liquidación de nómina para un empleado del sector privado. S
 ```cd nombre-del-repositorio```
 
 4. Ejecutar el proyecto: Navegar al directiorio principal del proyecto
-```src\Console\LiquidationConsole.py```
+```cd src\Console\LiquidationConsole.py```
 
 ## **Como está hecho?**
 
