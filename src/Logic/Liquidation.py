@@ -60,7 +60,7 @@ def verify_exceptions(employee):
     if employee.int_DAYS_PER_MONTH == 0:
         raise DivisionByZero("Error: 'int_DAYS_PER_MONTH' no puede ser cero.")
 
-# Crear una instancia deEmployee con valuees de prueba
+# Create an employee instance with test values
 employee = Employee(
     basic_salary=877803,
     one_twelfth_vacation_bonus=0,
@@ -69,39 +69,30 @@ employee = Employee(
     severance_pay_for_accrued_leave_days=169,
 )
 
-# Validate inputs to avoid exceptions  
-try:  
-    validate_input("basic_salary", employee.basic_salary, (int, float))  
-    validate_input("one_twelfth_vacation_bonus", employee.one_twelfth_vacation_bonus, (int, float))  
-    validate_input("transportation_allowance", employee.transportation_allowance, (int, float))  
-    validate_input("worked_days", employee.worked_days, int)  
-    validate_input("severance_pay_for_accrued_leave_days", employee.severance_pay_for_accrued_leave_days, int)
 
-    def calculate_severance_pay_interest_amount(employee):
-        if employee.int_DAYS_OF_THE_YEAR == 0:
-            raise DivisionByZero("Error: 'int_DAYS_OF_THE_YEAR' no puede ser cero.")
-        severance_pay = round((employee.basic_salary + employee.one_twelfth_vacation_bonus + employee.transportation_allowance) /employee.int_DAYS_OF_THE_YEAR *employee.worked_days)
-        return severance_pay
+def calculate_severance_pay_interest_amount(employee:Employee):       
+    severance_pay = round((employee.basic_salary + employee.one_twelfth_vacation_bonus + employee.transportation_allowance) / employee.int_DAYS_OF_THE_YEAR* employee.worked_days)
+    return severance_pay
 
-    def calculate_severance_pay_interest(employee, severance_pay):
+def calculate_severance_pay_interest(employee, severance_pay):
         if employee.int_DAYS_OF_THE_YEAR == 0:
             raise DivisionByZero("Error: 'int_DAYS_OF_THE_YEAR' no puede ser cero.")
         severance_pay_interest = round((severance_pay *employee.int_MONTHS_OF_THE_YEAR ) /employee.int_DAYS_OF_THE_YEAR * employee.worked_days)
         return severance_pay_interest
 
-    def calculate_service_bonus(employee):
+def calculate_service_bonus(employee):
         if employee.int_HALF_A_SEMESTER_WORKED == 0:
             raise DivisionByZero("Error: 'HALF_A_SEMESTER_WORKED' no puede ser cero.")
         service_bonus = round((employee.basic_salary + employee.one_twelfth_vacation_bonus + employee.transportation_allowance) /employee.int_HALF_A_SEMESTER_WORKED /employee.int_DAYS_WORKED_IN_THE_SEMESTER * employee.severance_pay_for_accrued_leave_days)
         return service_bonus
 
-    def calcute_vacation(employee):
+def calcute_vacation(employee):
         if employee.int_DAYS_PER_MONTH == 0:
             raise DivisionByZero("Error: 'int_DAYS_PER_MONTH' no puede ser cero.")
         vacation = round((employee.basic_salary /employee.int_DAYS_PER_MONTH) * (employee.worked_days * employee.int_VACATION_PER_YEAR /employee.int_DAYS_OF_THE_YEAR))
         return vacation
 
-    def calculate_vacation_bonus(employee):
+def calculate_vacation_bonus(employee):
         if employee.int_DAYS_PER_MONTH == 0:
             raise DivisionByZero("Error: 'int_DAYS_PER_MONTH' no puede ser cero.")
         vacation_bonus = round((employee.basic_salary /employee.int_DAYS_PER_MONTH) * (employee.worked_days * employee.int_VACATION_PER_YEAR /employee.int_DAYS_OF_THE_YEAR))
