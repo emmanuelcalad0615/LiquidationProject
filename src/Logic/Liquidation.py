@@ -89,12 +89,27 @@ def calculate_vacation_bonus(employee):
     vacation_bonus = round((employee.basic_salary /employee.int_DAYS_PER_MONTH) * (employee.worked_days * employee.int_VACATION_PER_YEAR /employee.int_DAYS_OF_THE_YEAR))
     return vacation_bonus
 
-    # Calculate all the values
+def calculate_liquidation(employee):
+    verify_exceptions(employee)
+
+    # Calcular todos los valores
     severance_pay = calculate_severance_pay_interest(employee)
     severance_pay_interest = calculate_severance_pay_interest_amount(employee, severance_pay)
     service_bonus = calculate_service_bonus(employee)
     vacation = calcute_vacation(employee)
     vacation_bonus = calculate_vacation_bonus(employee)
+
+    # Print results
+    print(f"Cesantías: {severance_pay}")
+    print(f"Intereses: {severance_pay_interest}")
+    print(f"Prima de servicios: {service_bonus}")
+    print(f"Vacaciones: {vacation}")
+    print(f"Prima de vacaciones: {vacation_bonus}")
+
+    # Calcular la liquidación total
+    total_liquidacion = cesantia + interes + prima_servicio + vacacion + prima_vacacion
+    print(f"Total Liquidación: {total_liquidacion}")
+
 
     # Print the results
     print(f"Cesantías: {severance_pay}")
