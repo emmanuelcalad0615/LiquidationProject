@@ -1,356 +1,417 @@
-# Este archivo contiene las pruebas
 import unittest
 from datetime import datetime
-import sys
-
-# Agrega una ruta de Python que debe buscar a los módulos que se importen en el código
-sys.path.append("src")
-
-# Las pruebas importan los módulos que hacen el trabajo
-from Logic import Liquidation, employee
-
+from Logic.empleado import Empleado
+from Logic.liquidacion import (
+    calcular_cesantias,
+    intereses,
+    calcular_prima_de_servicios,
+    vacaciones,
+    prima_de_vacaciones,
+    verificar_excepciones,
+    EmpleadoException,
+    ValorNegativo,
+    TipoDatosIncorrecto,
+    DivisionPorCero,
+    NumeroFueraDeRango,
+    ValorNoNumerico
+)
 class LiquidationTest(unittest.TestCase):
-    # Cada método de prueba debe llamar un método assert
+    def setUp(self):
+        """Configura el estado inicial para cada prueba"""
+        self.fecha_inicio = datetime(2019, 10, 28)
+        self.fecha_final = datetime(2020, 8, 8)
 
-    # Casos normales
     def testLiquidation1(self):
-        basic_salary = 5689500
-        vacation_bonus = 5741427
-        auxilio_t = 0
-        dias_t = 729
-        dias_lp = 310
-        dias_v = 28
-        fecha_i = datetime(2019,10,28)
-        fecha_f = datetime(2020,8,8)
-        tipo_contrato = 3
-        motivo_finalizacion = 4
-        total_liquidacion = 30741427
-        resultado = Liquidation.employee.calculos(basic_salary,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion)
-        self.assertEqual( total_liquidacion,resultado)
+        empleado = Empleado(
+            salario_basico=5689500,
+            un_doceavo_prima_de_vacaciones=5741427,
+            auxilio_de_transporte=0,
+            dias_trabajados=729,
+            dias_liquidados_prima=310,
+        )
+        valor_esperado=50137036
+        try:
+            verificar_excepciones(empleado)
+            cesantia = calcular_cesantias(empleado)
+            interes = intereses(empleado, cesantia)
+            prima_servicio = calcular_prima_de_servicios(empleado)
+            vacacion = vacaciones(empleado)
+            prima_vacacion = prima_de_vacaciones(empleado)
+
+            total_liquidacion = cesantia + interes + prima_servicio + vacacion + prima_vacacion
+            self.assertEqual(total_liquidacion, valor_esperado)
+
+        except EmpleadoException as e:
+            self.fail(f"Error al calcular la liquidación: {str(e)}")
 
     def testLiquidation2(self):
-        basic_salary = 900803
-        vacation_bonus = 160825
-        auxilio_t = 80500
-        dias_t = 80
-        dias_lp = 59
-        dias_v = 7
-        fecha_i = datetime(2019,3,28)
-        fecha_f = datetime(2019,7,16)
-        tipo_contrato = 3
-        motivo_finalizacion = 2
-        total_liquidacion = 584886
-        resultado = Liquidation.Empleados.calculos(basic_salary,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion)
-        self.assertEqual( total_liquidacion,resultado)
+            empleado = Empleado(
+                salario_basico=900803,
+                un_doceavo_prima_de_vacaciones=0,
+                auxilio_de_transporte=80500,
+                dias_trabajados=80,
+                dias_liquidados_prima=59,
+            )
+            valor_esperado=584885
+            try:
+                verificar_excepciones(empleado)
+                cesantia = calcular_cesantias(empleado)
+                interes = intereses(empleado, cesantia)
+                prima_servicio = calcular_prima_de_servicios(empleado)
+                vacacion = vacaciones(empleado)
+                prima_vacacion = prima_de_vacaciones(empleado)
 
+                total_liquidacion = cesantia + interes + prima_servicio + vacacion + prima_vacacion
+                self.assertEqual(total_liquidacion, valor_esperado)
+
+            except EmpleadoException as e:
+                self.fail(f"Error al calcular la liquidación: {str(e)}")
     def testLiquidation3(self):
-        basic_salary = 1450023
-        vacation_bonus = 340353
-        auxilio_t = 120018
-        dias_t = 169
-        dias_lp = 30
-        dias_v = 20
-        fecha_i = datetime(2018,1,14)
-        fecha_f = datetime(2018,8,8)
-        tipo_contrato = 2
-        motivo_finalizacion = 4
-        total_liquidacion = 1590109
-        resultado = Liquidation.Empleados.calculos(basic_salary,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion)
-        self.assertEqual( total_liquidacion,resultado)
+            empleado = Empleado(
+                salario_basico=1450023,
+                un_doceavo_prima_de_vacaciones=0,
+                auxilio_de_transporte=120018,
+                dias_trabajados=169,
+                dias_liquidados_prima=30,
+            )
+            valor_esperado=1590110
+            try:
+                verificar_excepciones(empleado)
+                cesantia = calcular_cesantias(empleado)
+                interes = intereses(empleado, cesantia)
+                prima_servicio = calcular_prima_de_servicios(empleado)
+                vacacion = vacaciones(empleado)
+                prima_vacacion = prima_de_vacaciones(empleado)
+
+                total_liquidacion = cesantia + interes + prima_servicio + vacacion + prima_vacacion
+                self.assertEqual(total_liquidacion, valor_esperado)
+
+            except EmpleadoException as e:
+                self.fail(f"Error al calcular la liquidación: {str(e)}")
 
     def testLiquidation4(self):
-        basic_salary = 3638092
-        vacation_bonus = 4486980
-        auxilio_t = 0
-        dias_t = 888
-        dias_lp = 154
-        dias_v = 16
-        fecha_i = datetime(2021,12,17)
-        fecha_f = datetime(2024,6,4)
-        tipo_contrato = 1
-        motivo_finalizacion = 2
-        total_liquidacion = 22160508
-        resultado = Liquidation.Empleados.calculos(basic_salary,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion)
-        self.assertEqual( total_liquidacion,resultado)
-    
+            empleado = Empleado(
+                salario_basico=3638092,
+                un_doceavo_prima_de_vacaciones=0,
+                auxilio_de_transporte=0,
+                dias_trabajados=888,
+                dias_liquidados_prima=154,
+            )
+            valor_esperado=22160507
+            try:
+                verificar_excepciones(empleado)
+                cesantia = calcular_cesantias(empleado)
+                interes = intereses(empleado, cesantia)
+                prima_servicio = calcular_prima_de_servicios(empleado)
+                vacacion = vacaciones(empleado)
+                prima_vacacion = prima_de_vacaciones(empleado)
+
+                total_liquidacion = cesantia + interes + prima_servicio + vacacion + prima_vacacion
+                self.assertEqual(total_liquidacion, valor_esperado)
+
+            except EmpleadoException as e:
+
+
+
+                self.fail(f"Error al calcular la liquidación: {str(e)}")
+
     def testLiquidation5(self):
-        basic_salary = 5128350
-        vacation_bonus = 854725
-        auxilio_t = 500854
-        dias_t = 120
-        dias_lp = 79
-        dias_v = 15
-        fecha_i = datetime(2015,1,15)
-        fecha_f = datetime(2015,7,28)
-        tipo_contrato = 1
-        motivo_finalizacion = 1
-        total_liquidacion = 4896205
-        resultado = Liquidation.Empleados.calculos(basic_salary,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion)
-        self.assertEqual( total_liquidacion,resultado)
+        empleado = Empleado(
+            salario_basico=5128350,
+            un_doceavo_prima_de_vacaciones=854725,
+            auxilio_de_transporte=500854,
+            dias_trabajados=120,
+            dias_liquidados_prima=79,
+        )
+        valor_esperado = 5380074
+        try:
+            verificar_excepciones(empleado)
+            cesantia = calcular_cesantias(empleado)
+            interes = intereses(empleado, cesantia)
+            prima_servicio = calcular_prima_de_servicios(empleado)
+            vacacion = vacaciones(empleado)
+            prima_vacacion = prima_de_vacaciones(empleado)
+
+            total_liquidacion = cesantia + interes + prima_servicio + vacacion + prima_vacacion
+            self.assertEqual(total_liquidacion, valor_esperado)
+
+        except EmpleadoException as e:
+            self.fail(f"Error al calcular la liquidación: {str(e)}")
 
     def testLiquidation6(self):
-        basic_salary = 877803
-        vacation_bonus = 256026
-        auxilio_t = 102854
-        dias_t = 210
-        dias_lp = 169
-        dias_v = 21
-        fecha_i = datetime(2011,1,14)
-        fecha_f = datetime(2011,12,7)
-        tipo_contrato = 3
-        motivo_finalizacion = 2
-        total_liquidacion = 1584509
-        resultado = Liquidation.Empleados.calculos(basic_salary,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion)
-        self.assertEqual( total_liquidacion,resultado)
+        empleado = Empleado(
+            salario_basico=877803,
+            un_doceavo_prima_de_vacaciones=0,
+            auxilio_de_transporte=102854,
+            dias_trabajados=210,
+            dias_liquidados_prima=169,
+        )
+        valor_esperado=1584510
+        try:
+            verificar_excepciones(empleado)
+            cesantia = calcular_cesantias(empleado)
+            interes = intereses(empleado, cesantia)
+            prima_servicio = calcular_prima_de_servicios(empleado)
+            vacacion = vacaciones(empleado)
+            prima_vacacion = prima_de_vacaciones(empleado)
 
+            total_liquidacion = cesantia + interes + prima_servicio + vacacion + prima_vacacion
+            self.assertEqual(total_liquidacion, valor_esperado)
+
+        except EmpleadoException as e:
+
+
+
+            self.fail(f"Error al calcular la liquidación: {str(e)}")
     # Casos extraordinarios
-    def testLiquidation7(self): 
-        """ Días trabajados y días de prima exagerados """  
-        basic_salary = 5689500
-        vacation_bonus = 7894181
-        auxilio_t = 0
-        dias_t = 999
-        dias_lp = 999
-        dias_v = 15
-        fecha_i = datetime(2019,11,25)
-        fecha_f = datetime(2020,6,5)
-        tipo_contrato = 2
-        motivo_finalizacion = 2
-        total_liquidacion = 52622612
-        resultado = Liquidation.Empleados.calculos(basic_salary,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion)
-        self.assertEqual( total_liquidacion,resultado)
+
+    def testLiquidation7(self):
+            empleado = Empleado(
+                salario_basico=5689500,
+                un_doceavo_prima_de_vacaciones=0,
+                auxilio_de_transporte=0,
+                dias_trabajados=999,
+                dias_liquidados_prima=999,
+            )
+            valor_esperado=52622611
+            try:
+                verificar_excepciones(empleado)
+                cesantia = calcular_cesantias(empleado)
+                interes = intereses(empleado, cesantia)
+                prima_servicio = calcular_prima_de_servicios(empleado)
+                vacacion = vacaciones(empleado)
+                prima_vacacion = prima_de_vacaciones(empleado)
+
+                total_liquidacion = cesantia + interes + prima_servicio + vacacion + prima_vacacion
+                self.assertEqual(total_liquidacion, valor_esperado)
+
+            except EmpleadoException as e:
+                self.fail(f"Error al calcular la liquidación: {str(e)}")
+
 
     def testLiquidation8(self):
-        """ Despido del día después de trabajo"""   
-        basic_salary = 900803
-        vacation_bonus = 0
-        auxilio_t = 80500
-        dias_t = 1
-        dias_lp = 1
-        dias_v = 15
-        fecha_i = datetime(2019,3,28)
-        fecha_f = datetime(2019,3,29)
-        tipo_contrato = 3
-        motivo_finalizacion = 3
-        total_liquidacion = 7955
-        resultado = Liquidation.Empleados.calculos(basic_salary,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion)
-        self.assertEqual( total_liquidacion,resultado)
+            empleado = Empleado(
+                salario_basico=900803,
+                un_doceavo_prima_de_vacaciones=0,
+                auxilio_de_transporte=80500,
+                dias_trabajados=0,
+                dias_liquidados_prima=0,
+            )
+            valor_esperado=0
+            try:
+                verificar_excepciones(empleado)
+                cesantia = calcular_cesantias(empleado)
+                interes = intereses(empleado, cesantia)
+                prima_servicio = calcular_prima_de_servicios(empleado)
+                vacacion = vacaciones(empleado)
+                prima_vacacion = prima_de_vacaciones(empleado)
+
+                total_liquidacion = cesantia + interes + prima_servicio + vacacion + prima_vacacion
+                self.assertEqual(total_liquidacion, valor_esperado)
+
+            except EmpleadoException as e:
+
+
+
+                self.fail(f"Error al calcular la liquidación: {str(e)}")
 
     def testLiquidation9(self):
-        """ Prima liquidada cero"""   
-        basic_salary = 3450023
-        vacation_bonus = 0
-        auxilio_t = 0
-        dias_t = 69
-        dias_lp = 0
-        dias_v = 15
-        fecha_i = datetime(2019,1,28)
-        fecha_f = datetime(2019,8,7)
-        tipo_contrato = 3
-        motivo_finalizacion = 1
-        total_liquidacion = 1337718
-        resultado = Liquidation.Empleado.calculos(basic_salary,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion)
-        self.assertEqual( total_liquidacion,resultado)
+            empleado = Empleado(
+                salario_basico=3450023,
+                un_doceavo_prima_de_vacaciones=0,
+                auxilio_de_transporte=0,
+                dias_trabajados=69,
+                dias_liquidados_prima=0,
+            )
+            valor_esperado=1337717
+            try:
+                verificar_excepciones(empleado)
+                cesantia = calcular_cesantias(empleado)
+                interes = intereses(empleado, cesantia)
+                prima_servicio = calcular_prima_de_servicios(empleado)
+                vacacion = vacaciones(empleado)
+                prima_vacacion = prima_de_vacaciones(empleado)
 
-    def testLiquidation10(self): 
-        """ Despido al mismo día de comienzo de trabajo """  
-        basic_salary = 26660000
-        vacation_bonus = 0
-        auxilio_t = 0
-        dias_t = 0
-        dias_lp = 0
-        dias_v = 15
-        fecha_i = datetime(2021,12,17)
-        fecha_f = datetime(2021,12,21)
-        tipo_contrato = 1
-        motivo_finalizacion = 2
-        total_liquidacion = 0
-        resultado = Liquidation.Empleado.calculos(basic_salary,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion)
-        self.assertEqual( total_liquidacion,resultado)
+                total_liquidacion = cesantia + interes + prima_servicio + vacacion + prima_vacacion
+                self.assertEqual(total_liquidacion, valor_esperado)
 
-    def testLiquidation11(self):  
-        """ Muchos días de vacaciones acumulados""" 
-        basic_salary = 2230000
-        vacation_bonus = 180000
-        auxilio_t = 0
-        dias_t = 200
-        dias_lp = 200
-        dias_v = 100
-        fecha_i = datetime(2019,12,18)
-        fecha_f = datetime(2022,7,28)
-        tipo_contrato = 3
-        motivo_finalizacion = 1
-        total_liquidacion = 2490169
-        resultado = Liquidation.Empleado.calculos(basic_salary,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion)
-        self.assertEqual( total_liquidacion,resultado)
+            except EmpleadoException as e:
+                self.fail(f"Error al calcular la liquidación: {str(e)}")
 
-    def testLiquidation12(self): 
-        """ Despido a los 15 días sin liquidación"""  
-        basic_salary = 4300000
-        vacation_bonus = 100000
-        auxilio_t = 100000
-        dias_t = 1
-        dias_lp = 1
-        dias_v = 15
-        fecha_i = datetime(2020,1,14)
-        fecha_f = datetime(2020,1,29)
-        tipo_contrato = 1
-        motivo_finalizacion = 2
-        total_liquidacion = 35837
-        resultado = Liquidation.Empleado.calculos(basic_salary,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion)
-        self.assertEqual( total_liquidacion,resultado)
+    def testLiquidation10(self):
+            empleado = Empleado(
+                salario_basico=26660000,
+                un_doceavo_prima_de_vacaciones=0,
+                auxilio_de_transporte=0,
+                dias_trabajados=0,
+                dias_liquidados_prima=0,
+            )
+            valor_esperado=0
+            try:
+                verificar_excepciones(empleado)
+                cesantia = calcular_cesantias(empleado)
+                interes = intereses(empleado, cesantia)
+                prima_servicio = calcular_prima_de_servicios(empleado)
+                vacacion = vacaciones(empleado)
+                prima_vacacion = prima_de_vacaciones(empleado)
 
-    
+                total_liquidacion = cesantia + interes + prima_servicio + vacacion + prima_vacacion
+                self.assertEqual(total_liquidacion, valor_esperado)
+
+            except EmpleadoException as e:
+
+
+
+                self.fail(f"Error al calcular la liquidación: {str(e)}")
+
+    def testLiquidation11(self):
+            empleado = Empleado(
+                salario_basico=2230000,
+                un_doceavo_prima_de_vacaciones=0,
+                auxilio_de_transporte=0,
+                dias_trabajados=1,
+                dias_liquidados_prima=400,
+            )
+            valor_esperado=2490168
+            try:
+                verificar_excepciones(empleado)
+                cesantia = calcular_cesantias(empleado)
+                interes = intereses(empleado, cesantia)
+                prima_servicio = calcular_prima_de_servicios(empleado)
+                vacacion = vacaciones(empleado)
+                prima_vacacion = prima_de_vacaciones(empleado)
+
+                total_liquidacion = cesantia + interes + prima_servicio + vacacion + prima_vacacion
+                self.assertEqual(total_liquidacion, valor_esperado)
+
+            except EmpleadoException as e:
+
+
+
+                self.fail(f"Error al calcular la liquidación: {str(e)}")
+
+    def testLiquidation12(self):
+            empleado = Empleado(
+                salario_basico=4300000,
+                un_doceavo_prima_de_vacaciones=0,
+                auxilio_de_transporte=0,
+                dias_trabajados=1,
+                dias_liquidados_prima=1,
+            )
+            valor_esperado=35836
+            try:
+                verificar_excepciones(empleado)
+                cesantia = calcular_cesantias(empleado)
+                interes = intereses(empleado, cesantia)
+                prima_servicio = calcular_prima_de_servicios(empleado)
+                vacacion = vacaciones(empleado)
+                prima_vacacion = prima_de_vacaciones(empleado)
+
+                total_liquidacion = cesantia + interes + prima_servicio + vacacion + prima_vacacion
+                self.assertEqual(total_liquidacion, valor_esperado)
+
+            except EmpleadoException as e:
+                self.fail(f"Error al calcular la liquidación: {str(e)}")
+
     # Casos de error
-    def testliquidation13(self):
-        """ basic_salary negativo """
-        basic_salary= -895516
-        auxilio_t=5654889
-        dias_t=156
-        dias_lp= 18
-        dias_v= 12
-        fecha_i= datetime(2019, 1,25)
-        fecha_f= datetime(2019, 12, 31)
-        tipo_contrato= 2
-        motivo_finalizacion= 3
-        
-        try:
-            resultado = Liquidation.Empleado.calculos(basic_salary,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion)
-            # si no generó excepcion, quedo mal hecho el codigo
-            self.assertEqual( resultado, 0 )  # Forzar fallo caso
-        except  Liquidation.Empleado.basic_salaryNegativo  :
-            pass  # Forzar Exito
+    def testLiquidation13(self):
+        """ Salario básico negativo """
+        empleado = Empleado(
+            salario_basico=-12895,
+            un_doceavo_prima_de_vacaciones=0,
+            auxilio_de_transporte=5654889,
+            dias_trabajados=8,
+            dias_liquidados_prima=18,
+        )
+        with self.assertRaises(ValorNegativo):
+            verificar_excepciones(empleado)
 
-    def testliquidation14(self):
-        """ fecha incorrecta """
-        basic_salary = 12895516
-        auxilio_t=5654889
-        dias_t=156
-        dias_lp= 18
-        dias_v= 20
-        fecha_i=datetime(2019, 18,25)
-        fecha_f=datetime(2019, 12, 31)
-        tipo_contrato=2
-        motivo_finalizacion=3
-        
-        try:
-            resultado = Liquidation.Empleado.calculos( basic_salary,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion)
-            # si no generó excepcion, quedo mal hecho el codigo
-            self.assertEqual( resultado, 0 )  # Forzar fallo caso
-        except  Liquidation.Empleado.FechaIncorrecta  :
-            pass  # Forzar Exito
 
-    def testliquidation15(self):
-        """ dias trabajados negativos """
-        basic_salary = 12895
-        auxilio_t=5654889
-        dias_t=-8
-        dias_lp= 18
-        dias_v= 48
-        fecha_i=datetime(2019, 9,26)
-        fecha_f=datetime(2021, 12, 31)
-        tipo_contrato=2
-        motivo_finalizacion=3
-        
-        try:
-            resultado = Liquidation.Empleado.calculos(basic_salary,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion )
-            # si no generó excepcion, quedo mal hecho el codigo
-            self.assertEqual( resultado, 0 )  # Forzar fallo caso
-        except  Liquidation.Empleado.DiasNegativos  :
-            pass  # Forzar Exito
 
-    def testliquidation16(self):
-        """ dias prima negativos """
-        basic_salary = 18492
-        auxilio_t = 0
-        dias_t=8
-        dias_lp= -1
-        dias_v= 2
-        fecha_i=datetime(2010, 9,26)
-        fecha_f=datetime(2021, 12, 31)
-        tipo_contrato= 2
-        motivo_finalizacion=3
-        
-        try:
-            resultado = Liquidation.Empleado.calculos(basic_salary,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion )
-            # si no generó excepcion, quedo mal hecho el codigo
-            self.assertEqual( resultado, 0 )  # Forzar fallo caso
-        except  Liquidation.Empleado.DiasNegativos  :
-            pass  # Forzar Exito
+    def testLiquidation14(self):
+        """ Salario dias trabajados negativo """
+        empleado = Empleado(
+            salario_basico=-1000000,  # Valor negativo
+            un_doceavo_prima_de_vacaciones=50000,
+            auxilio_de_transporte=20000,
+            dias_trabajados=-30,
+            dias_liquidados_prima=10,
+        )
+        with self.assertRaises(ValorNegativo):
+            verificar_excepciones(empleado)
 
-    def testliquidation17(self):
-        """ dias vacaciones negativos """
-        basic_salary= 18492
-        auxilio_t = 0
-        dias_t=8
-        dias_lp= 18
-        dias_v= -28
-        fecha_i=datetime(2010, 9,26)
-        fecha_f=datetime(2021, 12, 31)
-        tipo_contrato=2
-        motivo_finalizacion=3
-        
-        try:
-            resultado = Liquidation.Empleado.calculos(basic_salary,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion )
-            # si no generó excepcion, quedo mal hecho el codigo
-            self.assertEqual( resultado, 0 )  # Forzar fallo caso
-        except  Liquidation.Empleado.DiasNegativos  :
-            pass  # Forzar Exito
+    def testLiquidation15(self):
+        """ Días trabajados negativos """
+        empleado = Empleado(
+            salario_basico=-12895,
+            un_doceavo_prima_de_vacaciones=0,
+            auxilio_de_transporte=5654889,
+            dias_trabajados=8,
+            dias_liquidados_prima=18,
+        )
+        with self.assertRaises(ValorNegativo):
+            verificar_excepciones(empleado)
 
-    def testliquidation18(self):
-        """ tipo de contrato se sale del rango """
-        basic_salary= 18492
-        auxilio_t = 0
-        dias_t=8
-        dias_lp= 19
-        dias_v= 20
-        fecha_i=datetime(2012, 9,26)
-        fecha_f=datetime(20, 12, 31)
-        tipo_contrato=5
-        motivo_finalizacion=3
-        
-        try:
-            resultado = Liquidation.Empleado.calculos(basic_salary,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion )
-            # si no generó excepcion, quedo mal hecho el codigo
-            self.assertEqual( resultado, 0 )  # Forzar fallo caso
-        except  Liquidation.Empleado.FueradeRango :
-            pass  # Forzar Exito
+    def testLiquidation16(self):
+        """ Salario básico negativo """
+        empleado = Empleado(
+            salario_basico=-1000000,  # Valor negativo
+            un_doceavo_prima_de_vacaciones=50000,
+            auxilio_de_transporte=20000,
+            dias_trabajados=30,
+            dias_liquidados_prima=10,
+        )
+        with self.assertRaises(ValorNegativo):
+            verificar_excepciones(empleado)
 
-    def testliquidation19(self):
-        """ motivo de finalizacion fuera de rango """
-        basic_salary= 18492
-        auxilio_t = 0
-        dias_t=8
-        dias_lp= 19
-        dias_v= 2
-        fecha_i=datetime(2020, 11,26)
-        fecha_f=datetime(2021, 12, 31)
-        tipo_contrato=2
-        motivo_finalizacion=18
-        
-        try:
-            resultado = Liquidation.Empleado.calculos( basic_salary,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion )
-            # si no generó excepcion, quedo mal hecho el codigo
-            self.assertEqual( resultado, 0 )  # Forzar fallo caso
-        except  Liquidation.Empleado.Fueraderango  :
-            pass  # Forzar Exito
+    def testLiquidation17(self):
+        """ dato incorrecto """
+        empleado = Empleado(
+            salario_basico="sapo",
+            un_doceavo_prima_de_vacaciones=0,
+            auxilio_de_transporte=5654889,
+            dias_trabajados=8,
+            dias_liquidados_prima=18,
+        )
+        with self.assertRaises(ValorNoNumerico):
+            verificar_excepciones(empleado)
 
-    def testliquidation20(self):
-        """ coloca un string cuando era un entero"""
-        basic_salary= 1849879
-        auxilio_t = 0
-        dias_t="hola soy pobre"
-        dias_lp= 19
-        dias_v= 2
-        fecha_i=datetime(2020, 11,26)
-        fecha_f=datetime(2021, 12, 31)
-        tipo_contrato=3
-        motivo_finalizacion=1
-        
-        try:
-            resultado = Liquidation.Empleado.calculos(basic_salary,auxilio_t,dias_t,dias_lp,dias_v,fecha_i,fecha_f,tipo_contrato,motivo_finalizacion )
-            # si no generó excepcion, quedo mal hecho el codigo
-            self.assertEqual( resultado, 0 )  # Forzar fallo caso
-        except  Liquidation.Empleado.valorincorrecto  :
-            pass  # Forzar Exito
+    def testLiquidation18(self):
+        """ dato incorrecto """
+        empleado = Empleado(
+            salario_basico=194985,
+            un_doceavo_prima_de_vacaciones=0,
+            auxilio_de_transporte=5654889,
+            dias_trabajados=8,
+            dias_liquidados_prima="no me dijieron en la empresa",
+        )
+        with self.assertRaises(ValorNoNumerico):
+            verificar_excepciones(empleado)
 
+    def testLiquidation19(self):
+        """ dato incorrecto """
+        empleado = Empleado(
+            salario_basico=18999,
+            un_doceavo_prima_de_vacaciones="soy pobre",
+            auxilio_de_transporte=5654889,
+            dias_trabajados=8,
+            dias_liquidados_prima=18,
+        )
+        with self.assertRaises(ValorNoNumerico):
+            verificar_excepciones(empleado)
+
+    def testLiquidation20(self):
+        """ dato incorrecto """
+        empleado = Empleado(
+            salario_basico="sapo",
+            un_doceavo_prima_de_vacaciones=0,
+            auxilio_de_transporte="error_data",
+            dias_trabajados=8,
+            dias_liquidados_prima=18,
+        )
+        with self.assertRaises(ValorNoNumerico):
+            verificar_excepciones(empleado)
+
+
+if __name__ == "__main__":
+    unittest.main()
