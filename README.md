@@ -44,3 +44,11 @@ Es un proyecto de liquidación de nómina para un empleado del sector privado. S
 
 6. Ejecutar el proyecto: ```python main.py```.
 Reemplazar el nombre ```main.py``` por el nombre del archivo principal del proyecto.
+
+## **Como está hecho?**
+
+Para la realización de este proyecto se hizo uso de varias librerias, como:
+
+- **datetime:** Para configurar el formato de las fechas de manera correcta
+- **unittest:** Esta biblioteca permite crear y ejecutar pruebas para asegurarse de que el código funcione correctamente
+- **sys:** Proporciona acceso a las variables y funciones relacionadas con el sistema
