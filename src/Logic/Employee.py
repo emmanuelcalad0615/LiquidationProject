@@ -10,9 +10,9 @@ class Employee:
         self.transportation_allowance = transportation_allowance # auxilio de transporte
         self.worked_days = worked_days # dias trabajados
         self.severance_pay_for_accrued_leave_days = severance_pay_for_accrued_leave_days # dias liquidados de la prima
-        self.int_MONTHS_OF_THE_YEAR = 0.12 # meses del año
-        self.int_DAYS_OF_THE_YEAR = 360 # dias del año
-        self.int_VACATION_PER_YEAR = 15 # vacaciones por año
-        self.int_DAYS_PER_MONTH = 30 # dias por mes
-        self.int_HALF_A_SEMESTER_WORKED = 2 # medio semestre trabajado
-        self.int_DAYS_WORKED_IN_THE_SEMESTER = 180 # dias trabajados en el semestre
+        self.MONTHS_OF_THE_YEAR = 0.12 # meses del año
+        self.DAYS_OF_THE_YEAR = 360 # dias del año
+        self.VACATION_PER_YEAR = 15 # vacaciones por año
+        self.DAYS_PER_MONTH = 30 # dias por mes
+        self.HALF_A_SEMESTER_WORKED = 2 # medio semestre trabajado
+        self.DAYS_WORKED_IN_THE_SEMESTER = 180 # dias trabajados en el semestre
