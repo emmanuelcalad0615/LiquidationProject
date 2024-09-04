@@ -36,33 +36,32 @@ def calculate_compensation(employee: Employee, type_of_contract: str, start_date
         # Verify entries
         verify_compensation_entries(type_of_contract, start_date, end_date)
 
-        # Validar fechas
+        # Validating dates
         start_date = datetime.strptime(start_date, '%Y-%m-%d')
         end_date = datetime.strptime(end_date, '%Y-%m-%d')
 
-        # Resto del cálculo...
-        difference= end_date - start_date
+        difference = end_date - start_date
         worked_days = difference.days
 
         worked_years = worked_days // employee.int_DAYS_OF_THE_YEAR
-        meses_trabajados = (worked_days % employee.int_DAYS_OF_THE_YEAR) // employee.int_DAYS_PER_MONTH
+        worked_months = (worked_days % employee.int_DAYS_OF_THE_YEAR) // employee.int_DAYS_PER_MONTH
 
-        if type_of_contract == 'fijo_1_anio':
-            meses_restantes = employee.meses_del_año - meses_trabajados
-            indemnizacion = employee.salario_basico * meses_restantes
+        if type_of_contract == 'fijo_1_año':
+            remaining_months = employee.int_MONTHS_OF_THE_YEAR - worked_months
+            compensation = employee.basic_salary * remaining_months
 
-        elif type_of_contract == 'fijo_inferior_1_anio':
-            meses_restantes = employee.meses_del_año - meses_trabajados
-            indemnizacion = max(employee.salario_basico * (meses_restantes / employee.meses_del_año) * employee.int_DAYS_PER_MONTH,
-                                employee.salario_basico * (MINIMO_INDEMNIZACION_DIAS / employee.int_DAYS_PER_MONTH))
+        elif type_of_contract == 'fijo_inferior_1_año':
+            remaining_months = employee.int_MONTHS_OF_THE_YEAR - worked_months
+            compensation = max(employee.basic_salary * (remaining_months / employee.int_MONTHS_OF_THE_YEAR) * employee.int_DAYS_PER_MONTH,
+                                employee.basic_salary * (int_MINIMUM_COMPENSATION_DAYS / employee.int_DAYS_PER_MONTH))
 
-        elif type_of_contract == 'indeterminado':
+        elif type_of_contract == 'indefinido':
             if worked_years <= 1:
-                indemnizacion = employee.salario_basico * employee.int_DAYS_PER_MONTH
+                compensation = employee.basic_salary * employee.int_DAYS_PER_MONTH
             else:
-                indemnizacion = (employee.salario_basico * employee.int_DAYS_PER_MONTH) + (employee.salario_basico * DIAS_DE_SALARIO_POR_AÑO * (worked_years - 1))
+                compensation = (employee.basic_salary * employee.int_DAYS_PER_MONTH) + (employee.basic_salary * int_DAYS_OF_SALARY_PER_YEAR * (worked_years - 1))
 
-        return indemnizacion
+        return compensation
 
     except Exception as e:
         print(f"Error en el cálculo de la indemnización: {str(e)}")
