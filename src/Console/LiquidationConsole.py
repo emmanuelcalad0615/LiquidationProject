@@ -20,24 +20,24 @@ from Logic.Liquidation import (
     NumberOutOfRange
 )
 
-def obtener_datos_employee():
+def obtain_employee_data():
     while True:
         try:
             basic_salary = float(input("Ingrese el salario básico del empleado: "))
             one_twelfth_vacation_bonus = float(input("Ingrese un doceavo de prima de bacaciones del empleado: "))
             transportation_allowance = float(input("Ingrese el auxilio de transporte del empleado: "))
             worked_days = int(input("Ingrese los días trabajados por el empleado: "))
-            dias_liquidados_prima = int(input("Ingrese los días liquidados para prima del empleado: "))
+            severance_pay_for_accrued_leave_days = int(input("Ingrese los días liquidados para prima del empleado: "))
 
             employee = employee(
                 basic_salary=basic_salary,
                 one_twelfth_vacation_bonus=one_twelfth_vacation_bonus,
                 transportation_allowance=transportation_allowance,
                 worked_days=worked_days,
-                dias_liquidados_prima=dias_liquidados_prima,
+                severance_pay_for_accrued_leave_days=severance_pay_for_accrued_leave_days,
             )
 
-            # Verificar excepciones antes de proceder
+            # Verificar excepction before proceeding
             verify_exceptions(employee)
 
             return employee
@@ -45,43 +45,42 @@ def obtener_datos_employee():
         except (NegativeValue, IncorrectDataType, DivisionByZero, NumberOutOfRange) as e:
             print(f"Error: {str(e)}")
         except Exception as e:
-            print(f"Error al crear el objeto employee: {str(e)}")
+            print(f"Error al crear el objeto empleado: {str(e)}")
 
         print("Por favor, intente nuevamente con valores válidos.")
 
-def calcular_Liquidation(employee):
+def calculate_liquidation(employee):
     try:
-        # Ya no necesitamos llamar a verify_exceptions aquí porque ya se verifica en obtener_datos_employee
-        cesantia = calculate_severance_pay_amount(employee)
-        interes = calculate_severance_pay_interest(employee, cesantia)
-        prima_servicio = calculate_service_bonus(employee)
-        vacacion = calcute_vacation(employee)
-        prima_vacacion = prima_de_calcute_vacation(employee)
+        # Ya no necesitamos llamar a verify_exceptions aquí porque ya se verifica en obtain employee data
+        severance_pay = calculate_severance_pay_amount(employee)
+        severance_pay_interest = calculate_severance_pay_interest(employee, severance_pay)
+        service_bonus = calculate_service_bonus(employee)
+        vacation = calcute_vacation(employee)
+        vacation_bonus = calculate_vacation_bonus(employee)
 
-        Liquidation_total = cesantia + interes + prima_servicio + vacacion + prima_vacacion
+        Total_liquidation = severance_pay + severance_pay_interest + service_bonus + vacation + vacation_bonus
 
         print("\nResultados de la liquidación:")
-        print(f"Cesantías: {cesantia}")
-        print(f"calculate_severance_pay_interest: {interes}")
-        print(f"Prima de servicios: {prima_servicio}")
-        print(f"calcute_vacation: {vacacion}")
-        print(f"Prima de calcute_vacation: {prima_vacacion}")
-        print(f"\nLiquidación total: {Liquidation_total}")
+        print(f"Cesantías: {severance_pay}")
+        print(f"calculate_severance_pay_severance_pay_interestt: {severance_pay_interest}")
+        print(f"Prima de servicios: {service_bonus}")
+        print(f"calcute_vacation: {vacation}")
+        print(f"Prima de calcute_vacation: {vacation_bonus}")
+        print(f"\nLiquidación total: {Total_liquidation}")
 
-    except employeeException as e:
+    except EmployeeException as e:
         print(f"\nError al calcular la liquidación: {str(e)}")
 
 def main():
     print("Bienvenido al programa de liquidación y cálculo de indemnizaciones.")
 
-    employee = obtener_datos_employee()
+    employee = obtain_employee_data()
 
-    calcular_Liquidation(employee)
+    calculate_liquidation(employee)
 
-    debe_ser_indemnizado = input("\n¿El employee debe ser indemnizado? (S/N): ").upper() == "S"
+    must_be_compensated = input("\n¿El employee debe ser indemnizado? (S/N): ").upper() == "S"
 
-    if debe_ser_indemnizado:
-        # Aquí iría la lógica para calcular la indemnización si fuera necesario
+    if must_be_compensated:
         pass
 
 if __name__ == "__main__":
