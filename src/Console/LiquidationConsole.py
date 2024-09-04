@@ -2,11 +2,10 @@ import os
 import sys
 from datetime import datetime
 
-# This adds the parent directory to the PATH.
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# Agrega el directorio padre al PATH.
+sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__))))
 
-
-# Importing the modules
+# Importar los módulos
 from Logic.employee import Employee
 from Logic.Liquidation import (
     calculate_severance_pay_amount,
@@ -16,11 +15,12 @@ from Logic.Liquidation import (
     calculate_vacation_bonus,
     verify_exceptions,  
     EmployeeException,
-    NegativeValue,
-    IncorrectDataType,
-    DivisionByZero,
-    NumberOutOfRange
+    NegativeValueError,
+    IncorrectDataTypeError,
+    DivisionByZeroError,
+    NumberOutOfRangeError
 )
+from Logic.Compensation import calculate_compensation
 
 def obtain_employee_data():
     while True:
@@ -45,7 +45,7 @@ def obtain_employee_data():
 
             return employee
 
-        except (NegativeValue, IncorrectDataType, DivisionByZero, NumberOutOfRange) as e:
+        except (NegativeValueError, IncorrectDataTypeError, DivisionByZeroError , NumberOutOfRangeError) as e:
             print(f"Error: {str(e)}")
         except Exception as e:
             print(f"Error al crear el objeto empleado: {str(e)}")
@@ -54,7 +54,7 @@ def obtain_employee_data():
 
 def calculate_liquidation(employee):
     try:
-        # This calculates the different components about liquidation
+        # Calcular los diferentes componentes de la liquidación
         severance_pay = calculate_severance_pay_amount(employee)
         severance_pay_interest = calculate_severance_pay_interest(employee, severance_pay)
         service_bonus = calculate_service_bonus(employee)
@@ -84,7 +84,16 @@ def main():
     must_be_compensated = input("\n¿El empleado debe ser indemnizado? (S/N): ").upper() == "S"
 
     if must_be_compensated:
-        pass  
+        type_of_contract = input("Ingrese el tipo de contrato (fijo_1_año, fijo_inferior_1_año, indefinido): ").strip().lower()
+        start_date = input("Ingrese la fecha de inicio del contrato (YYYY-MM-DD): ").strip()
+        end_date = input("Ingrese la fecha de finalización del contrato (YYYY-MM-DD): ").strip()
+
+        try:
+            compensation = calculate_compensation(employee, type_of_contract, start_date, end_date)
+            if compensation is not None:
+                print(f"Indemnización calculada: {compensation}")
+        except Exception as e:
+            print(f"Error al calcular la indemnización: {str(e)}")
 
 if __name__ == "__main__":
     main()
