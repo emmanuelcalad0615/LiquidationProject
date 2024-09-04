@@ -3,47 +3,57 @@ sys.path.append("Logic")
 
 from employee import Employee
 
-# Definición de excepciones personalizadas
+# Definition of custom exceptions
 class EmployeeException(Exception):
-    """Clase base para excepciones relacionadas con la clase Employee."""
+    """Base class for exceptions related to the Employee class."""
     pass
 
-class NegativeValue(EmployeeException):
+class NegativeValueError(EmployeeException):
     """Exception for negative values."""
-    def __init__(self, variable, value):
-        self.variable = variable
+    def __init__(self, field, value):
+        self.field = field
         self.value = value
-        super().__init__(f"Error: El valor '{value}' en el campo '{variable}' no puede ser negativo.")
+        super().__init__(f"Error: The value '{value}' in the field '{field}' cannot be negative.")
 
-class IncorrectDataType(EmployeeException):  
-    """Exception for incorrect data types."""  
-    def __init__(self, variable, expected_type, actual_type):  
-        self.variable = variable  
-        self.expected_type = expected_type  
-        self.actual_type = actual_type  
-        super().__init__(f"Error: El tipo de dato del campo '{variable}' debería ser '{expected_type.__name__}' pero se recibió '{actual_type.__name__}'.")
+class IncorrectDataTypeError(EmployeeException):
+    """Exception for incorrect data types."""
+    def __init__(self, field, expected_type, actual_type):
+        self.field = field
+        self.expected_type = expected_type
+        self.actual_type = actual_type
+        super().__init__(f"Error: The data type of the field '{field}' should be '{expected_type.__name__}' but received '{actual_type.__name__}'.")
 
-class DivisionByZero(EmployeeException):  
-    """Exception for division by zero."""  
-    def __init__(self, message="Error: Division por cero detectada."):  
+class DivisionByZeroError(EmployeeException):
+    """Exception for division by zero."""
+    def __init__(self, message="Error: Division by zero detected."):
         super().__init__(message)
 
-class NumberOutOfRange(EmployeeException):  
-    """Exception for numbers out of range."""  
-    def __init__(self, variable, allowed_range, value):  
-        self.variable = variable  
-        self.allowed_range = allowed_range  
-        self.value = value  
-        super().__init__(f"Error: El valor '{value}' en el campo '{variable}' está fuera del rango permitido {allowed_range}.")
+class NumberOutOfRangeError(EmployeeException):
+    """Exception for numbers out of range."""
+    def __init__(self, field, allowed_range, value):
+        self.field = field
+        self.allowed_range = allowed_range
+        self.value = value
+        super().__init__(f"Error: The value '{value}' in the field '{field}' is outside the allowed range {allowed_range}.")
 
-# Function to validate input values  
-def validate_input(variable, value, expected_type):  
-    if not isinstance(value, expected_type):  
-        raise IncorrectDataType(variable, expected_type, type(value))  
-    if value < 0:  
-        raise NegativeValue(variable, value)
-    
-        # Function that validates the exceptions
+class NonNumericValueError(EmployeeException):
+    """Exception for non-numeric values."""
+    def __init__(self, field, value):
+        self.field = field
+        self.value = value
+        super().__init__(f"Error: The value '{value}' in the field '{field}' is not a valid number.")
+
+def validate_input(field, value, expected_type):
+    if not isinstance(value, expected_type):
+        try:
+            # Try converting to float to check if it's numeric
+            float(value)
+        except (ValueError, TypeError):
+            raise NonNumericValueError(field, value)
+        raise IncorrectDataTypeError(field, expected_type, type(value))
+    if value < 0:
+        raise NegativeValueError(field, value)
+
 def verify_exceptions(employee):
     # Verifying data type and negative values
     validate_input("basic_salary", employee.basic_salary, (int, float))
@@ -54,11 +64,11 @@ def verify_exceptions(employee):
 
     # Check possible divisions by zero
     if employee.int_DAYS_OF_THE_YEAR == 0:
-        raise DivisionByZero("Error: 'int_DAYS_OF_THE_YEAR' no puede ser cero.")
+        raise DivisionByZeroError("Error: 'int_DAYS_OF_THE_YEAR' cannot be zero.")
     if employee.int_HALF_A_SEMESTER_WORKED == 0:
-        raise DivisionByZero("Error: 'int_HALF_A_SEMESTER_WORKED' no puede ser cero.")
+        raise DivisionByZeroError("Error: 'int_HALF_A_SEMESTER_WORKED' cannot be zero.")
     if employee.int_DAYS_PER_MONTH == 0:
-        raise DivisionByZero("Error: 'int_DAYS_PER_MONTH' no puede ser cero.")
+        raise DivisionByZeroError("Error: 'int_DAYS_PER_MONTH' cannot be zero.")
 
 # Create an employee instance with test values
 employee = Employee(
@@ -69,54 +79,54 @@ employee = Employee(
     severance_pay_for_accrued_leave_days=169,
 )
 
-#This function is used to calculate the severance pay amount
-def calculate_severance_pay_amount(employee:Employee):       
-    severance_pay = round((employee.basic_salary + employee.one_twelfth_vacation_bonus + employee.transportation_allowance) / employee.int_DAYS_OF_THE_YEAR* employee.worked_days)
+# Function to calculate the severance pay amount
+def calculate_severance_pay_amount(employee: Employee):
+    severance_pay = round((employee.basic_salary + employee.one_twelfth_vacation_bonus + employee.transportation_allowance) / employee.int_DAYS_OF_THE_YEAR * employee.worked_days)
     return severance_pay
 
-#This function serves to calculate the interest amount on a severance pay
+# Function to calculate the interest amount on severance pay
 def calculate_severance_pay_interest(employee: Employee, severance_pay):
-    severance_pay_interest = round((severance_pay *employee.int_MONTHS_OF_THE_YEAR ) /employee.int_DAYS_OF_THE_YEAR * employee.worked_days)
+    severance_pay_interest = round((severance_pay * employee.int_MONTHS_OF_THE_YEAR) / employee.int_DAYS_OF_THE_YEAR * employee.worked_days)
     return severance_pay_interest
 
-#This function is used to calculate the service bonus amount
+# Function to calculate the service bonus amount
 def calculate_service_bonus(employee):
-    service_bonus = round((employee.basic_salary + employee.one_twelfth_vacation_bonus + employee.transportation_allowance) /employee.int_HALF_A_SEMESTER_WORKED /employee.int_DAYS_WORKED_IN_THE_SEMESTER * employee.severance_pay_for_accrued_leave_days)
+    service_bonus = round((employee.basic_salary + employee.one_twelfth_vacation_bonus + employee.transportation_allowance) / employee.int_HALF_A_SEMESTER_WORKED / employee.int_DAYS_WORKED_IN_THE_SEMESTER * employee.severance_pay_for_accrued_leave_days)
     return service_bonus
 
-#This function is used to calculate vacation days
-def calcute_vacation(employee):
-    vacation = round((employee.basic_salary /employee.int_DAYS_PER_MONTH) * (employee.worked_days * employee.int_VACATION_PER_YEAR /employee.int_DAYS_OF_THE_YEAR))
+# Function to calculate vacation days
+def calculate_vacation(employee):
+    vacation = round((employee.basic_salary / employee.int_DAYS_PER_MONTH) * (employee.worked_days * employee.int_VACATION_PER_YEAR / employee.int_DAYS_OF_THE_YEAR))
     return vacation
 
-#This function is used to calculate the vacation bonus amount
+# Function to calculate the vacation bonus amount
 def calculate_vacation_bonus(employee):
-    vacation_bonus = round((employee.basic_salary /employee.int_DAYS_PER_MONTH) * (employee.worked_days * employee.int_VACATION_PER_YEAR /employee.int_DAYS_OF_THE_YEAR))
+    vacation_bonus = round((employee.basic_salary / employee.int_DAYS_PER_MONTH) * (employee.worked_days * employee.int_VACATION_PER_YEAR / employee.int_DAYS_OF_THE_YEAR))
     return vacation_bonus
 
-#This function is used to calculate the final settlement amount
+# Function to calculate the final settlement amount
 def calculate_liquidation(employee):
     verify_exceptions(employee)
 
-    # Calcular todos los valores
+    # Calculate all values
     severance_pay = calculate_severance_pay_amount(employee)
     severance_pay_interest = calculate_severance_pay_interest(employee, severance_pay)
     service_bonus = calculate_service_bonus(employee)
-    vacation = calcute_vacation(employee)
+    vacation = calculate_vacation(employee)
     vacation_bonus = calculate_vacation_bonus(employee)
 
     # Print results
-    print(f"Cesantías: {severance_pay}")
-    print(f"Intereses: {severance_pay_interest}")
-    print(f"Prima de servicios: {service_bonus}")
-    print(f"Vacaciones: {vacation}")
-    print(f"Prima de vacaciones: {vacation_bonus}")
+    print(f"Severance Pay: {severance_pay}")
+    print(f"Interest: {severance_pay_interest}")
+    print(f"Service Bonus: {service_bonus}")
+    print(f"Vacation: {vacation}")
+    print(f"Vacation Bonus: {vacation_bonus}")
 
-    # Calcular la liquidación total
+    # Calculate total liquidation
     total_liquidation = severance_pay + severance_pay_interest + service_bonus + vacation + vacation_bonus
-    print(f"Total Liquidación: {total_liquidation}")
+    print(f"Total Liquidation: {total_liquidation}")
 
-# Ejecutar la función con manejo de excepciones
+# Execute the function with exception handling
 try:
     calculate_liquidation(employee)
 except EmployeeException as e:
