@@ -12,8 +12,8 @@ from Logic.Liquidation import (
     NumberOutOfRangeError
 )
 
-int_MINIMUM_COMPENSATION_DAYS = 15
-int_DAYS_OF_SALARY_PER_YEAR = 20
+MINIMUM_COMPESATION_DAYS = 15
+DAYS_OF_SALARY_PER_YEAR = 20
 
 def verify_compensation_entries(type_of_contract: str, start_date: str, end_date: str):
     if not isinstance(type_of_contract, str):
@@ -43,23 +43,23 @@ def calculate_compensation(employee: Employee, type_of_contract: str, start_date
         difference = end_date - start_date
         worked_days = difference.days
 
-        worked_years = worked_days // employee.int_DAYS_OF_THE_YEAR
-        worked_months = (worked_days % employee.int_DAYS_OF_THE_YEAR) // employee.int_DAYS_PER_MONTH
+        worked_years = worked_days // employee.DAYS_OF_THE_YEAR
+        worked_months = (worked_days % employee.DAYS_OF_THE_YEAR) // employee.DAYS_PER_MONTH
 
         if type_of_contract == 'fijo_1_año':
-            remaining_months = employee.int_MONTHS_OF_THE_YEAR - worked_months
+            remaining_months = employee.MONTHS_OF_THE_YEAR - worked_months
             compensation = employee.basic_salary * remaining_months
 
         elif type_of_contract == 'fijo_inferior_1_año':
-            remaining_months = employee.int_MONTHS_OF_THE_YEAR - worked_months
-            compensation = max(employee.basic_salary * (remaining_months / employee.int_MONTHS_OF_THE_YEAR) * employee.int_DAYS_PER_MONTH,
-                                employee.basic_salary * (int_MINIMUM_COMPENSATION_DAYS / employee.int_DAYS_PER_MONTH))
+            remaining_months = employee.MONTHS_OF_THE_YEAR - worked_months
+            compensation = max(employee.basic_salary * (remaining_months / employee.MONTHS_OF_THE_YEAR) * employee.DAYS_PER_MONTH,
+                                employee.basic_salary * (MINIMUM_COMPESATION_DAYS / employee.DAYS_PER_MONTH))
 
         elif type_of_contract == 'indefinido':
             if worked_years <= 1:
-                compensation = employee.basic_salary * employee.int_DAYS_PER_MONTH
+                compensation = employee.basic_salary * employee.DAYS_PER_MONTH
             else:
-                compensation = (employee.basic_salary * employee.int_DAYS_PER_MONTH) + (employee.basic_salary * int_DAYS_OF_SALARY_PER_YEAR * (worked_years - 1))
+                compensation = (employee.basic_salary * employee.DAYS_PER_MONTH) + (employee.basic_salary * DAYS_OF_SALARY_PER_YEAR * (worked_years - 1))
 
         return compensation
 

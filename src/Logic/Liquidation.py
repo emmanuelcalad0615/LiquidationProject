@@ -63,12 +63,12 @@ def verify_exceptions(employee):
     validate_input("severance_pay_for_accrued_leave_days", employee.severance_pay_for_accrued_leave_days, int)
 
     # Check possible divisions by zero
-    if employee.int_DAYS_OF_THE_YEAR == 0:
-        raise DivisionByZeroError("Error: 'int_DAYS_OF_THE_YEAR' cannot be zero.")
-    if employee.int_HALF_A_SEMESTER_WORKED == 0:
-        raise DivisionByZeroError("Error: 'int_HALF_A_SEMESTER_WORKED' cannot be zero.")
-    if employee.int_DAYS_PER_MONTH == 0:
-        raise DivisionByZeroError("Error: 'int_DAYS_PER_MONTH' cannot be zero.")
+    if employee.DAYS_OF_THE_YEAR == 0:
+        raise DivisionByZeroError("Error: 'DAYS_OF_THE_YEAR' cannot be zero.")
+    if employee.HALF_A_SEMESTER_WORKED == 0:
+        raise DivisionByZeroError("Error: 'HALF_A_SEMESTER_WORKED' cannot be zero.")
+    if employee.DAYS_PER_MONTH == 0:
+        raise DivisionByZeroError("Error: 'DAYS_PER_MONTH' cannot be zero.")
 
 # Create an employee instance with test values
 employee = Employee(
@@ -81,27 +81,27 @@ employee = Employee(
 
 # Function to calculate the severance pay amount
 def calculate_severance_pay_amount(employee: Employee):
-    severance_pay = round((employee.basic_salary + employee.one_twelfth_vacation_bonus + employee.transportation_allowance) / employee.int_DAYS_OF_THE_YEAR * employee.worked_days)
+    severance_pay = round((employee.basic_salary + employee.one_twelfth_vacation_bonus + employee.transportation_allowance) / employee.DAYS_OF_THE_YEAR * employee.worked_days)
     return severance_pay
 
 # Function to calculate the interest amount on severance pay
 def calculate_severance_pay_interest(employee: Employee, severance_pay):
-    severance_pay_interest = round((severance_pay * employee.int_MONTHS_OF_THE_YEAR) / employee.int_DAYS_OF_THE_YEAR * employee.worked_days)
+    severance_pay_interest = round((severance_pay * employee.MONTHS_OF_THE_YEAR) / employee.DAYS_OF_THE_YEAR * employee.worked_days)
     return severance_pay_interest
 
 # Function to calculate the service bonus amount
 def calculate_service_bonus(employee):
-    service_bonus = round((employee.basic_salary + employee.one_twelfth_vacation_bonus + employee.transportation_allowance) / employee.int_HALF_A_SEMESTER_WORKED / employee.int_DAYS_WORKED_IN_THE_SEMESTER * employee.severance_pay_for_accrued_leave_days)
+    service_bonus = round((employee.basic_salary + employee.one_twelfth_vacation_bonus + employee.transportation_allowance) / employee.HALF_A_SEMESTER_WORKED / employee.DAYS_WORKED_IN_THE_SEMESTER * employee.severance_pay_for_accrued_leave_days)
     return service_bonus
 
 # Function to calculate vacation days
 def calculate_vacation(employee):
-    vacation = round((employee.basic_salary / employee.int_DAYS_PER_MONTH) * (employee.worked_days * employee.int_VACATION_PER_YEAR / employee.int_DAYS_OF_THE_YEAR))
+    vacation = round((employee.basic_salary / employee.DAYS_PER_MONTH) * (employee.worked_days * employee.VACATION_PER_YEAR / employee.DAYS_OF_THE_YEAR))
     return vacation
 
 # Function to calculate the vacation bonus amount
 def calculate_vacation_bonus(employee):
-    vacation_bonus = round((employee.basic_salary / employee.int_DAYS_PER_MONTH) * (employee.worked_days * employee.int_VACATION_PER_YEAR / employee.int_DAYS_OF_THE_YEAR))
+    vacation_bonus = round((employee.basic_salary / employee.DAYS_PER_MONTH) * (employee.worked_days * employee.VACATION_PER_YEAR / employee.DAYS_OF_THE_YEAR))
     return vacation_bonus
 
 # Function to calculate the final settlement amount
