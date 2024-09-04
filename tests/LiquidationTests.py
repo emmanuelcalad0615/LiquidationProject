@@ -1,4 +1,7 @@
+import os
+import sys
 import unittest
+sys.path.append("src")
 from datetime import datetime
 from Logic.employee import Employee
 from Logic.Liquidation import (
@@ -45,7 +48,7 @@ class LiquidationTest(unittest.TestCase):
             self.fail(f"Error al calcular la liquidación: {str(e)}")
 
     def testLiquidation2(self):
-            employee = employee(
+            employee = Employee(
                 basic_salary=900803,
                 one_twelfth_vacation_bonus=0,
                 transportation_allowance=80500,
@@ -67,7 +70,7 @@ class LiquidationTest(unittest.TestCase):
             except EmployeeException as e:
                 self.fail(f"Error al calcular la liquidación: {str(e)}")
     def testLiquidation3(self):
-            employee = employee(
+            employee = Employee(
                 basic_salary=1450023,
                 one_twelfth_vacation_bonus=0,
                 transportation_allowance=120018,
@@ -90,7 +93,7 @@ class LiquidationTest(unittest.TestCase):
                 self.fail(f"Error al calcular la liquidación: {str(e)}")
 
     def testLiquidation4(self):
-            employee = employee(
+            employee = Employee(
                 basic_salary=3638092,
                 one_twelfth_vacation_bonus=0,
                 transportation_allowance=0,
@@ -114,7 +117,7 @@ class LiquidationTest(unittest.TestCase):
                 self.fail(f"Error al calcular la liquidación: {str(e)}")
 
     def testLiquidation5(self):
-        employee = employee(
+        employee = Employee(
             basic_salary=5128350,
             one_twelfth_vacation_bonus=854725,
             transportation_allowance=500854,
@@ -137,7 +140,7 @@ class LiquidationTest(unittest.TestCase):
             self.fail(f"Error al calcular la liquidación: {str(e)}")
 
     def testLiquidation6(self):
-        employee = employee(
+        employee = Employee(
             basic_salary=877803,
             one_twelfth_vacation_bonus=0,
             transportation_allowance=102854,
@@ -162,7 +165,7 @@ class LiquidationTest(unittest.TestCase):
     # Casos extraordinarios
 
     def testLiquidation7(self):
-            employee = employee(
+            employee = Employee(
                 basic_salary=5689500,
                 one_twelfth_vacation_bonus=0,
                 transportation_allowance=0,
@@ -186,7 +189,7 @@ class LiquidationTest(unittest.TestCase):
 
 
     def testLiquidation8(self):
-            employee = employee(
+            employee = Employee(
                 basic_salary=900803,
                 one_twelfth_vacation_bonus=0,
                 transportation_allowance=80500,
@@ -210,7 +213,7 @@ class LiquidationTest(unittest.TestCase):
                 self.fail(f"Error al calcular la liquidación: {str(e)}")
 
     def testLiquidation9(self):
-            employee = employee(
+            employee = Employee(
                 basic_salary=3450023,
                 one_twelfth_vacation_bonus=0,
                 transportation_allowance=0,
@@ -233,7 +236,7 @@ class LiquidationTest(unittest.TestCase):
                 self.fail(f"Error al calcular la liquidación: {str(e)}")
 
     def testLiquidation10(self):
-            employee = employee(
+            employee = Employee(
                 basic_salary=26660000,
                 one_twelfth_vacation_bonus=0,
                 transportation_allowance=0,
@@ -257,7 +260,7 @@ class LiquidationTest(unittest.TestCase):
                 self.fail(f"Error al calcular la liquidación: {str(e)}")
 
     def testLiquidation11(self):
-            employee = employee(
+            employee = Employee(
                 basic_salary=2230000,
                 one_twelfth_vacation_bonus=0,
                 transportation_allowance=0,
@@ -281,7 +284,7 @@ class LiquidationTest(unittest.TestCase):
                 self.fail(f"Error al calcular la liquidación: {str(e)}")
 
     def testLiquidation12(self):
-            employee = employee(
+            employee = Employee(
                 basic_salary=4300000,
                 one_twelfth_vacation_bonus=0,
                 transportation_allowance=0,
@@ -306,7 +309,7 @@ class LiquidationTest(unittest.TestCase):
     # Casos de error
     def testLiquidation13(self):
         """ Basic salary negative"""
-        employee = employee(
+        employee = Employee(
             basic_salary=-12895,
             one_twelfth_vacation_bonus=0,
             transportation_allowance=5654889,
@@ -320,7 +323,7 @@ class LiquidationTest(unittest.TestCase):
 
     def testLiquidation14(self):
         """Negative salary for worked days"""
-        employee = employee(
+        employee = Employee(
             basic_salary=-1000000,  
             one_twelfth_vacation_bonus=50000,
             transportation_allowance=20000,
@@ -332,7 +335,7 @@ class LiquidationTest(unittest.TestCase):
 
     def testLiquidation15(self):
         """ Negative worked days """
-        employee = employee(
+        employee = Employee(
             basic_salary=-12895,
             one_twelfth_vacation_bonus=0,
             transportation_allowance=5654889,
@@ -344,7 +347,7 @@ class LiquidationTest(unittest.TestCase):
 
     def testLiquidation16(self):
         """ Negative basic salary """
-        employee = employee(
+        employee = Employee(
             basic_salary=-1000000,  # Valor negativo
             one_twelfth_vacation_bonus=50000,
             transportation_allowance=20000,
@@ -356,7 +359,7 @@ class LiquidationTest(unittest.TestCase):
 
     def testLiquidation17(self):
         """ Incorrect data """
-        employee = employee(
+        employee = Employee(
             basic_salary="sapo",
             one_twelfth_vacation_bonus=0,
             transportation_allowance=5654889,
@@ -368,7 +371,7 @@ class LiquidationTest(unittest.TestCase):
 
     def testLiquidation18(self):
         """ Incorrect Data """
-        employee = employee(
+        employee = Employee(
             basic_salary=194985,
             one_twelfth_vacation_bonus=0,
             transportation_allowance=5654889,
@@ -380,7 +383,7 @@ class LiquidationTest(unittest.TestCase):
 
     def testLiquidation19(self):
         """ Incorrect Data """
-        employee = employee(
+        employee = Employee(
             basic_salary=18999,
             one_twelfth_vacation_bonus="soy pobre",
             transportation_allowance=5654889,
@@ -392,7 +395,7 @@ class LiquidationTest(unittest.TestCase):
 
     def testLiquidation20(self):
         """ Incorrect data """
-        employee = employee(
+        employee = Employee(
             basic_salary="sapo",
             one_twelfth_vacation_bonus=0,
             transportation_allowance="error_data",
