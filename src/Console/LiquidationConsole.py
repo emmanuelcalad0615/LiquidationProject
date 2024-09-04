@@ -1,9 +1,8 @@
 import os
 import sys
 from datetime import datetime
-
 # Agrega el directorio padre al PATH.
-sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append("src")
 
 # Importar los módulos
 from Logic.employee import Employee

@@ -2,9 +2,9 @@
 
 from datetime import datetime
 import sys
-sys.path.append("Logic")
-from employee import Employee
-from Liquidation import (
+sys.path.append("src")
+from Logic.employee import Employee
+from Logic.Liquidation import (
     EmployeeException,
     NegativeValueError,
     IncorrectDataTypeError,
