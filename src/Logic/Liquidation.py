@@ -107,22 +107,11 @@ def calculate_liquidation(employee):
     print(f"Prima de vacaciones: {vacation_bonus}")
 
     # Calcular la liquidación total
-    total_liquidacion = cesantia + interes + prima_servicio + vacacion + prima_vacacion
-    print(f"Total Liquidación: {total_liquidacion}")
+    total_liquidation = severance_pay + severance_pay_interest + service_bonus + vacation + vacation_bonus
+    print(f"Total Liquidación: {total_liquidation}")
 
-
-    # Print the results
-    print(f"Cesantías: {severance_pay}")
-    print(f"severance_pay_interest: {severance_pay_interest}")
-    print(f"Prima de servicios: {service_bonus}")
-    print(f"vacationes: {vacation}")
-    print(f"Prima de vacationes: {vacation_bonus}")
-
-    # calculate la liquidación total
-    liquidacion = severance_pay + severance_pay_interest + service_bonus + vacation + vacation_bonus
-
-    # Imprimir la liquidación calculada
-    print(f"La liquidación calculada: {liquidacion}")
-
+# Ejecutar la función con manejo de excepciones
+try:
+    calculate_liquidation(employee)
 except EmployeeException as e:
     print(e)
