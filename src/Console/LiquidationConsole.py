@@ -2,9 +2,11 @@ import os
 import sys
 from datetime import datetime
 
-# Añadir el directorio padre al PATH
+# This adds the parent directory to the PATH.
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+
+# Importing the modules
 from Logic.employee import Employee
 from Logic.Liquidation import (
     calculate_severance_pay_amount,
@@ -12,7 +14,7 @@ from Logic.Liquidation import (
     calculate_service_bonus,
     calculate_vacation,
     calculate_vacation_bonus,
-    verify_exceptions,  # Importamos la nueva función
+    verify_exceptions,  
     EmployeeException,
     NegativeValue,
     IncorrectDataType,
@@ -52,7 +54,7 @@ def obtain_employee_data():
 
 def calculate_liquidation(employee):
     try:
-        # Calcular los diferentes componentes de la liquidación
+        # This calculates the different components about liquidation
         severance_pay = calculate_severance_pay_amount(employee)
         severance_pay_interest = calculate_severance_pay_interest(employee, severance_pay)
         service_bonus = calculate_service_bonus(employee)
@@ -82,7 +84,7 @@ def main():
     must_be_compensated = input("\n¿El empleado debe ser indemnizado? (S/N): ").upper() == "S"
 
     if must_be_compensated:
-        pass  # Aquí puedes agregar la lógica para calcular la indemnización si es necesario
+        pass  
 
 if __name__ == "__main__":
     main()
