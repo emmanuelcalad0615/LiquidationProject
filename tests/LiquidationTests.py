@@ -3,7 +3,7 @@ from datetime import datetime
 from Logic.employee import Employee
 from Logic.Liquidation import (
     calculate_severance_pay_amount,
-    calculate_severance_pay_severance_pay_interestt,
+    calculate_severance_pay_interest,
     calculate_service_bonus,
     calculate_vacation,
     calculate_vacation_bonus,
@@ -38,10 +38,10 @@ class LiquidationTest(unittest.TestCase):
             vacation = calculate_vacation(employee)
             vacation_bonus = calculate_vacation_bonus(employee)
 
-            total_liquidacion = severance_pay + severance_pay_interest + service_bonus + vacation + vacation_bonus
-            self.assertEqual(total_liquidacion, expected_value)
+            total_liquidation = severance_pay + severance_pay_interest + service_bonus + vacation + vacation_bonus
+            self.assertEqual(total_liquidation, expected_value)
 
-        except employeeException as e:
+        except EmployeeException as e:
             self.fail(f"Error al calcular la liquidación: {str(e)}")
 
     def testLiquidation2(self):
@@ -56,15 +56,15 @@ class LiquidationTest(unittest.TestCase):
             try:
                 verify_exceptions(employee)
                 severance_pay = calculate_severance_pay_amount(employee)
-                severance_pay_interest = severance_pay_interestes(employee, severance_pay)
+                severance_pay_interest = calculate_severance_pay_interest(employee, severance_pay)
                 service_bonus = calculate_service_bonus(employee)
-                vacacion = calculate_vacation(employee)
-                vacation_bonus = prima_de_calculate_vacation(employee)
+                vacation = calculate_vacation(employee)
+                vacation_bonus = calculate_vacation_bonus(employee)
 
-                total_liquidacion = severance_pay + severance_pay_interest + service_bonus + vacacion + vacation_bonus
-                self.assertEqual(total_liquidacion, expected_value)
+                total_liquidation = severance_pay + severance_pay_interest + service_bonus + vacation + vacation_bonus
+                self.assertEqual(total_liquidation, expected_value)
 
-            except employeeException as e:
+            except EmployeeException as e:
                 self.fail(f"Error al calcular la liquidación: {str(e)}")
     def testLiquidation3(self):
             employee = employee(
@@ -78,15 +78,15 @@ class LiquidationTest(unittest.TestCase):
             try:
                 verify_exceptions(employee)
                 severance_pay = calculate_severance_pay_amount(employee)
-                severance_pay_interest = severance_pay_interestes(employee, severance_pay)
+                severance_pay_interest = calculate_severance_pay_interest(employee, severance_pay)
                 service_bonus = calculate_service_bonus(employee)
-                vacacion = calculate_vacation(employee)
-                vacation_bonus = prima_de_calculate_vacation(employee)
+                vacation = calculate_vacation(employee)
+                vacation_bonus = calculate_vacation_bonus(employee)
 
-                total_liquidacion = severance_pay + severance_pay_interest + service_bonus + vacacion + vacation_bonus
-                self.assertEqual(total_liquidacion, expected_value)
+                total_liquidation = severance_pay + severance_pay_interest + service_bonus + vacation + vacation_bonus
+                self.assertEqual(total_liquidation, expected_value)
 
-            except employeeException as e:
+            except EmployeeException as e:
                 self.fail(f"Error al calcular la liquidación: {str(e)}")
 
     def testLiquidation4(self):
@@ -101,17 +101,15 @@ class LiquidationTest(unittest.TestCase):
             try:
                 verify_exceptions(employee)
                 severance_pay = calculate_severance_pay_amount(employee)
-                severance_pay_interest = severance_pay_interestes(employee, severance_pay)
+                severance_pay_interest = calculate_severance_pay_interest(employee, severance_pay)
                 service_bonus = calculate_service_bonus(employee)
-                vacacion = calculate_vacation(employee)
-                vacation_bonus = prima_de_calculate_vacation(employee)
+                vacation = calculate_vacation(employee)
+                vacation_bonus = calculate_vacation_bonus(employee)
 
-                total_liquidacion = severance_pay + severance_pay_interest + service_bonus + vacacion + vacation_bonus
-                self.assertEqual(total_liquidacion, expected_value)
+                total_liquidation = severance_pay + severance_pay_interest + service_bonus + vacation + vacation_bonus
+                self.assertEqual(total_liquidation, expected_value)
 
-            except employeeException as e:
-
-
+            except EmployeeException as e:
 
                 self.fail(f"Error al calcular la liquidación: {str(e)}")
 
@@ -127,15 +125,15 @@ class LiquidationTest(unittest.TestCase):
         try:
             verify_exceptions(employee)
             severance_pay = calculate_severance_pay_amount(employee)
-            severance_pay_interest = severance_pay_interestes(employee, severance_pay)
+            severance_pay_interest = calculate_severance_pay_interest(employee, severance_pay)
             service_bonus = calculate_service_bonus(employee)
-            vacacion = calculate_vacation(employee)
-            vacation_bonus = prima_de_calculate_vacation(employee)
+            vacation = calculate_vacation(employee)
+            vacation_bonus = calculate_vacation_bonus(employee)
 
-            total_liquidacion = severance_pay + severance_pay_interest + service_bonus + vacacion + vacation_bonus
-            self.assertEqual(total_liquidacion, expected_value)
+            total_liquidation = severance_pay + severance_pay_interest + service_bonus + vacation + vacation_bonus
+            self.assertEqual(total_liquidation, expected_value)
 
-        except employeeException as e:
+        except EmployeeException as e:
             self.fail(f"Error al calcular la liquidación: {str(e)}")
 
     def testLiquidation6(self):
@@ -150,17 +148,15 @@ class LiquidationTest(unittest.TestCase):
         try:
             verify_exceptions(employee)
             severance_pay = calculate_severance_pay_amount(employee)
-            severance_pay_interest = severance_pay_interestes(employee, severance_pay)
+            severance_pay_interest = calculate_severance_pay_interest(employee, severance_pay)
             service_bonus = calculate_service_bonus(employee)
-            vacacion = calculate_vacation(employee)
-            vacation_bonus = prima_de_calculate_vacation(employee)
+            vacation = calculate_vacation(employee)
+            vacation_bonus = calculate_vacation_bonus(employee)
 
-            total_liquidacion = severance_pay + severance_pay_interest + service_bonus + vacacion + vacation_bonus
-            self.assertEqual(total_liquidacion, expected_value)
+            total_liquidation = severance_pay + severance_pay_interest + service_bonus + vacation + vacation_bonus
+            self.assertEqual(total_liquidation, expected_value)
 
-        except employeeException as e:
-
-
+        except EmployeeException as e:
 
             self.fail(f"Error al calcular la liquidación: {str(e)}")
     # Casos extraordinarios
@@ -177,15 +173,15 @@ class LiquidationTest(unittest.TestCase):
             try:
                 verify_exceptions(employee)
                 severance_pay = calculate_severance_pay_amount(employee)
-                severance_pay_interest = severance_pay_interestes(employee, severance_pay)
+                severance_pay_interest = calculate_severance_pay_interest(employee, severance_pay)
                 service_bonus = calculate_service_bonus(employee)
-                vacacion = calculate_vacation(employee)
-                vacation_bonus = prima_de_calculate_vacation(employee)
+                vacation = calculate_vacation(employee)
+                vacation_bonus = calculate_vacation_bonus(employee)
 
-                total_liquidacion = severance_pay + severance_pay_interest + service_bonus + vacacion + vacation_bonus
-                self.assertEqual(total_liquidacion, expected_value)
+                total_liquidation = severance_pay + severance_pay_interest + service_bonus + vacation + vacation_bonus
+                self.assertEqual(total_liquidation, expected_value)
 
-            except employeeException as e:
+            except EmployeeException as e:
                 self.fail(f"Error al calcular la liquidación: {str(e)}")
 
 
@@ -201,17 +197,15 @@ class LiquidationTest(unittest.TestCase):
             try:
                 verify_exceptions(employee)
                 severance_pay = calculate_severance_pay_amount(employee)
-                severance_pay_interest = severance_pay_interestes(employee, severance_pay)
+                severance_pay_interest = calculate_severance_pay_interest(employee, severance_pay)
                 service_bonus = calculate_service_bonus(employee)
-                vacacion = calculate_vacation(employee)
-                vacation_bonus = prima_de_calculate_vacation(employee)
+                vacation = calculate_vacation(employee)
+                vacation_bonus = calculate_vacation_bonus(employee)
 
-                total_liquidacion = severance_pay + severance_pay_interest + service_bonus + vacacion + vacation_bonus
-                self.assertEqual(total_liquidacion, expected_value)
+                total_liquidation = severance_pay + severance_pay_interest + service_bonus + vacation + vacation_bonus
+                self.assertEqual(total_liquidation, expected_value)
 
-            except employeeException as e:
-
-
+            except EmployeeException as e:
 
                 self.fail(f"Error al calcular la liquidación: {str(e)}")
 
@@ -227,15 +221,15 @@ class LiquidationTest(unittest.TestCase):
             try:
                 verify_exceptions(employee)
                 severance_pay = calculate_severance_pay_amount(employee)
-                severance_pay_interest = severance_pay_interestes(employee, severance_pay)
+                severance_pay_interest = calculate_severance_pay_interest(employee, severance_pay)
                 service_bonus = calculate_service_bonus(employee)
-                vacacion = calculate_vacation(employee)
-                vacation_bonus = prima_de_calculate_vacation(employee)
+                vacation = calculate_vacation(employee)
+                vacation_bonus = calculate_vacation_bonus(employee)
 
-                total_liquidacion = severance_pay + severance_pay_interest + service_bonus + vacacion + vacation_bonus
-                self.assertEqual(total_liquidacion, expected_value)
+                total_liquidation = severance_pay + severance_pay_interest + service_bonus + vacation + vacation_bonus
+                self.assertEqual(total_liquidation, expected_value)
 
-            except employeeException as e:
+            except EmployeeException as e:
                 self.fail(f"Error al calcular la liquidación: {str(e)}")
 
     def testLiquidation10(self):
@@ -250,17 +244,15 @@ class LiquidationTest(unittest.TestCase):
             try:
                 verify_exceptions(employee)
                 severance_pay = calculate_severance_pay_amount(employee)
-                severance_pay_interest = severance_pay_interestes(employee, severance_pay)
+                severance_pay_interest = calculate_severance_pay_interest(employee, severance_pay)
                 service_bonus = calculate_service_bonus(employee)
-                vacacion = calculate_vacation(employee)
-                vacation_bonus = prima_de_calculate_vacation(employee)
+                vacation = calculate_vacation(employee)
+                vacation_bonus = calculate_vacation_bonus(employee)
 
-                total_liquidacion = severance_pay + severance_pay_interest + service_bonus + vacacion + vacation_bonus
-                self.assertEqual(total_liquidacion, expected_value)
+                total_liquidation = severance_pay + severance_pay_interest + service_bonus + vacation + vacation_bonus
+                self.assertEqual(total_liquidation, expected_value)
 
-            except employeeException as e:
-
-
+            except EmployeeException as e:
 
                 self.fail(f"Error al calcular la liquidación: {str(e)}")
 
@@ -276,15 +268,15 @@ class LiquidationTest(unittest.TestCase):
             try:
                 verify_exceptions(employee)
                 severance_pay = calculate_severance_pay_amount(employee)
-                severance_pay_interest = severance_pay_interestes(employee, severance_pay)
+                severance_pay_interest = calculate_severance_pay_interest(employee, severance_pay)
                 service_bonus = calculate_service_bonus(employee)
-                vacacion = calculate_vacation(employee)
-                vacation_bonus = prima_de_calculate_vacation(employee)
+                vacation = calculate_vacation(employee)
+                vacation_bonus = calculate_vacation_bonus(employee)
 
-                total_liquidacion = severance_pay + severance_pay_interest + service_bonus + vacacion + vacation_bonus
-                self.assertEqual(total_liquidacion, expected_value)
+                total_liquidation = severance_pay + severance_pay_interest + service_bonus + vacation + vacation_bonus
+                self.assertEqual(total_liquidation, expected_value)
 
-            except employeeException as e:
+            except EmployeeException as e:
 
 
 
@@ -302,15 +294,15 @@ class LiquidationTest(unittest.TestCase):
             try:
                 verify_exceptions(employee)
                 severance_pay = calculate_severance_pay_amount(employee)
-                severance_pay_interest = severance_pay_interestes(employee, severance_pay)
+                severance_pay_interest = calculate_severance_pay_interest(employee, severance_pay)
                 service_bonus = calculate_service_bonus(employee)
-                vacacion = calculate_vacation(employee)
-                vacation_bonus = prima_de_calculate_vacation(employee)
+                vacation = calculate_vacation(employee)
+                vacation_bonus = calculate_vacation_bonus(employee)
 
-                total_liquidacion = severance_pay + severance_pay_interest + service_bonus + vacacion + vacation_bonus
-                self.assertEqual(total_liquidacion, expected_value)
+                total_liquidation = severance_pay + severance_pay_interest + service_bonus + vacation + vacation_bonus
+                self.assertEqual(total_liquidation, expected_value)
 
-            except employeeException as e:
+            except EmployeeException as e:
                 self.fail(f"Error al calcular la liquidación: {str(e)}")
 
     # Casos de error
