@@ -12,8 +12,8 @@ from Logic.Liquidation import (
     NegativeValue,
     IncorrectDataType,
     DivisionByZero,
-    NumberOutOfRange
-    #ValorNoNumerico
+    NumberOutOfRange,
+    NonNumericValueError
 )
 class LiquidationTest(unittest.TestCase):
     def setUp(self):
@@ -278,8 +278,6 @@ class LiquidationTest(unittest.TestCase):
 
             except EmployeeException as e:
 
-
-
                 self.fail(f"Error al calcular la liquidación: {str(e)}")
 
     def testLiquidation12(self):
@@ -307,7 +305,7 @@ class LiquidationTest(unittest.TestCase):
 
     # Casos de error
     def testLiquidation13(self):
-        """ Salario básico negativo """
+        """ Basic salary negative"""
         employee = employee(
             basic_salary=-12895,
             one_twelfth_vacation_bonus=0,
@@ -315,25 +313,25 @@ class LiquidationTest(unittest.TestCase):
             worked_days=8,
             severance_pay_for_accrued_leave_days=18,
         )
-        with self.assertRaises(ValorNegativo):
+        with self.assertRaises(NegativeValue):
             verify_exceptions(employee)
 
 
 
     def testLiquidation14(self):
-        """ Salario dias trabajados negativo """
+        """Negative salary for worked days"""
         employee = employee(
-            basic_salary=-1000000,  # Valor negativo
+            basic_salary=-1000000,  
             one_twelfth_vacation_bonus=50000,
             transportation_allowance=20000,
             worked_days=-30,
             severance_pay_for_accrued_leave_days=10,
         )
-        with self.assertRaises(ValorNegativo):
+        with self.assertRaises(NegativeValue):
             verify_exceptions(employee)
 
     def testLiquidation15(self):
-        """ Días trabajados negativos """
+        """ Negative worked days """
         employee = employee(
             basic_salary=-12895,
             one_twelfth_vacation_bonus=0,
@@ -341,11 +339,11 @@ class LiquidationTest(unittest.TestCase):
             worked_days=8,
             severance_pay_for_accrued_leave_days=18,
         )
-        with self.assertRaises(ValorNegativo):
+        with self.assertRaises(NegativeValue):
             verify_exceptions(employee)
 
     def testLiquidation16(self):
-        """ Salario básico negativo """
+        """ Negative basic salary """
         employee = employee(
             basic_salary=-1000000,  # Valor negativo
             one_twelfth_vacation_bonus=50000,
@@ -353,11 +351,11 @@ class LiquidationTest(unittest.TestCase):
             worked_days=30,
             severance_pay_for_accrued_leave_days=10,
         )
-        with self.assertRaises(ValorNegativo):
+        with self.assertRaises(NegativeValue):
             verify_exceptions(employee)
 
     def testLiquidation17(self):
-        """ dato incorrecto """
+        """ Incorrect data """
         employee = employee(
             basic_salary="sapo",
             one_twelfth_vacation_bonus=0,
@@ -365,11 +363,11 @@ class LiquidationTest(unittest.TestCase):
             worked_days=8,
             severance_pay_for_accrued_leave_days=18,
         )
-        with self.assertRaises(ValorNoNumerico):
+        with self.assertRaises(NonNumericValueError):
             verify_exceptions(employee)
 
     def testLiquidation18(self):
-        """ dato incorrecto """
+        """ Incorrect Data """
         employee = employee(
             basic_salary=194985,
             one_twelfth_vacation_bonus=0,
@@ -377,11 +375,11 @@ class LiquidationTest(unittest.TestCase):
             worked_days=8,
             severance_pay_for_accrued_leave_days="no me dijieron en la empresa",
         )
-        with self.assertRaises(ValorNoNumerico):
+        with self.assertRaises(NonNumericValueError):
             verify_exceptions(employee)
 
     def testLiquidation19(self):
-        """ dato incorrecto """
+        """ Incorrect Data """
         employee = employee(
             basic_salary=18999,
             one_twelfth_vacation_bonus="soy pobre",
@@ -389,11 +387,11 @@ class LiquidationTest(unittest.TestCase):
             worked_days=8,
             severance_pay_for_accrued_leave_days=18,
         )
-        with self.assertRaises(ValorNoNumerico):
+        with self.assertRaises(NonNumericValueError):
             verify_exceptions(employee)
 
     def testLiquidation20(self):
-        """ dato incorrecto """
+        """ Incorrect data """
         employee = employee(
             basic_salary="sapo",
             one_twelfth_vacation_bonus=0,
@@ -401,7 +399,7 @@ class LiquidationTest(unittest.TestCase):
             worked_days=8,
             severance_pay_for_accrued_leave_days=18,
         )
-        with self.assertRaises(ValorNoNumerico):
+        with self.assertRaises(NonNumericValueError):
             verify_exceptions(employee)
 
 
