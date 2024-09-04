@@ -15,7 +15,7 @@ from Liquidation import (
 int_MINIMUM_COMPENSATION_DAYS = 15
 int_DAYS_OF_SALARY_PER_YEAR = 20
 
-def verify_compensation_entries(type_of_contract: str, start_date: str, end_date: str) -> float:
+def verify_compensation_entries(type_of_contract: str, start_date: str, end_date: str):
     if not isinstance(type_of_contract, str):
         raise IncorrectDataType('type_of_contract', str, type(type_of_contract))
     
@@ -78,7 +78,7 @@ employee = Employee(
 
 # Probar cálculo de indemnización
 try:
-    compensation = verify_compensation_entries(employee, type_of_contract='indefinido', start_date='2020-01-01', end_date='2022-01-01')
+    compensation = calculate_compensation(employee, type_of_contract='indefinido', start_date='2020-01-01', end_date='2022-01-01')
     print(f'Indemnización calculada: {compensation}')
 except Exception as e:
     print(f"Error: {str(e)}")
