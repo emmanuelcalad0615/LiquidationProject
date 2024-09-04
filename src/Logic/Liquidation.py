@@ -93,8 +93,8 @@ def calculate_liquidation(employee):
     verify_exceptions(employee)
 
     # Calcular todos los valores
-    severance_pay = calculate_severance_pay_interest(employee)
-    severance_pay_interest = calculate_severance_pay_interest_amount(employee, severance_pay)
+    severance_pay = calculate_severance_pay_interest_amount(employee)
+    severance_pay_interest = calculate_severance_pay_interest(employee, severance_pay)
     service_bonus = calculate_service_bonus(employee)
     vacation = calcute_vacation(employee)
     vacation_bonus = calculate_vacation_bonus(employee)
