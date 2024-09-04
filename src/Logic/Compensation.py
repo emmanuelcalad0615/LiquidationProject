@@ -6,10 +6,10 @@ sys.path.append("Logic")
 from employee import Employee
 from Liquidation import (
     EmployeeException,
-    NegativeValue,
-    IncorrectDataType,
-    DivisionByZero,
-    NumberOutOfRange
+    NegativeValueError,
+    IncorrectDataTypeError,
+    DivisionByZeroError,
+    NumberOutOfRangeError
 )
 
 int_MINIMUM_COMPENSATION_DAYS = 15

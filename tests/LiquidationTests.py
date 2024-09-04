@@ -9,10 +9,10 @@ from Logic.Liquidation import (
     calculate_vacation_bonus,
     verify_exceptions,  
     EmployeeException,
-    NegativeValue,
-    IncorrectDataType,
-    DivisionByZero,
-    NumberOutOfRange,
+    NegativeValueError,
+    IncorrectDataTypeError,
+    DivisionByZeroError,
+    NumberOutOfRangeError,
     NonNumericValueError
 )
 class LiquidationTest(unittest.TestCase):
@@ -313,7 +313,7 @@ class LiquidationTest(unittest.TestCase):
             worked_days=8,
             severance_pay_for_accrued_leave_days=18,
         )
-        with self.assertRaises(NegativeValue):
+        with self.assertRaises(NegativeValueError):
             verify_exceptions(employee)
 
 
@@ -327,7 +327,7 @@ class LiquidationTest(unittest.TestCase):
             worked_days=-30,
             severance_pay_for_accrued_leave_days=10,
         )
-        with self.assertRaises(NegativeValue):
+        with self.assertRaises(NegativeValueError):
             verify_exceptions(employee)
 
     def testLiquidation15(self):
@@ -339,7 +339,7 @@ class LiquidationTest(unittest.TestCase):
             worked_days=8,
             severance_pay_for_accrued_leave_days=18,
         )
-        with self.assertRaises(NegativeValue):
+        with self.assertRaises(NegativeValueError):
             verify_exceptions(employee)
 
     def testLiquidation16(self):
@@ -351,7 +351,7 @@ class LiquidationTest(unittest.TestCase):
             worked_days=30,
             severance_pay_for_accrued_leave_days=10,
         )
-        with self.assertRaises(NegativeValue):
+        with self.assertRaises(NegativeValueError):
             verify_exceptions(employee)
 
     def testLiquidation17(self):
