@@ -30,3 +30,17 @@ Es un proyecto de liquidación de nómina para un empleado del sector privado. S
 
 3. Navegar al Directorio del Proyecto: Después de clonar el repositorio, ir al directorio del proyecto.
 ```cd nombre-del-repositorio```
+
+4. Crear y Activar un Entorno Virtual:
+
+- Crear un entorno virtual: ```python -m venv venv```
+
+- Activar el entorno virtual, en el símbolo del sistema:
+```.\venv\Scripts\activate```
+
+- Activar el entorno, en el powershell de windows: ```.\venv\Scripts\Activate.ps1.```
+
+5. Instalar Dependencias del Proyecto: ```pip install -r requirements.txt```
+
+6. Ejecutar el proyecto: ```python main.py```.
+Reemplazar el nombre ```main.py``` por el nombre del archivo principal del proyecto.
