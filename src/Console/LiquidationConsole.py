@@ -21,7 +21,7 @@ from Logic.Liquidation import (
 )
 from Logic.Compensation import calculate_compensation
 
-def obtain_employee_data():
+def get_employee_data():
     while True:
         try:
             basic_salary = float(input("Ingrese el salario básico del empleado: "))
@@ -76,7 +76,7 @@ def calculate_liquidation(employee):
 def main():
     print("Bienvenido al programa de liquidación y cálculo de indemnizaciones.")
 
-    employee = obtain_employee_data()
+    employee = get_employee_data()
 
     calculate_liquidation(employee)
 
@@ -93,6 +93,3 @@ def main():
                 print(f"Indemnización calculada: {compensation}")
         except Exception as e:
             print(f"Error al calcular la indemnización: {str(e)}")
-
-if __name__ == "__main__":
-    main()

@@ -108,26 +108,28 @@ def calculate_vacation_bonus(employee):
 def calculate_liquidation(employee):
     verify_exceptions(employee)
 
-    # Calculate all values
+    # Calcular todos los valores
     severance_pay = calculate_severance_pay_amount(employee)
     severance_pay_interest = calculate_severance_pay_interest(employee, severance_pay)
     service_bonus = calculate_service_bonus(employee)
     vacation = calculate_vacation(employee)
     vacation_bonus = calculate_vacation_bonus(employee)
 
-    # Print results
-    print(f"Severance Pay: {severance_pay}")
-    print(f"Interest: {severance_pay_interest}")
-    print(f"Service Bonus: {service_bonus}")
-    print(f"Vacation: {vacation}")
-    print(f"Vacation Bonus: {vacation_bonus}")
+    # Retornar los resultados en un diccionario
+    return {
+        "severance_pay": severance_pay,
+        "severance_pay_interest": severance_pay_interest,
+        "service_bonus": service_bonus,
+        "vacation": vacation,
+        "vacation_bonus": vacation_bonus,
+        "total_liquidation": severance_pay + severance_pay_interest + service_bonus + vacation + vacation_bonus
+    }
 
-    # Calculate total liquidation
-    total_liquidation = severance_pay + severance_pay_interest + service_bonus + vacation + vacation_bonus
-    print(f"Total Liquidation: {total_liquidation}")
-
-# Execute the function with exception handling
+"""
+# Ejecutar la función con manejo de excepciones y obtener el retorno
 try:
-    calculate_liquidation(employee)
+    results = calculate_liquidation(employee)
+    print(results)  # Opcional, para ver los resultados
 except EmployeeException as e:
     print(e)
+"""

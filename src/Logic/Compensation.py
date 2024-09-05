@@ -76,9 +76,5 @@ employee = Employee(
     severance_pay_for_accrued_leave_days=365  # 1 año
 )
 
-# Probar cálculo de indemnización
-try:
-    compensation = calculate_compensation(employee, type_of_contract='indefinido', start_date='2020-01-01', end_date='2022-01-01')
-    print(f'Indemnización calculada: {compensation}')
-except Exception as e:
-    print(f"Error: {str(e)}")
+
+
