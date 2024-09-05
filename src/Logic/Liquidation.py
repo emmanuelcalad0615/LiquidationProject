@@ -123,3 +123,4 @@ def calculate_liquidation(employee):
         "vacation": vacation,
         "vacation_bonus": vacation_bonus,
         "total_liquidation": severance_pay + severance_pay_interest + service_bonus + vacation + vacation_bonus
+    }
