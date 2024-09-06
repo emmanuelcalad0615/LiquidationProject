@@ -13,7 +13,7 @@ class NegativeValueError(EmployeeException):
     def __init__(self, field, value):
         self.field = field
         self.value = value
-        super().__init__(f"Error: El valor '{value}' en el campo '{field}' no puede ser negativo.")
+        super().__init__(f"Error: The value '{value}' in the field '{field}' cannot be negative.")
 
 class IncorrectDataTypeError(EmployeeException):
     """Exception for incorrect data types."""
@@ -21,11 +21,11 @@ class IncorrectDataTypeError(EmployeeException):
         self.field = field
         self.expected_type = expected_type
         self.actual_type = actual_type
-        super().__init__(f"Error: El tipo de dato del campo '{field}' debe ser '{expected_type.__name__}' pero se recibió '{actual_type.__name__}'.")
+        super().__init__(f"Error: The data type of the field '{field}' should be '{expected_type.__name__}' but received '{actual_type.__name__}'.")
 
 class DivisionByZeroError(EmployeeException):
     """Exception for division by zero."""
-    def __init__(self, message="Error: División por cero detectada."):
+    def __init__(self, message="Error: Division by zero detected."):
         super().__init__(message)
 
 class NumberOutOfRangeError(EmployeeException):
@@ -34,14 +34,14 @@ class NumberOutOfRangeError(EmployeeException):
         self.field = field
         self.allowed_range = allowed_range
         self.value = value
-        super().__init__(f"Error: El valor '{value}' en el campo '{field}' esta fuera del rango permitido {allowed_range}.")
+        super().__init__(f"Error: The value '{value}' in the field '{field}' is outside the allowed range {allowed_range}.")
 
 class NonNumericValueError(EmployeeException):
     """Exception for non-numeric values."""
     def __init__(self, field, value):
         self.field = field
         self.value = value
-        super().__init__(f"Error: El valor '{value}' en el campo '{field}' no es un número válido.")
+        super().__init__(f"Error: The value '{value}' in the field '{field}' is not a valid number.")
 
 def validate_input(field, value, expected_type):
     if not isinstance(value, expected_type):
@@ -72,11 +72,10 @@ def verify_exceptions(employee):
 
 # Create an employee instance with test values
 employee = Employee(
-    basic_salary=877803,
-    one_twelfth_vacation_bonus=0,
-    transportation_allowance=102854,
-    worked_days=200,
-    severance_pay_for_accrued_leave_days=169,
+                basic_salary=4300000,
+                transportation_allowance=0,
+                worked_days=1,
+                severance_pay_for_accrued_leave_days=1,
 )
 
 # Function to calculate the severance pay amount
@@ -108,7 +107,7 @@ def calculate_vacation_bonus(employee):
 def calculate_liquidation(employee):
     verify_exceptions(employee)
 
-    # Calculate all El valors
+    # Calculate all the values
     severance_pay = calculate_severance_pay_amount(employee)
     severance_pay_interest = calculate_severance_pay_interest(employee, severance_pay)
     service_bonus = calculate_service_bonus(employee)
