@@ -17,8 +17,8 @@ DAYS_OF_SALARY_PER_YEAR = 20
 
 def verify_compensation_entries(type_of_contract: str, start_date: str, end_date: str):
     if not isinstance(type_of_contract, str):
-        raise IncorrectDataTypeError('type_of_contract', str, type(type_of_contract))
-    
+        raise IncorrectDataType('type_of_contract', str, type(type_of_contract))
+
     if type_of_contract not in ['fijo_1_año', 'fijo_inferior_1_año', 'indefinido']:
         raise ValueError("Tipo de contrato inválido")
 
@@ -30,9 +30,9 @@ def verify_compensation_entries(type_of_contract: str, start_date: str, end_date
 
     if start_date > end_date:
         raise ValueError("La fecha de entrada no puede ser posterior a la fecha de salida")
-    
+
 def calculate_compensation(employee: Employee, type_of_contract: str, start_date: str, end_date: str) -> float:
-    try:   
+    try:
         # Verify entries
         verify_compensation_entries(type_of_contract, start_date, end_date)
 
@@ -70,8 +70,7 @@ def calculate_compensation(employee: Employee, type_of_contract: str, start_date
 # Create an instance of employee with all parameters
 employee = Employee(
     basic_salary=2000,
-    one_twelfth_vacation_bonus=125,
     transportation_allowance=150,
-    worked_days=730, 
-    severance_pay_for_accrued_leave_days = 365 
+    worked_days=730,  
+    severance_pay_for_accrued_leave_days=365  
 )
