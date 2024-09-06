@@ -20,7 +20,7 @@ from Logic.Liquidation import (
 )
 class LiquidationTest(unittest.TestCase):
     def setUp(self):
-        """Configura el estado inicial para cada prueba"""
+        """Set the initial state for each test"""
         self.start_date = datetime(2019, 10, 28)
         self.end_date = datetime(2020, 8, 8)
 
@@ -155,7 +155,7 @@ class LiquidationTest(unittest.TestCase):
         except EmployeeException as e:
 
             self.fail(f"Error al calcular la liquidación: {str(e)}")
-    # Casos extraordinarios
+    # Extraordinary cases
 
     def testLiquidation7(self):
             employee = Employee(
@@ -293,7 +293,7 @@ class LiquidationTest(unittest.TestCase):
             except EmployeeException as e:
                 self.fail(f"Error al calcular la liquidación: {str(e)}")
 
-    # Casos de error
+    # Error cases
     def testLiquidation13(self):
         """ Basic salary negative"""
         employee = Employee(
@@ -332,7 +332,7 @@ class LiquidationTest(unittest.TestCase):
     def testLiquidation16(self):
         """ Negative basic salary """
         employee = Employee(
-            basic_salary=-1000000,  # Valor negativo
+            basic_salary=-1000000,  
             transportation_allowance=20000,
             worked_days=30,
             severance_pay_for_accrued_leave_days=10,
@@ -367,7 +367,7 @@ class LiquidationTest(unittest.TestCase):
         employee = Employee(
             basic_salary=18999,
             transportation_allowance=5654889,
-            worked_days="hola soy pobre",
+            worked_days="hola soy un simple trabajador",
             severance_pay_for_accrued_leave_days=18,
         )
         with self.assertRaises(NonNumericValueError):
