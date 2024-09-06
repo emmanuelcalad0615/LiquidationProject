@@ -92,3 +92,6 @@ def main():
                 print(f"Indemnización calculada: {compensation}")
         except Exception as e:
             print(f"Error al calcular la indemnización: {str(e)}")
+
+if __name__ == "__main__":
+    main()
