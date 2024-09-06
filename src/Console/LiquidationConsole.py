@@ -25,10 +25,10 @@ from Logic.Compensation import calculate_compensation
 def get_employee_data():
     while True:
         try:
-            basic_salary = float(input("Ingrese el salario básico del empleado: "))
-            transportation_allowance = float(input("Ingrese el auxilio de transporte del empleado: "))
-            worked_days = int(input("Ingrese los días trabajados por el empleado: "))
-            severance_pay_for_accrued_leave_days = int(input("Ingrese los días liquidados para prima del empleado: "))
+            basic_salary = float(input("Ingrese su salario básico: "))
+            transportation_allowance = float(input("Ingrese su auxilio de transporte: "))
+            worked_days = int(input("Ingrese su total de días trabajados: "))
+            severance_pay_for_accrued_leave_days = int(input("Ingrese su total de días liquidados para prima : "))
 
             # Create an instance of Employee
             employee = Employee(
