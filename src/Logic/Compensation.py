@@ -1,4 +1,4 @@
-# Este archivo contiene la lógica de los cálculos de la indemnización 
+# This file contains the logic for the calculation of compensation
 
 from datetime import datetime
 import sys
@@ -17,7 +17,7 @@ DAYS_OF_SALARY_PER_YEAR = 20
 
 def verify_compensation_entries(type_of_contract: str, start_date: str, end_date: str):
     if not isinstance(type_of_contract, str):
-        raise IncorrectDataType('type_of_contract', str, type(type_of_contract))
+        raise IncorrectDataTypeError('type_of_contract', str, type(type_of_contract))
     
     if type_of_contract not in ['fijo_1_año', 'fijo_inferior_1_año', 'indefinido']:
         raise ValueError("Tipo de contrato inválido")
