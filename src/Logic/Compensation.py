@@ -67,14 +67,11 @@ def calculate_compensation(employee: Employee, type_of_contract: str, start_date
         print(f"Error en el cálculo de la indemnización: {str(e)}")
         return None
 
-# Crear una instancia de employee con todos los parámetros
+# Create an instance of employee with all parameters
 employee = Employee(
     basic_salary=2000,
     one_twelfth_vacation_bonus=125,
     transportation_allowance=150,
-    worked_days=730,  # 2 años
-    severance_pay_for_accrued_leave_days=365  # 1 año
+    worked_days=730, 
+    severance_pay_for_accrued_leave_days = 365 
 )
-
-
-

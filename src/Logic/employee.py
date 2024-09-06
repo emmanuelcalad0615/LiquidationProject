@@ -4,10 +4,10 @@ class Employee:
     """
 
     def __init__(self, basic_salary=0, one_twelfth_vacation_bonus=0, transportation_allowance=0, worked_days=0, severance_pay_for_accrued_leave_days=0):
-        self.basic_salary = basic_salary #salario basico
-        self.one_twelfth_vacation_bonus = one_twelfth_vacation_bonus # un doceavo de la prima de vacaciones
-        self.transportation_allowance = transportation_allowance # auxilio de transporte
-        self.worked_days = worked_days # dias trabajados
+        self.basic_salary = basic_salary 
+        self.one_twelfth_vacation_bonus = one_twelfth_vacation_bonus 
+        self.transportation_allowance = transportation_allowance 
+        self.worked_days = worked_days 
         self.severance_pay_for_accrued_leave_days = severance_pay_for_accrued_leave_days # dias liquidados de la prima
         self.MONTHS_OF_THE_YEAR = 0.12 # meses del año
         self.DAYS_OF_THE_YEAR = 360 # dias del año
