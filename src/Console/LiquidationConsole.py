@@ -38,7 +38,7 @@ def get_employee_data():
                 severance_pay_for_accrued_leave_days=severance_pay_for_accrued_leave_days,
             )
 
-            # Verificar excepciones antes de proceder
+            # Verify the exceptions antes de proceder
             verify_exceptions(employee)
 
             return employee
@@ -52,7 +52,7 @@ def get_employee_data():
 
 def calculate_liquidation(employee):
     try:
-        # Calcular los diferentes componentes de la liquidación
+        # Calculate different components of liquidation
         severance_pay = calculate_severance_pay_amount(employee)
         severance_pay_interest = calculate_severance_pay_interest(employee, severance_pay)
         service_bonus = calculate_service_bonus(employee)
