@@ -72,10 +72,10 @@ def verify_exceptions(employee):
 
 # Create an employee instance with test values
 employee = Employee(
-                basic_salary=4300000,
-                transportation_allowance=0,
-                worked_days=1,
-                severance_pay_for_accrued_leave_days=1,
+            basic_salary=5689500,
+            transportation_allowance=0,
+            worked_days=729,
+            severance_pay_for_accrued_leave_days=310,
 )
 
 # Function to calculate the severance pay amount

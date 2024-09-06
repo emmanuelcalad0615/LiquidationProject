@@ -10,7 +10,7 @@ from Logic.Liquidation import (
     calculate_service_bonus,
     calculate_vacation,
     calculate_vacation_bonus,
-    verify_exceptions,  
+    verify_exceptions,
     EmployeeException,
     NegativeValueError,
     IncorrectDataTypeError,
@@ -27,12 +27,11 @@ class LiquidationTest(unittest.TestCase):
     def testLiquidation1(self):
         employee = Employee(
             basic_salary=5689500,
-            one_twelfth_vacation_bonus=5741427,
             transportation_allowance=0,
             worked_days=729,
             severance_pay_for_accrued_leave_days=310,
         )
-        expected_value=50137036
+        expected_value=307907851
         try:
             verify_exceptions(employee)
             severance_pay = calculate_severance_pay_amount(employee)
@@ -50,12 +49,10 @@ class LiquidationTest(unittest.TestCase):
     def testLiquidation2(self):
             employee = Employee(
                 basic_salary=900803,
-                one_twelfth_vacation_bonus=0,
-                transportation_allowance=80500,
                 worked_days=80,
                 severance_pay_for_accrued_leave_days=59,
             )
-            expected_value=584885
+            expected_value=1081796
             try:
                 verify_exceptions(employee)
                 severance_pay = calculate_severance_pay_amount(employee)
@@ -72,12 +69,11 @@ class LiquidationTest(unittest.TestCase):
     def testLiquidation3(self):
             employee = Employee(
                 basic_salary=1450023,
-                one_twelfth_vacation_bonus=0,
                 transportation_allowance=120018,
                 worked_days=169,
                 severance_pay_for_accrued_leave_days=30,
             )
-            expected_value=1590110
+            expected_value=5700621
             try:
                 verify_exceptions(employee)
                 severance_pay = calculate_severance_pay_amount(employee)
@@ -95,12 +91,11 @@ class LiquidationTest(unittest.TestCase):
     def testLiquidation4(self):
             employee = Employee(
                 basic_salary=3638092,
-                one_twelfth_vacation_bonus=0,
                 transportation_allowance=0,
                 worked_days=888,
                 severance_pay_for_accrued_leave_days=154,
             )
-            expected_value=22160507
+            expected_value=285133431
             try:
                 verify_exceptions(employee)
                 severance_pay = calculate_severance_pay_amount(employee)
@@ -119,12 +114,11 @@ class LiquidationTest(unittest.TestCase):
     def testLiquidation5(self):
         employee = Employee(
             basic_salary=5128350,
-            one_twelfth_vacation_bonus=854725,
-            transportation_allowance=500854,
+            transportation_allowance=502854,
             worked_days=120,
             severance_pay_for_accrued_leave_days=79,
         )
-        expected_value = 5380074
+        expected_value = 12330526
         try:
             verify_exceptions(employee)
             severance_pay = calculate_severance_pay_amount(employee)
@@ -142,12 +136,11 @@ class LiquidationTest(unittest.TestCase):
     def testLiquidation6(self):
         employee = Employee(
             basic_salary=877803,
-            one_twelfth_vacation_bonus=0,
             transportation_allowance=102854,
             worked_days=210,
             severance_pay_for_accrued_leave_days=169,
         )
-        expected_value=1584510
+        expected_value=5548816
         try:
             verify_exceptions(employee)
             severance_pay = calculate_severance_pay_amount(employee)
@@ -167,12 +160,11 @@ class LiquidationTest(unittest.TestCase):
     def testLiquidation7(self):
             employee = Employee(
                 basic_salary=5689500,
-                one_twelfth_vacation_bonus=0,
                 transportation_allowance=0,
                 worked_days=999,
                 severance_pay_for_accrued_leave_days=999,
             )
-            expected_value=52622611
+            expected_value=573117541
             try:
                 verify_exceptions(employee)
                 severance_pay = calculate_severance_pay_amount(employee)
@@ -191,7 +183,6 @@ class LiquidationTest(unittest.TestCase):
     def testLiquidation8(self):
             employee = Employee(
                 basic_salary=900803,
-                one_twelfth_vacation_bonus=0,
                 transportation_allowance=80500,
                 worked_days=0,
                 severance_pay_for_accrued_leave_days=0,
@@ -215,12 +206,11 @@ class LiquidationTest(unittest.TestCase):
     def testLiquidation9(self):
             employee = Employee(
                 basic_salary=3450023,
-                one_twelfth_vacation_bonus=0,
                 transportation_allowance=0,
                 worked_days=69,
                 severance_pay_for_accrued_leave_days=0,
             )
-            expected_value=1337717
+            expected_value=2843392
             try:
                 verify_exceptions(employee)
                 severance_pay = calculate_severance_pay_amount(employee)
@@ -238,7 +228,6 @@ class LiquidationTest(unittest.TestCase):
     def testLiquidation10(self):
             employee = Employee(
                 basic_salary=26660000,
-                one_twelfth_vacation_bonus=0,
                 transportation_allowance=0,
                 worked_days=0,
                 severance_pay_for_accrued_leave_days=0,
@@ -262,12 +251,11 @@ class LiquidationTest(unittest.TestCase):
     def testLiquidation11(self):
             employee = Employee(
                 basic_salary=2230000,
-                one_twelfth_vacation_bonus=0,
                 transportation_allowance=0,
                 worked_days=1,
                 severance_pay_for_accrued_leave_days=400,
             )
-            expected_value=2490168
+            expected_value=2490372
             try:
                 verify_exceptions(employee)
                 severance_pay = calculate_severance_pay_amount(employee)
@@ -286,12 +274,11 @@ class LiquidationTest(unittest.TestCase):
     def testLiquidation12(self):
             employee = Employee(
                 basic_salary=4300000,
-                one_twelfth_vacation_bonus=0,
                 transportation_allowance=0,
                 worked_days=1,
                 severance_pay_for_accrued_leave_days=1,
             )
-            expected_value=35836
+            expected_value=36230
             try:
                 verify_exceptions(employee)
                 severance_pay = calculate_severance_pay_amount(employee)
@@ -311,7 +298,6 @@ class LiquidationTest(unittest.TestCase):
         """ Basic salary negative"""
         employee = Employee(
             basic_salary=-12895,
-            one_twelfth_vacation_bonus=0,
             transportation_allowance=5654889,
             worked_days=8,
             severance_pay_for_accrued_leave_days=18,
@@ -324,8 +310,7 @@ class LiquidationTest(unittest.TestCase):
     def testLiquidation14(self):
         """Negative salary for worked days"""
         employee = Employee(
-            basic_salary=-1000000,  
-            one_twelfth_vacation_bonus=50000,
+            basic_salary=-1000000,
             transportation_allowance=20000,
             worked_days=-30,
             severance_pay_for_accrued_leave_days=10,
@@ -337,7 +322,6 @@ class LiquidationTest(unittest.TestCase):
         """ Negative worked days """
         employee = Employee(
             basic_salary=-12895,
-            one_twelfth_vacation_bonus=0,
             transportation_allowance=5654889,
             worked_days=8,
             severance_pay_for_accrued_leave_days=18,
@@ -349,7 +333,6 @@ class LiquidationTest(unittest.TestCase):
         """ Negative basic salary """
         employee = Employee(
             basic_salary=-1000000,  # Valor negativo
-            one_twelfth_vacation_bonus=50000,
             transportation_allowance=20000,
             worked_days=30,
             severance_pay_for_accrued_leave_days=10,
@@ -360,10 +343,9 @@ class LiquidationTest(unittest.TestCase):
     def testLiquidation17(self):
         """ Incorrect data """
         employee = Employee(
-            basic_salary="sapo",
-            one_twelfth_vacation_bonus=0,
+            basic_salary=1999,
             transportation_allowance=5654889,
-            worked_days=8,
+            worked_days="sapo",
             severance_pay_for_accrued_leave_days=18,
         )
         with self.assertRaises(NonNumericValueError):
@@ -373,7 +355,6 @@ class LiquidationTest(unittest.TestCase):
         """ Incorrect Data """
         employee = Employee(
             basic_salary=194985,
-            one_twelfth_vacation_bonus=0,
             transportation_allowance=5654889,
             worked_days=8,
             severance_pay_for_accrued_leave_days="no me dijieron en la empresa",
@@ -385,9 +366,8 @@ class LiquidationTest(unittest.TestCase):
         """ Incorrect Data """
         employee = Employee(
             basic_salary=18999,
-            one_twelfth_vacation_bonus="soy pobre",
             transportation_allowance=5654889,
-            worked_days=8,
+            worked_days="hola soy pobre",
             severance_pay_for_accrued_leave_days=18,
         )
         with self.assertRaises(NonNumericValueError):
@@ -396,8 +376,7 @@ class LiquidationTest(unittest.TestCase):
     def testLiquidation20(self):
         """ Incorrect data """
         employee = Employee(
-            basic_salary="sapo",
-            one_twelfth_vacation_bonus=0,
+            basic_salary=18999,
             transportation_allowance="error_data",
             worked_days=8,
             severance_pay_for_accrued_leave_days=18,
