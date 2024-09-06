@@ -1,10 +1,11 @@
 import os
 import sys
 from datetime import datetime
-# Agrega el directorio padre al PATH.
+
+# This adds the parent directory to the PATH
 sys.path.append("src")
 
-# Importar los módulos
+# Importing the modules
 from Logic.employee import Employee
 from Logic.Liquidation import (
     calculate_severance_pay_amount,
@@ -25,15 +26,13 @@ def get_employee_data():
     while True:
         try:
             basic_salary = float(input("Ingrese el salario básico del empleado: "))
-            one_twelfth_vacation_bonus = float(input("Ingrese un doceavo de prima de vacaciones del empleado: "))
             transportation_allowance = float(input("Ingrese el auxilio de transporte del empleado: "))
             worked_days = int(input("Ingrese los días trabajados por el empleado: "))
             severance_pay_for_accrued_leave_days = int(input("Ingrese los días liquidados para prima del empleado: "))
 
-            # Crear una instancia de Employee
+            # Create an instance of Employee
             employee = Employee(
                 basic_salary=basic_salary,
-                one_twelfth_vacation_bonus=one_twelfth_vacation_bonus,
                 transportation_allowance=transportation_allowance,
                 worked_days=worked_days,
                 severance_pay_for_accrued_leave_days=severance_pay_for_accrued_leave_days,
