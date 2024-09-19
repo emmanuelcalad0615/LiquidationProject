@@ -3,6 +3,10 @@ sys.path.append("src")
 
 from Logic.employee import Employee
 
+from decimal import Decimal, ROUND_HALF_UP
+
+
+
 # Definition of custom exceptions
 class EmployeeException(Exception):
     """Base class for exceptions related to the Employee class."""
@@ -46,21 +50,34 @@ class NonNumericValueError(EmployeeException):
 def validate_input(field, value, expected_type):
     if not isinstance(value, expected_type):
         try:
-            # Try converting to float to check if it's numeric
+            # Intentar convertir el valor a float para ver si es numérico
             float(value)
         except (ValueError, TypeError):
+            # Si la conversión falla, es un valor no numérico
             raise NonNumericValueError(field, value)
+        # Si se convierte correctamente a float, lanzar excepción de tipo incorrecto
         raise IncorrectDataTypeError(field, expected_type, type(value))
+    # Verificar si el valor es negativo
     if value < 0:
         raise NegativeValueError(field, value)
 
+
 def verify_exceptions(employee):
-    # Verifying data type and negative values
-    validate_input("basic_salary", employee.basic_salary, (int, float))
-    validate_input("one_twelfth_vacation_bonus", employee.one_twelfth_vacation_bonus, (int, float))
+    # Verificando tipo de datos y valores negativos
+    validate_input("basic_monthly_salary", employee.basic_monthly_salary, (int, float))
     validate_input("transportation_allowance", employee.transportation_allowance, (int, float))
     validate_input("worked_days", employee.worked_days, int)
     validate_input("severance_pay_for_accrued_leave_days", employee.severance_pay_for_accrued_leave_days, int)
+
+def verify_constants():
+    # Validando constantes para asegurar que no hay divisiones por cero
+    if DAYS_OF_THE_YEAR == 0:
+        raise DivisionByZeroError("Error: 'DAYS_OF_THE_YEAR' cannot be zero.")
+    if HALF_A_SEMESTER_WORKED == 0:
+        raise DivisionByZeroError("Error: 'HALF_A_SEMESTER_WORKED' cannot be zero.")
+    if DAYS_PER_MONTH == 0:
+        raise DivisionByZeroError("Error: 'DAYS_PER_MONTH' cannot be zero.")
+
 
     # Check possible divisions by zero
     if employee.DAYS_OF_THE_YEAR == 0:
@@ -72,54 +89,70 @@ def verify_exceptions(employee):
 
 # Create an employee instance with test values
 employee = Employee(
-            basic_salary=5689500,
-            transportation_allowance=0,
-            worked_days=729,
-            severance_pay_for_accrued_leave_days=310,
+            basic_monthly_salary=689455,
+            transportation_allowance=77700,
+            worked_days=360
 )
+
+PERCENTAGE_OF_SEVERANCE_PAY = 0.12 
+MONTHS_OF_THE_YEAR = 12
+DAYS_OF_THE_YEAR = 360 
+VACATION_PER_YEAR = 15 
+DAYS_PER_MONTH = 30
+HALF_A_SEMESTER_WORKED = 2 
+DAYS_WORKED_IN_THE_SEMESTER = 180 
+TOTAL_SEMIANNUAL_PREMIUM_INSTALLMENTS = 0.6 
+HOUR_WORKED_IN_A_SEMESTER = 720
 
 # Function to calculate the severance pay amount
 def calculate_severance_pay_amount(employee: Employee):
-    severance_pay = round((employee.basic_salary + employee.one_twelfth_vacation_bonus + employee.transportation_allowance) / employee.DAYS_OF_THE_YEAR * employee.worked_days)
-    return severance_pay
-
+    severance_pay = round((employee.average_salary * employee.worked_days)/ DAYS_OF_THE_YEAR)
+    return  severance_pay
 # Function to calculate the interest amount on severance pay
 def calculate_severance_pay_interest(employee: Employee, severance_pay):
-    severance_pay_interest = round((severance_pay * employee.MONTHS_OF_THE_YEAR) / employee.DAYS_OF_THE_YEAR * employee.worked_days)
+    severance_pay_interest = round((severance_pay*employee.worked_days*PERCENTAGE_OF_SEVERANCE_PAY)/DAYS_OF_THE_YEAR)
     return severance_pay_interest
-
 # Function to calculate the service bonus amount
-def calculate_service_bonus(employee):
-    service_bonus = round((employee.basic_salary + employee.one_twelfth_vacation_bonus + employee.transportation_allowance) / employee.HALF_A_SEMESTER_WORKED / employee.DAYS_WORKED_IN_THE_SEMESTER * employee.severance_pay_for_accrued_leave_days)
+def calculate_service_bonus(employee: Employee):
+    service_bonus = round((employee.average_salary * employee.worked_days) / DAYS_OF_THE_YEAR)
     return service_bonus
 
+
 # Function to calculate vacation days
-def calculate_vacation(employee):
-    vacation = round((employee.basic_salary / employee.DAYS_PER_MONTH) * (employee.worked_days * employee.VACATION_PER_YEAR / employee.DAYS_OF_THE_YEAR))
+def calculate_vacation(employee: Employee):
+    vacation = round((employee.basic_monthly_salary * employee.worked_days)/HOUR_WORKED_IN_A_SEMESTER)
     return vacation
 
-# Function to calculate the vacation bonus amount
-def calculate_vacation_bonus(employee):
-    vacation_bonus = round((employee.basic_salary / employee.DAYS_PER_MONTH) * (employee.worked_days * employee.VACATION_PER_YEAR / employee.DAYS_OF_THE_YEAR))
-    return vacation_bonus
 
 # Function to calculate the final settlement amount
 def calculate_liquidation(employee):
+    # Validar el objeto empleado
     verify_exceptions(employee)
+    
+    # Validar las constantes antes de los cálculos
+    verify_constants()
 
-    # Calculate all the values
+    # Calcular todos los valores
     severance_pay = calculate_severance_pay_amount(employee)
     severance_pay_interest = calculate_severance_pay_interest(employee, severance_pay)
     service_bonus = calculate_service_bonus(employee)
     vacation = calculate_vacation(employee)
-    vacation_bonus = calculate_vacation_bonus(employee)
-
-    # Return the results on a dictionary
+    total_liquidation = round(severance_pay + severance_pay_interest + service_bonus + vacation)
+    # Retornar los resultados en un diccionario
     return {
         "severance_pay": severance_pay,
         "severance_pay_interest": severance_pay_interest,
         "service_bonus": service_bonus,
         "vacation": vacation,
-        "vacation_bonus": vacation_bonus,
-        "total_liquidation": severance_pay + severance_pay_interest + service_bonus + vacation + vacation_bonus
+        "total_liquidation": total_liquidation
     }
+# Probar el cálculo de liquidación con el objeto 'employee' definido
+result = calculate_liquidation(employee)
+
+# Imprimir el resultado para verificarlo manualmente
+print("Resultados de Liquidación:")
+print(f"Cesantías: {result['severance_pay']}")
+print(f"Intereses sobre Cesantías: {result['severance_pay_interest']}")
+print(f"Prima de Servicios: {result['service_bonus']}")
+print(f"Vacaciones: {result['vacation']}")
+print(f"Liquidación Total: {result['total_liquidation']}")
