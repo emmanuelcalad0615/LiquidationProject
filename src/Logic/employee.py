@@ -16,7 +16,7 @@ class Employee:
         self.HALF_A_SEMESTER_WORKED = 2 
         self.DAYS_WORKED_IN_THE_SEMESTER = 180 
         self.TOTAL_SEMIANNUAL_PREMIUM_INSTALLMENTS = 0.6 
-        self.average_salary=self.basic_monthly_salary + self.transportation_allowance
+        self.average_salary=self.basic_monthly_salary+ self.transportation_allowance
         self.HOUR_WORKED_IN_A_SEMESTER = 720
 
 
