@@ -80,11 +80,11 @@ def verify_constants():
 
 
     # Check possible divisions by zero
-    if employee.DAYS_OF_THE_YEAR == 0:
+    if DAYS_OF_THE_YEAR == 0:
         raise DivisionByZeroError("Error: 'DAYS_OF_THE_YEAR' cannot be zero.")
-    if employee.HALF_A_SEMESTER_WORKED == 0:
+    if HALF_A_SEMESTER_WORKED == 0:
         raise DivisionByZeroError("Error: 'HALF_A_SEMESTER_WORKED' cannot be zero.")
-    if employee.DAYS_PER_MONTH == 0:
+    if DAYS_PER_MONTH == 0:
         raise DivisionByZeroError("Error: 'DAYS_PER_MONTH' cannot be zero.")
 
 # Create an employee instance with test values
@@ -97,7 +97,7 @@ employee = Employee(
 PERCENTAGE_OF_SEVERANCE_PAY = 0.12 
 MONTHS_OF_THE_YEAR = 12
 DAYS_OF_THE_YEAR = 360 
-VACATION_PER_YEAR = 15 
+VACATION_PER_YEAR = 15
 DAYS_PER_MONTH = 30
 HALF_A_SEMESTER_WORKED = 2 
 DAYS_WORKED_IN_THE_SEMESTER = 180 
