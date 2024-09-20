@@ -23,9 +23,8 @@ from Logic.Liquidation import (
     DivisionByZeroError,
     NumberOutOfRangeError
 )
-sys.path.append("GUI")
 from Logic.Compensation import calculate_compensation
-sys.path.append("GUI")
+
 # Definir variables globales de fuente
 FONT_NAME = 'Londona-reguler.otf'  # Cambia esto por la ruta a tu archivo .ttf
 FONT_SIZE = '30sp'  # Tamaño de la fuente para todos los textos
@@ -106,9 +105,18 @@ class ResultScreen(Screen):
         self.liquidation_details = Label(text="", font_size=FONT_SIZE, font_name=FONT_NAME)
         self.layout.add_widget(self.liquidation_details)
         
-        back_button = Button(text="Volver", size_hint=(1, 0.2), font_size=FONT_SIZE, font_name=FONT_NAME)
+        # Layout para los botones en la parte inferior
+        button_layout = BoxLayout(size_hint=(1, 0.2), spacing=10)
+        
+        back_button = Button(text="Volver", font_size=FONT_SIZE, font_name=FONT_NAME)
         back_button.bind(on_release=self.go_back)
-        self.layout.add_widget(back_button)
+        button_layout.add_widget(back_button)
+        
+        compensation_button = Button(text="Escoger Indemnización", font_size=FONT_SIZE, font_name=FONT_NAME)
+        compensation_button.bind(on_release=self.go_to_compensation)
+        button_layout.add_widget(compensation_button)
+        
+        self.layout.add_widget(button_layout)
         
         self.add_widget(self.layout)
     
@@ -138,6 +146,44 @@ class ResultScreen(Screen):
     
     def go_back(self, *args):
         self.manager.current = 'data'
+    
+    def go_to_compensation(self, *args):
+        self.manager.current = 'compensation'
+
+# Pantalla para el cálculo de la indemnización
+class CompensationScreen(Screen):
+    def __init__(self, **kwargs):
+        super(CompensationScreen, self).__init__(**kwargs)
+        self.layout = BoxLayout(orientation='vertical', padding=10, spacing=10)
+        
+        self.compensation_label = Label(text="Cálculo de la Indemnización", font_size=FONT_SIZE, font_name=FONT_NAME)
+        self.layout.add_widget(self.compensation_label)
+        
+        self.compensation_details = Label(text="", font_size=FONT_SIZE, font_name=FONT_NAME)
+        self.layout.add_widget(self.compensation_details)
+        
+        back_button = Button(text="Volver", font_size=FONT_SIZE, font_name=FONT_NAME)
+        back_button.bind(on_release=self.go_back)
+        self.layout.add_widget(back_button)
+        
+        self.add_widget(self.layout)
+    
+    def on_enter(self, *args):
+        employee = self.manager.employee
+        
+        try:
+            # Calcular la indemnización
+            compensation = calculate_compensation(employee)
+
+            # Mostrar resultados
+            results = f"Indemnización Total: {compensation}"
+            self.compensation_details.text = results
+
+        except EmployeeException as e:
+            self.compensation_details.text = f"Error al calcular la indemnización: {str(e)}"
+    
+    def go_back(self, *args):
+        self.manager.current = 'result'
 
 # Pantalla principal para manejar la navegación
 class LiquidationApp(App):
@@ -146,6 +192,7 @@ class LiquidationApp(App):
         sm.add_widget(WelcomeScreen(name='welcome'))
         sm.add_widget(EmployeeDataScreen(name='data'))
         sm.add_widget(ResultScreen(name='result'))
+        sm.add_widget(CompensationScreen(name='compensation'))
         return sm
 
 if __name__ == "__main__":

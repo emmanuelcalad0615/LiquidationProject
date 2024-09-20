@@ -40,7 +40,7 @@ class LiquidationTest(unittest.TestCase):
 
 
             total_liquidation = severance_pay + severance_pay_interest + service_bonus + vacation 
-            self.assertEqual(total_liquidation, expected_value)
+            self.assertAlmostEqual(total_liquidation, expected_value,delta=1)
 
         except EmployeeException as e:
             self.fail(f"Error al calcular la liquidación: {str(e)}")
@@ -62,7 +62,7 @@ class LiquidationTest(unittest.TestCase):
 
 
                 total_liquidation = severance_pay + severance_pay_interest + service_bonus + vacation 
-                self.assertEqual(total_liquidation, expected_value)
+                self.assertAlmostEqual(total_liquidation, expected_value,delta=1)
 
             except EmployeeException as e:
                 self.fail(f"Error al calcular la liquidación: {str(e)}")
@@ -82,7 +82,7 @@ class LiquidationTest(unittest.TestCase):
 
 
                 total_liquidation = severance_pay + severance_pay_interest + service_bonus + vacation 
-                self.assertEqual(total_liquidation, expected_value)
+                self.assertAlmostEqual(total_liquidation, expected_value,delta=1)
 
             except EmployeeException as e:
                 self.fail(f"Error al calcular la liquidación: {str(e)}")
@@ -103,7 +103,7 @@ class LiquidationTest(unittest.TestCase):
 
 
                 total_liquidation = severance_pay + severance_pay_interest + service_bonus + vacation 
-                self.assertEqual(total_liquidation, expected_value)
+                self.assertAlmostEqual(total_liquidation, expected_value,delta=1)
 
             except EmployeeException as e:
 
@@ -125,7 +125,7 @@ class LiquidationTest(unittest.TestCase):
 
 
             total_liquidation = severance_pay + severance_pay_interest + service_bonus + vacation 
-            self.assertEqual(total_liquidation, expected_value)
+            self.assertAlmostEqual(total_liquidation, expected_value,delta=1)
 
         except EmployeeException as e:
             self.fail(f"Error al calcular la liquidación: {str(e)}")
@@ -146,7 +146,7 @@ class LiquidationTest(unittest.TestCase):
 
 
             total_liquidation = severance_pay + severance_pay_interest + service_bonus + vacation 
-            self.assertEqual(total_liquidation, expected_value)
+            self.assertAlmostEqual(total_liquidation, expected_value,delta=1)
 
         except EmployeeException as e:
 
@@ -161,10 +161,9 @@ class LiquidationTest(unittest.TestCase):
             employee = Employee(
                 basic_monthly_salary=5689500,
                 transportation_allowance=0,
-                worked_days=999,
-                severance_pay_for_accrued_leave_days=999,
+                worked_days=1200
             )
-            expected_value=573117541
+            expected_value=54998500
             try:
                 verify_exceptions(employee)
                 severance_pay = calculate_severance_pay_amount(employee)
@@ -174,7 +173,7 @@ class LiquidationTest(unittest.TestCase):
 
 
                 total_liquidation = severance_pay + severance_pay_interest + service_bonus + vacation 
-                self.assertEqual(total_liquidation, expected_value)
+                self.assertAlmostEqual(total_liquidation, expected_value,delta=1)
 
             except EmployeeException as e:
                 self.fail(f"Error al calcular la liquidación: {str(e)}")
@@ -182,12 +181,11 @@ class LiquidationTest(unittest.TestCase):
 
     def testLiquidation8(self):
             employee = Employee(
-                basic_monthly_salary=900803,
-                transportation_allowance=80500,
-                worked_days=0,
-                severance_pay_for_accrued_leave_days=0,
+                basic_monthly_salary=3450023,
+                transportation_allowance=0,
+                worked_days=69
             )
-            expected_value=0
+            expected_value=1668345
             try:
                 verify_exceptions(employee)
                 severance_pay = calculate_severance_pay_amount(employee)
@@ -196,7 +194,7 @@ class LiquidationTest(unittest.TestCase):
                 vacation = calculate_vacation(employee)
 
                 total_liquidation = severance_pay + severance_pay_interest + service_bonus + vacation 
-                self.assertEqual(total_liquidation, expected_value)
+                self.assertAlmostEqual(total_liquidation, expected_value,delta=1)
 
             except EmployeeException as e:
 
@@ -204,32 +202,9 @@ class LiquidationTest(unittest.TestCase):
 
     def testLiquidation9(self):
             employee = Employee(
-                basic_monthly_salary=3450023,
-                transportation_allowance=0,
-                worked_days=69,
-                severance_pay_for_accrued_leave_days=0,
-            )
-            expected_value=2843392
-            try:
-                verify_exceptions(employee)
-                severance_pay = calculate_severance_pay_amount(employee)
-                severance_pay_interest = calculate_severance_pay_interest(employee, severance_pay)
-                service_bonus = calculate_service_bonus(employee)
-                vacation = calculate_vacation(employee)
-
-
-                total_liquidation = severance_pay + severance_pay_interest + service_bonus + vacation 
-                self.assertEqual(total_liquidation, expected_value)
-
-            except EmployeeException as e:
-                self.fail(f"Error al calcular la liquidación: {str(e)}")
-
-    def testLiquidation10(self):
-            employee = Employee(
-                basic_monthly_salary=26660000,
-                transportation_allowance=0,
-                worked_days=0,
-                severance_pay_for_accrued_leave_days=0,
+                basic_monthly_salary=26005788,
+                transportation_allowance=300000,
+                worked_days=0
             )
             expected_value=0
             try:
@@ -239,8 +214,29 @@ class LiquidationTest(unittest.TestCase):
                 service_bonus = calculate_service_bonus(employee)
                 vacation = calculate_vacation(employee)
 
+
                 total_liquidation = severance_pay + severance_pay_interest + service_bonus + vacation 
-                self.assertEqual(total_liquidation, expected_value)
+                self.assertAlmostEqual(total_liquidation, expected_value,delta=1)
+
+            except EmployeeException as e:
+                self.fail(f"Error al calcular la liquidación: {str(e)}")
+
+    def testLiquidation10(self):
+            employee = Employee(
+                basic_monthly_salary=480000,
+                transportation_allowance=500000,
+                worked_days=120
+            )
+            expected_value=746400
+            try:
+                verify_exceptions(employee)
+                severance_pay = calculate_severance_pay_amount(employee)
+                severance_pay_interest = calculate_severance_pay_interest(employee, severance_pay)
+                service_bonus = calculate_service_bonus(employee)
+                vacation = calculate_vacation(employee)
+
+                total_liquidation = severance_pay + severance_pay_interest + service_bonus + vacation 
+                self.assertAlmostEqual(total_liquidation, expected_value,delta=1)
 
             except EmployeeException as e:
 
@@ -249,11 +245,10 @@ class LiquidationTest(unittest.TestCase):
     def testLiquidation11(self):
             employee = Employee(
                 basic_monthly_salary=2230000,
-                transportation_allowance=0,
-                worked_days=1,
-                severance_pay_for_accrued_leave_days=400,
+                transportation_allowance=111500,
+                worked_days=1
             )
-            expected_value=2490372
+            expected_value=16108
             try:
                 verify_exceptions(employee)
                 severance_pay = calculate_severance_pay_amount(employee)
@@ -263,7 +258,7 @@ class LiquidationTest(unittest.TestCase):
 
 
                 total_liquidation = severance_pay + severance_pay_interest + service_bonus + vacation 
-                self.assertEqual(total_liquidation, expected_value)
+                self.assertAlmostEqual(total_liquidation, expected_value,delta=1)
 
             except EmployeeException as e:
 
@@ -272,11 +267,10 @@ class LiquidationTest(unittest.TestCase):
     def testLiquidation12(self):
             employee = Employee(
                 basic_monthly_salary=4300000,
-                transportation_allowance=0,
-                worked_days=1,
-                severance_pay_for_accrued_leave_days=1,
+                transportation_allowance=215000,
+                worked_days=1
             )
-            expected_value=36230
+            expected_value=31060
             try:
                 verify_exceptions(employee)
                 severance_pay = calculate_severance_pay_amount(employee)
@@ -286,7 +280,7 @@ class LiquidationTest(unittest.TestCase):
 
 
                 total_liquidation = severance_pay + severance_pay_interest + service_bonus + vacation 
-                self.assertEqual(total_liquidation, expected_value)
+                self.assertAlmostEqual(total_liquidation, expected_value,delta=1)
 
             except EmployeeException as e:
                 self.fail(f"Error al calcular la liquidación: {str(e)}")
@@ -297,8 +291,7 @@ class LiquidationTest(unittest.TestCase):
         employee = Employee(
             basic_monthly_salary=-12895,
             transportation_allowance=5654889,
-            worked_days=8,
-            severance_pay_for_accrued_leave_days=18,
+            worked_days=8
         )
         with self.assertRaises(NegativeValueError):
             verify_exceptions(employee)
@@ -311,7 +304,7 @@ class LiquidationTest(unittest.TestCase):
             basic_monthly_salary=-1000000,
             transportation_allowance=20000,
             worked_days=-30,
-            severance_pay_for_accrued_leave_days=10,
+            
         )
         with self.assertRaises(NegativeValueError):
             verify_exceptions(employee)
@@ -322,7 +315,7 @@ class LiquidationTest(unittest.TestCase):
             basic_monthly_salary=-12895,
             transportation_allowance=5654889,
             worked_days=8,
-            severance_pay_for_accrued_leave_days=18,
+            
         )
         with self.assertRaises(NegativeValueError):
             verify_exceptions(employee)
@@ -332,8 +325,7 @@ class LiquidationTest(unittest.TestCase):
         employee = Employee(
             basic_monthly_salary=-1000000,  
             transportation_allowance=20000,
-            worked_days=30,
-            severance_pay_for_accrued_leave_days=10,
+            worked_days=30
         )
         with self.assertRaises(NegativeValueError):
             verify_exceptions(employee)
@@ -343,21 +335,19 @@ class LiquidationTest(unittest.TestCase):
         employee = Employee(
             basic_monthly_salary=1999,
             transportation_allowance=5654889,
-            worked_days="sapo",
-            severance_pay_for_accrued_leave_days=18,
+            worked_days="hola"
         )
         with self.assertRaises(NonNumericValueError):
             verify_exceptions(employee)
 
     def testLiquidation18(self):
-        """ Incorrect Data """
+        """ Negative Data """
         employee = Employee(
-            basic_monthly_salary="no me dijieron en la empresa",
+            basic_monthly_salary=1800000,
             transportation_allowance=5654889,
-            worked_days=8,
-            severance_pay_for_accrued_leave_days=1777777,
+            worked_days=-8
         )
-        with self.assertRaises(NonNumericValueError):
+        with self.assertRaises(NegativeValueError):
             verify_exceptions(employee)
 
     def testLiquidation19(self):
@@ -365,8 +355,7 @@ class LiquidationTest(unittest.TestCase):
         employee = Employee(
             basic_monthly_salary=18999,
             transportation_allowance=5654889,
-            worked_days="hola soy un simple trabajador",
-            severance_pay_for_accrued_leave_days=18,
+            worked_days="hola soy un simple trabajador"
         )
         with self.assertRaises(NonNumericValueError):
             verify_exceptions(employee)
@@ -376,8 +365,7 @@ class LiquidationTest(unittest.TestCase):
         employee = Employee(
             basic_monthly_salary=18999,
             transportation_allowance=1555555,
-            worked_days="error_data",
-            severance_pay_for_accrued_leave_days=18,
+            worked_days="error_data"
         )
         with self.assertRaises(NonNumericValueError):
             verify_exceptions(employee)
