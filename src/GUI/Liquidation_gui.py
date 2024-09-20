@@ -8,7 +8,7 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 import os
 import sys
 sys.path.append("src")
-# Importando los módulos requeridos
+# Importing the required modules
 from Logic.employee import Employee
 from Logic.Liquidation import (
     calculate_severance_pay_amount,
@@ -24,7 +24,7 @@ from Logic.Liquidation import (
 )
 from Logic.Compensation import calculate_compensation
 
-# Pantalla de Bienvenida
+# Welcome screen
 class WelcomeScreen(Screen):
     def __init__(self, **kwargs):
         super(WelcomeScreen, self).__init__(**kwargs)
@@ -40,7 +40,7 @@ class WelcomeScreen(Screen):
     def go_to_data(self, *args):
         self.manager.current = 'data'
 
-# Pantalla para ingresar los datos del empleado
+# Screen to enter employee data
 class EmployeeDataScreen(Screen):
     def __init__(self, **kwargs):
         super(EmployeeDataScreen, self).__init__(**kwargs)
@@ -76,10 +76,10 @@ class EmployeeDataScreen(Screen):
                 worked_days=worked_days,
             )
             
-            # Verificar excepciones
+            # Verifying excepctions
             verify_exceptions(employee)
             
-            # Guardar el empleado en la instancia del administrador de pantallas
+            # Save the employee in the instance of the screen manage
             self.manager.employee = employee
             self.manager.current = 'result'
             
@@ -88,7 +88,7 @@ class EmployeeDataScreen(Screen):
         except Exception as e:
             print(f"Error al crear el objeto empleado: {str(e)}")
 
-# Pantalla para mostrar los resultados de la liquidación
+# Screen to show liquidation results
 class ResultScreen(Screen):
     def __init__(self, **kwargs):
         super(ResultScreen, self).__init__(**kwargs)
@@ -110,7 +110,7 @@ class ResultScreen(Screen):
         employee = self.manager.employee
         
         try:
-            # Calcular los diferentes componentes de la liquidación
+            # Calculate the different components of compensation
             severance_pay = calculate_severance_pay_amount(employee)
             severance_pay_interest = calculate_severance_pay_interest(employee, severance_pay)
             service_bonus = calculate_service_bonus(employee)
@@ -118,7 +118,7 @@ class ResultScreen(Screen):
             
             total_liquidation = severance_pay + severance_pay_interest + service_bonus + vacation
 
-            # Mostrar resultados
+            # Showing results
             results = (f"Cesantías: {severance_pay}\n"
                        f"Intereses de cesantías: {severance_pay_interest}\n"
                        f"Prima de servicios: {service_bonus}\n"
@@ -133,7 +133,7 @@ class ResultScreen(Screen):
     def go_back(self, *args):
         self.manager.current = 'data'
 
-# Pantalla principal para manejar la navegación
+# Main screen for handling navigation
 class LiquidationApp(App):
     def build(self):
         sm = ScreenManager()
