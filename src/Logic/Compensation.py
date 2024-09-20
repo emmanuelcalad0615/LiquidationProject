@@ -8,7 +8,7 @@ from Logic.Liquidation import (
     IncorrectDataTypeError,
     DivisionByZeroError,
     NumberOutOfRangeError,    
-    PERCENTAGE_OF_SEVERANCE_PAY,  # Importa las constantes necesarias
+    PERCENTAGE_OF_SEVERANCE_PAY,  # Importing the constants
     MONTHS_OF_THE_YEAR,
     DAYS_OF_THE_YEAR,
     DAYS_PER_MONTH
@@ -35,10 +35,10 @@ def verify_compensation_entries(type_of_contract: str, start_date: str, end_date
 
 def calculate_compensation(employee: Employee, type_of_contract: str, start_date: str, end_date: str) -> float:
     try:
-        # Verificar entradas
+        # Verifying entries
         verify_compensation_entries(type_of_contract, start_date, end_date)
 
-        # Validar fechas
+        # Validating dates
         start_date = datetime.strptime(start_date, '%Y-%m-%d')
         end_date = datetime.strptime(end_date, '%Y-%m-%d')
 
@@ -47,42 +47,42 @@ def calculate_compensation(employee: Employee, type_of_contract: str, start_date
         worked_years = worked_days // DAYS_OF_THE_YEAR
         worked_months = (worked_days % DAYS_OF_THE_YEAR) // DAYS_PER_MONTH
 
-        # Contrato a término fijo de 1 año
+        # 1-year fixed-term contract
         if type_of_contract == 'fijo_1_año':
             remaining_months = MONTHS_OF_THE_YEAR - worked_months
             compensation = employee.basic_monthly_salary * remaining_months
 
-        # Contrato a término fijo inferior a 1 año
+        # Fixed-term contract of less than 1 year
         elif type_of_contract == 'fijo_inferior_1_año':
             remaining_months = MONTHS_OF_THE_YEAR - worked_months
             compensation = max(employee.basic_monthly_salary * (remaining_months / MONTHS_OF_THE_YEAR) * DAYS_PER_MONTH,
                                employee.basic_monthly_salary * (MINIMUM_COMPENSATION_DAYS / DAYS_PER_MONTH))
 
-        # Contrato a término indefinido
+        # Indefinite-term contract
         elif type_of_contract == 'indefinido':
             basic_monthly_salary = employee.basic_monthly_salary
 
-            # Si el salario es menor a 13 millones (10 salarios mínimos)
+            # If the salary is less than 13 million (10 minimum wages)
             if basic_monthly_salary < 13000000:
                 if worked_years <= 1:
-                    # Indemnización por 1 año o menos
+                    # Compensation for 1 year or less
                     compensation = (basic_monthly_salary / 30) * 30
                 else:
-                    # Indemnización por el primer año
+                    # Compensation for the first year
                     compensation = (basic_monthly_salary / 30) * 30
-                    # Indemnización por los años adicionales
+                    # Compensation for the additional years
                     for year in range(2, worked_years + 1):
                         compensation += (basic_monthly_salary / 30) * 20
 
-            # Si el salario es mayor o igual a 13 millones (más de 10 salarios mínimos)
+            # If the salary is greater than or equal to 13 million (more than 10 minimum wages)
             else:
                 if worked_years <= 1:
-                    # Indemnización por 1 año o menos
+                    # Compensation for 1 year or less
                     compensation = (basic_monthly_salary / 30) * 20
                 else:
-                    # Indemnización por el primer año
+                    # Compensation for the first year
                     compensation = (basic_monthly_salary / 30) * 20
-                    # Indemnización por los años adicionales
+                    # Compensation for the additional years
                     for year in range(2, worked_years + 1):
                         compensation += (basic_monthly_salary / 30) * 15
 
