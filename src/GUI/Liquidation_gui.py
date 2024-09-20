@@ -27,8 +27,8 @@ sys.path.append("GUI")
 from Logic.Compensation import calculate_compensation
 sys.path.append("GUI")
 # Definir variables globales de fuente
-FONT_NAME = 'FUNNY SUNSHINE.ttf'  # Cambia esto por la ruta a tu archivo .ttf
-FONT_SIZE = '25sp'  # Tamaño de la fuente para todos los textos
+FONT_NAME = 'Londona-reguler.otf'  # Cambia esto por la ruta a tu archivo .ttf
+FONT_SIZE = '30sp'  # Tamaño de la fuente para todos los textos
 
 # Pantalla de bienvenida
 class WelcomeScreen(Screen):
