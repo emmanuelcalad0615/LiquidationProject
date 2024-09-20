@@ -89,22 +89,22 @@ HOUR_WORKED_IN_A_SEMESTER = 720
 
 # Function to calculate the severance pay amount
 def calculate_severance_pay_amount(employee: Employee):
-    severance_pay = round((employee.average_salary * employee.worked_days) / DAYS_OF_THE_YEAR)
+    severance_pay = ((employee.average_salary * employee.worked_days) / DAYS_OF_THE_YEAR)
     return severance_pay
 
 # Function to calculate the interest amount on severance pay
 def calculate_severance_pay_interest(employee: Employee, severance_pay):
-    severance_pay_interest = round((severance_pay * employee.worked_days * PERCENTAGE_OF_SEVERANCE_PAY) / DAYS_OF_THE_YEAR)
+    severance_pay_interest = ((severance_pay * employee.worked_days * PERCENTAGE_OF_SEVERANCE_PAY) / DAYS_OF_THE_YEAR)
     return severance_pay_interest
 
 # Function to calculate the service bonus amount
 def calculate_service_bonus(employee: Employee):
-    service_bonus = round((employee.average_salary * employee.worked_days) / DAYS_OF_THE_YEAR)
+    service_bonus = ((employee.average_salary * employee.worked_days) / DAYS_OF_THE_YEAR)
     return service_bonus
 
 # Function to calculate vacation days
 def calculate_vacation(employee: Employee):
-    vacation = round((employee.basic_monthly_salary * employee.worked_days) / HOUR_WORKED_IN_A_SEMESTER)
+    vacation = ((employee.basic_monthly_salary * employee.worked_days) / HOUR_WORKED_IN_A_SEMESTER)
     return vacation
 
 # Function to calculate the final settlement amount

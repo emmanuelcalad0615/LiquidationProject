@@ -75,7 +75,7 @@ def calculate_compensation_with_indefinite_contract(employee, start_date, end_da
     donde se le pregunta al usuario si la indemnización es solo por el primer año o por más años.
     """
     first_year_only = input("¿La indemnización solo es por el primer año? (S/N): ").strip().upper()
-
+    
     if first_year_only == 'S':
         # Cálculo solo por el primer año
         compensation = calculate_compensation(employee, "indefinido", start_date, end_date)
