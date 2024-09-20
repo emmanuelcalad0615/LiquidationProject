@@ -8,7 +8,8 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 import os
 import sys
 sys.path.append("src")
-# Importing the required modules
+
+# Importar los módulos necesarios
 from Logic.employee import Employee
 from Logic.Liquidation import (
     calculate_severance_pay_amount,
@@ -22,15 +23,20 @@ from Logic.Liquidation import (
     DivisionByZeroError,
     NumberOutOfRangeError
 )
+sys.path.append("GUI")
 from Logic.Compensation import calculate_compensation
+sys.path.append("GUI")
+# Definir variables globales de fuente
+FONT_NAME = 'FUNNY SUNSHINE.ttf'  # Cambia esto por la ruta a tu archivo .ttf
+FONT_SIZE = '25sp'  # Tamaño de la fuente para todos los textos
 
-# Welcome screen
+# Pantalla de bienvenida
 class WelcomeScreen(Screen):
     def __init__(self, **kwargs):
         super(WelcomeScreen, self).__init__(**kwargs)
         layout = BoxLayout(orientation='vertical')
-        welcome_label = Label(text="Bienvenido al Programa de Liquidación", font_size='24sp')
-        start_button = Button(text="Iniciar", size_hint=(1, 0.2))
+        welcome_label = Label(text="Bienvenido al Programa de Liquidación", font_size=FONT_SIZE, font_name=FONT_NAME)
+        start_button = Button(text="Iniciar", size_hint=(1, 0.2), font_size=FONT_SIZE, font_name=FONT_NAME)
         start_button.bind(on_release=self.go_to_data)
         
         layout.add_widget(welcome_label)
@@ -40,25 +46,25 @@ class WelcomeScreen(Screen):
     def go_to_data(self, *args):
         self.manager.current = 'data'
 
-# Screen to enter employee data
+# Pantalla para ingresar datos del empleado
 class EmployeeDataScreen(Screen):
     def __init__(self, **kwargs):
         super(EmployeeDataScreen, self).__init__(**kwargs)
         self.layout = GridLayout(cols=2, padding=10, spacing=10)
         
-        self.layout.add_widget(Label(text="Salario Básico Mensual:"))
-        self.salary_input = TextInput(multiline=False)
+        self.layout.add_widget(Label(text="Salario Básico Mensual:", font_size=FONT_SIZE, font_name=FONT_NAME))
+        self.salary_input = TextInput(multiline=False, font_size=FONT_SIZE, font_name=FONT_NAME)
         self.layout.add_widget(self.salary_input)
         
-        self.layout.add_widget(Label(text="Auxilio de Transporte:"))
-        self.transport_input = TextInput(multiline=False)
+        self.layout.add_widget(Label(text="Auxilio de Transporte:", font_size=FONT_SIZE, font_name=FONT_NAME))
+        self.transport_input = TextInput(multiline=False, font_size=FONT_SIZE, font_name=FONT_NAME)
         self.layout.add_widget(self.transport_input)
         
-        self.layout.add_widget(Label(text="Días Trabajados:"))
-        self.days_input = TextInput(multiline=False)
+        self.layout.add_widget(Label(text="Días Trabajados:", font_size=FONT_SIZE, font_name=FONT_NAME))
+        self.days_input = TextInput(multiline=False, font_size=FONT_SIZE, font_name=FONT_NAME)
         self.layout.add_widget(self.days_input)
         
-        submit_button = Button(text="Calcular Liquidación")
+        submit_button = Button(text="Calcular Liquidación", font_size=FONT_SIZE, font_name=FONT_NAME)
         submit_button.bind(on_release=self.calculate_liquidation)
         self.layout.add_widget(submit_button)
         
@@ -76,10 +82,10 @@ class EmployeeDataScreen(Screen):
                 worked_days=worked_days,
             )
             
-            # Verifying excepctions
+            # Verificar excepciones
             verify_exceptions(employee)
             
-            # Save the employee in the instance of the screen manage
+            # Guardar el empleado en la instancia del administrador de pantallas
             self.manager.employee = employee
             self.manager.current = 'result'
             
@@ -88,19 +94,19 @@ class EmployeeDataScreen(Screen):
         except Exception as e:
             print(f"Error al crear el objeto empleado: {str(e)}")
 
-# Screen to show liquidation results
+# Pantalla para mostrar resultados de la liquidación
 class ResultScreen(Screen):
     def __init__(self, **kwargs):
         super(ResultScreen, self).__init__(**kwargs)
         self.layout = BoxLayout(orientation='vertical', padding=10, spacing=10)
         
-        self.result_label = Label(text="Resultados de la Liquidación", font_size='18sp')
+        self.result_label = Label(text="Resultados de la Liquidación", font_size=FONT_SIZE, font_name=FONT_NAME)
         self.layout.add_widget(self.result_label)
         
-        self.liquidation_details = Label(text="")
+        self.liquidation_details = Label(text="", font_size=FONT_SIZE, font_name=FONT_NAME)
         self.layout.add_widget(self.liquidation_details)
         
-        back_button = Button(text="Volver", size_hint=(1, 0.2))
+        back_button = Button(text="Volver", size_hint=(1, 0.2), font_size=FONT_SIZE, font_name=FONT_NAME)
         back_button.bind(on_release=self.go_back)
         self.layout.add_widget(back_button)
         
@@ -110,7 +116,7 @@ class ResultScreen(Screen):
         employee = self.manager.employee
         
         try:
-            # Calculate the different components of compensation
+            # Calcular los diferentes componentes de la liquidación
             severance_pay = calculate_severance_pay_amount(employee)
             severance_pay_interest = calculate_severance_pay_interest(employee, severance_pay)
             service_bonus = calculate_service_bonus(employee)
@@ -118,7 +124,7 @@ class ResultScreen(Screen):
             
             total_liquidation = severance_pay + severance_pay_interest + service_bonus + vacation
 
-            # Showing results
+            # Mostrar resultados
             results = (f"Cesantías: {severance_pay}\n"
                        f"Intereses de cesantías: {severance_pay_interest}\n"
                        f"Prima de servicios: {service_bonus}\n"
@@ -133,7 +139,7 @@ class ResultScreen(Screen):
     def go_back(self, *args):
         self.manager.current = 'data'
 
-# Main screen for handling navigation
+# Pantalla principal para manejar la navegación
 class LiquidationApp(App):
     def build(self):
         sm = ScreenManager()
