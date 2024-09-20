@@ -14,6 +14,11 @@ from Logic.Liquidation import (
     DAYS_PER_MONTH
 )
 
+# Defining the constants for worked days 
+DAYS_WORKED_FOR_GENERAL_CONTRACT = 30  
+DAYS_WORKED_PER_MONTH = 30
+DAYS_WORKED_FOR_SALARY_CONTRACT_AFTER_A_YEAR = 20  
+DAYS_WORKED_FOR_HIGH_SALARY_CONTRACT = 15  
 MINIMUM_COMPENSATION_DAYS = 15
 DAYS_OF_SALARY_PER_YEAR = 20
 
@@ -66,37 +71,28 @@ def calculate_compensation(employee: Employee, type_of_contract: str, start_date
             if basic_monthly_salary < 13000000:
                 if worked_years <= 1:
                     # Compensation for 1 year or less
-                    compensation = (basic_monthly_salary / 30) * 30
+                    compensation = (basic_monthly_salary / DAYS_PER_MONTH) * DAYS_WORKED_FOR_GENERAL_CONTRACT
                 else:
                     # Compensation for the first year
-                    compensation = (basic_monthly_salary / 30) * 30
+                    compensation = (basic_monthly_salary / DAYS_PER_MONTH) * DAYS_WORKED_FOR_SALARY_CONTRACT_AFTER_A_YEAR
                     # Compensation for the additional years
                     for year in range(2, worked_years + 1):
-                        compensation += (basic_monthly_salary / 30) * 20
+                        compensation += (basic_monthly_salary / DAYS_PER_MONTH) * DAYS_WORKED_FOR_SALARY_CONTRACT_AFTER_A_YEAR
 
             # If the salary is greater than or equal to 13 million (more than 10 minimum wages)
             else:
                 if worked_years <= 1:
                     # Compensation for 1 year or less
-                    compensation = (basic_monthly_salary / 30) * 20
+                    compensation = (basic_monthly_salary / DAYS_PER_MONTH) * DAYS_OF_SALARY_PER_YEAR
                 else:
                     # Compensation for the first year
-                    compensation = (basic_monthly_salary / 30) * 20
+                    compensation = (basic_monthly_salary / DAYS_PER_MONTH) * DAYS_WORKED_FOR_SALARY_CONTRACT_AFTER_A_YEAR
                     # Compensation for the additional years
                     for year in range(2, worked_years + 1):
-                        compensation += (basic_monthly_salary / 30) * 15
+                        compensation += (basic_monthly_salary / DAYS_PER_MONTH) * DAYS_WORKED_FOR_HIGH_SALARY_CONTRACT
 
         return compensation
 
     except Exception as e:
         print(f"Error en el cálculo de la indemnización: {str(e)}")
         return None
-
-
-# Crear una instancia del empleado con los parámetros necesarios
-employee = Employee(
-    basic_monthly_salary=2000,
-    transportation_allowance=150,
-    worked_days=730,  
-    severance_pay_for_accrued_leave_days=365  
-)

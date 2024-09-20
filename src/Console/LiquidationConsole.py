@@ -12,7 +12,6 @@ from Logic.Liquidation import (
     calculate_severance_pay_interest,
     calculate_service_bonus,
     calculate_vacation,
-    #calculate_vacation_bonus,
     verify_exceptions,  
     EmployeeException,
     NegativeValueError,
@@ -70,6 +69,22 @@ def calculate_liquidation(employee):
     except EmployeeException as e:
         print(f"\nError al calcular la liquidación: {str(e)}")
 
+def calculate_compensation_with_indefinite_contract(employee, start_date, end_date):
+    """
+    Función adicional para manejar la lógica específica de los contratos indefinidos,
+    donde se le pregunta al usuario si la indemnización es solo por el primer año o por más años.
+    """
+    first_year_only = input("¿La indemnización solo es por el primer año? (S/N): ").strip().upper()
+
+    if first_year_only == 'S':
+        # Cálculo solo por el primer año
+        compensation = calculate_compensation(employee, "indefinido", start_date, end_date)
+    else:
+        # Cálculo para más de un año
+        compensation = calculate_compensation(employee, "indefinido", start_date, end_date)
+
+    return compensation
+
 def main():
     print("Bienvenido al programa de liquidación y cálculo de indemnizaciones.")
 
@@ -85,7 +100,13 @@ def main():
         end_date = input("Ingrese la fecha de finalización del contrato (YYYY-MM-DD): ").strip()
 
         try:
-            compensation = calculate_compensation(employee, type_of_contract, start_date, end_date)
+            if type_of_contract == "indefinido":
+                # Si el contrato es indefinido, llamar a la función específica
+                compensation = calculate_compensation_with_indefinite_contract(employee, start_date, end_date)
+            else:
+                # Para otros tipos de contrato, calcular normalmente
+                compensation = calculate_compensation(employee, type_of_contract, start_date, end_date)
+
             if compensation is not None:
                 print(f"Indemnización calculada: {compensation}")
         except Exception as e:
