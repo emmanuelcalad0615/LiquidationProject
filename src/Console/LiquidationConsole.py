@@ -12,7 +12,7 @@ from Logic.Liquidation import (
     calculate_severance_pay_interest,
     calculate_service_bonus,
     calculate_vacation,
-    calculate_vacation_bonus,
+    #calculate_vacation_bonus,
     verify_exceptions,  
     EmployeeException,
     NegativeValueError,
@@ -25,14 +25,14 @@ from Logic.Compensation import calculate_compensation
 def get_employee_data():
     while True:
         try:
-            basic_salary = float(input("Ingrese su salario básico: "))
+            basic_monthly_salary = float(input("Ingrese su salario básico: "))
             transportation_allowance = float(input("Ingrese su auxilio de transporte: "))
             worked_days = int(input("Ingrese su total de días trabajados: "))
             severance_pay_for_accrued_leave_days = int(input("Ingrese su total de días liquidados para prima : "))
 
             # Create an instance of Employee
             employee = Employee(
-                basic_salary=basic_salary,
+                basic_monthly_salary=basic_monthly_salary,
                 transportation_allowance=transportation_allowance,
                 worked_days=worked_days,
                 severance_pay_for_accrued_leave_days=severance_pay_for_accrued_leave_days,
@@ -57,16 +57,16 @@ def calculate_liquidation(employee):
         severance_pay_interest = calculate_severance_pay_interest(employee, severance_pay)
         service_bonus = calculate_service_bonus(employee)
         vacation = calculate_vacation(employee)
-        vacation_bonus = calculate_vacation_bonus(employee)
+        #vacation_bonus = calculate_vacation_bonus(employee)
 
-        total_liquidation = severance_pay + severance_pay_interest + service_bonus + vacation + vacation_bonus
+        total_liquidation = severance_pay + severance_pay_interest + service_bonus + vacation #+ vacation_bonus
 
         print("\nResultados de la liquidación:")
         print(f"Cesantías: {severance_pay}")
         print(f"Intereses de cesantías: {severance_pay_interest}")
         print(f"Prima de servicios: {service_bonus}")
         print(f"Vacaciones: {vacation}")
-        print(f"Prima de vacaciones: {vacation_bonus}")
+        #print(f"Prima de vacaciones: {vacation_bonus}")
         print(f"\nLiquidación total: {total_liquidation}")
 
     except EmployeeException as e:
