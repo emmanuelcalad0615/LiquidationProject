@@ -9,6 +9,6 @@ class Employee:
         self.worked_days = worked_days 
         self.severance_pay_for_accrued_leave_days = severance_pay_for_accrued_leave_days 
         self.average_salary=self.basic_monthly_salary + self.transportation_allowance
-
+        self.DAYS_OF_THE_YEAR = 360 
 
     

@@ -7,7 +7,11 @@ from Logic.Liquidation import (
     NegativeValueError,
     IncorrectDataTypeError,
     DivisionByZeroError,
-    NumberOutOfRangeError
+    NumberOutOfRangeError,    
+    PERCENTAGE_OF_SEVERANCE_PAY,  # Importa las constantes necesarias
+    MONTHS_OF_THE_YEAR,
+    DAYS_OF_THE_YEAR,
+    DAYS_PER_MONTH
 )
 
 MINIMUM_COMPENSATION_DAYS = 15
@@ -40,19 +44,19 @@ def calculate_compensation(employee: Employee, type_of_contract: str, start_date
 
         difference = end_date - start_date
         worked_days = difference.days
-        worked_years = worked_days // employee.DAYS_OF_THE_YEAR
-        worked_months = (worked_days % employee.DAYS_OF_THE_YEAR) // employee.DAYS_PER_MONTH
+        worked_years = worked_days // DAYS_OF_THE_YEAR
+        worked_months = (worked_days % DAYS_OF_THE_YEAR) // DAYS_PER_MONTH
 
         # Contrato a término fijo de 1 año
         if type_of_contract == 'fijo_1_año':
-            remaining_months = employee.MONTHS_OF_THE_YEAR - worked_months
+            remaining_months = MONTHS_OF_THE_YEAR - worked_months
             compensation = employee.basic_monthly_salary * remaining_months
 
         # Contrato a término fijo inferior a 1 año
         elif type_of_contract == 'fijo_inferior_1_año':
-            remaining_months = employee.MONTHS_OF_THE_YEAR - worked_months
-            compensation = max(employee.basic_monthly_salary * (remaining_months / employee.MONTHS_OF_THE_YEAR) * employee.DAYS_PER_MONTH,
-                               employee.basic_monthly_salary * (MINIMUM_COMPENSATION_DAYS / employee.DAYS_PER_MONTH))
+            remaining_months = MONTHS_OF_THE_YEAR - worked_months
+            compensation = max(employee.basic_monthly_salary * (remaining_months / MONTHS_OF_THE_YEAR) * DAYS_PER_MONTH,
+                               employee.basic_monthly_salary * (MINIMUM_COMPENSATION_DAYS / DAYS_PER_MONTH))
 
         # Contrato a término indefinido
         elif type_of_contract == 'indefinido':
