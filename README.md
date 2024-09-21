@@ -34,6 +34,8 @@ Es un proyecto de liquidación de nómina para un empleado del sector privado. S
 4. Ejecutar el proyecto: Navegar al directiorio principal del proyecto
 ``` src\Console\LiquidationConsole.py```
 
+Para ejecutar la interfaz gráfica del proyecto se debe de realizar lo siguiente:
+
 ## **Como está hecho?**
 
 Para la realización de este proyecto se hizo uso de varias librerias, como:

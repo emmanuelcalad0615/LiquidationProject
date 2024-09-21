@@ -173,7 +173,7 @@ class CompensationScreen(Screen):
         
         try:
             # Calcular la indemnización
-            compensation = calculate_compensation(employee)
+            compensation = calculate_compensation(employee,type_of_contract:,start_date,end_date)
 
             # Mostrar resultados
             results = f"Indemnización Total: {compensation}"
