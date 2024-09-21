@@ -42,7 +42,11 @@ Para ejecutar la interfaz gráfica del proyecto se debe de realizar lo siguiente
 
 2. Instalar kivy: Asegurarse de tener instalada la librería de kivy en el entorno. Luego, ejecuta el siguiente comando para instalar kivy ```pip install kivy```
 
-3. Ubicarse en la carpeta dentro del proyecto:
+3. Ubicarse en la carpeta dentro del proyecto: Navegar al directorio principal donde se encuentra la interfaz
+``` src\GUI\Liquidation_gui.py```
+
+4. Ejecutar el archivo: Dentro de la carpeta del proyecto ejecutar el siguiente comando
+``` python Liquidation_gui.py```
 
 ## **Como está hecho?**
 

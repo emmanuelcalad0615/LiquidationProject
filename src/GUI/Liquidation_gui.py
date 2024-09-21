@@ -2,6 +2,7 @@ from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
+from kivy.uix.spinner import Spinner
 from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 from kivy.uix.screenmanager import ScreenManager, Screen
@@ -45,7 +46,7 @@ class WelcomeScreen(Screen):
     def go_to_data(self, *args):
         self.manager.current = 'data'
 
-# Pantalla para ingresar datos del empleado
+# Screen for employee data
 class EmployeeDataScreen(Screen):
     def __init__(self, **kwargs):
         super(EmployeeDataScreen, self).__init__(**kwargs)
@@ -81,10 +82,10 @@ class EmployeeDataScreen(Screen):
                 worked_days=worked_days,
             )
             
-            # Verificar excepciones
+            # Verifying exceptions
             verify_exceptions(employee)
             
-            # Guardar el empleado en la instancia del administrador de pantallas
+            # Saving the employee in the instance of the screen manager
             self.manager.employee = employee
             self.manager.current = 'result'
             
@@ -93,7 +94,7 @@ class EmployeeDataScreen(Screen):
         except Exception as e:
             print(f"Error al crear el objeto empleado: {str(e)}")
 
-# Pantalla para mostrar resultados de la liquidación
+# Screen for showing liquidation results
 class ResultScreen(Screen):
     def __init__(self, **kwargs):
         super(ResultScreen, self).__init__(**kwargs)
@@ -105,7 +106,7 @@ class ResultScreen(Screen):
         self.liquidation_details = Label(text="", font_size=FONT_SIZE, font_name=FONT_NAME)
         self.layout.add_widget(self.liquidation_details)
         
-        # Layout para los botones en la parte inferior
+        # Layout for the buttons at the bottom
         button_layout = BoxLayout(size_hint=(1, 0.2), spacing=10)
         
         back_button = Button(text="Volver", font_size=FONT_SIZE, font_name=FONT_NAME)
@@ -124,7 +125,7 @@ class ResultScreen(Screen):
         employee = self.manager.employee
         
         try:
-            # Calcular los diferentes componentes de la liquidación
+            # Calculate the different components of the liquidation
             severance_pay = calculate_severance_pay_amount(employee)
             severance_pay_interest = calculate_severance_pay_interest(employee, severance_pay)
             service_bonus = calculate_service_bonus(employee)
@@ -132,7 +133,7 @@ class ResultScreen(Screen):
             
             total_liquidation = severance_pay + severance_pay_interest + service_bonus + vacation
 
-            # Mostrar resultados
+            # Showing results
             results = (f"Cesantías: {severance_pay}\n"
                        f"Intereses de cesantías: {severance_pay_interest}\n"
                        f"Prima de servicios: {service_bonus}\n"
@@ -150,7 +151,7 @@ class ResultScreen(Screen):
     def go_to_compensation(self, *args):
         self.manager.current = 'compensation'
 
-# Pantalla para el cálculo de la indemnización
+# Screen for calculating compensation
 class CompensationScreen(Screen):
     def __init__(self, **kwargs):
         super(CompensationScreen, self).__init__(**kwargs)
@@ -158,7 +159,31 @@ class CompensationScreen(Screen):
         
         self.compensation_label = Label(text="Cálculo de la Indemnización", font_size=FONT_SIZE, font_name=FONT_NAME)
         self.layout.add_widget(self.compensation_label)
-        
+
+        # Add the type of contract
+        contract_type_label = Label(text="Tipo de contrato", font_size=FONT_SIZE, font_name=FONT_NAME)
+        self.layout.add_widget(contract_type_label)
+
+        self.contract_type_spinner = Spinner(text="Seleccione el tipo de contrato", values=("fijo_1_año", "fijo_inferior_1_año", "indefinido"))
+        self.layout.add_widget(self.contract_type_spinner)
+
+        start_date_label = Label(text="Fecha de inicio del contrato", font_size=FONT_SIZE, font_name=FONT_NAME)
+        self.layout.add_widget(start_date_label)
+
+        self.start_date_input = TextInput(multiline=False, font_size=FONT_SIZE, font_name=FONT_NAME)
+        self.layout.add_widget(self.start_date_input)
+
+        end_date_label = Label(text="Fecha de Fin del contrato:", font_size=FONT_SIZE, font_name=FONT_NAME)
+        self.layout.add_widget(end_date_label)
+
+        self.end_date_input = TextInput(multiline=False, font_size=FONT_SIZE, font_name=FONT_NAME)
+        self.layout.add_widget(self.end_date_input)
+
+        calculate_button = Button(text="Calcular Indemnización", font_size=FONT_SIZE, font_name=FONT_NAME)
+        calculate_button.bind(on_release=self.calculate_compensation_button)
+        self.layout.add_widget(calculate_button)
+        #      
+    
         self.compensation_details = Label(text="", font_size=FONT_SIZE, font_name=FONT_NAME)
         self.layout.add_widget(self.compensation_details)
         
@@ -169,13 +194,20 @@ class CompensationScreen(Screen):
         self.add_widget(self.layout)
     
     def on_enter(self, *args):
-        employee = self.manager.employee
-        
-        try:
-            # Calcular la indemnización
-            compensation = calculate_compensation(employee,type_of_contract:,start_date,end_date)
+        self.calculate_compensation_button()
 
-            # Mostrar resultados
+    def calculate_compensation_button(self, *args):            
+        try:
+            type_of_contract = self.contract_type_spinner.text
+            start_date = self.start_date_input.text
+            end_date = self.end_date_input.text
+
+            employee = self.manager.employee
+
+            # Calculate compensation
+            compensation = calculate_compensation(employee, type_of_contract, start_date, end_date)
+
+            # Showing results
             results = f"Indemnización Total: {compensation}"
             self.compensation_details.text = results
 
