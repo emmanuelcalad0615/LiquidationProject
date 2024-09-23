@@ -239,7 +239,7 @@ class CompensationScreen(Screen):
     def go_back(self, *args):
         self.manager.current = 'result'
 
-# Pantalla principal para manejar la navegación
+# Main screen for navigating
 class LiquidationApp(App):
     def build(self):
         sm = ScreenManager()
