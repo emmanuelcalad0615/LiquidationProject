@@ -74,7 +74,7 @@ def calculate_compensation(employee: Employee, type_of_contract: str, start_date
                     compensation = (basic_monthly_salary / DAYS_PER_MONTH) * DAYS_WORKED_FOR_GENERAL_CONTRACT
                 else:
                     # Compensation for the first year
-                    compensation = (basic_monthly_salary / DAYS_PER_MONTH) * DAYS_WORKED_FOR_SALARY_CONTRACT_AFTER_A_YEAR
+                    compensation = (basic_monthly_salary / DAYS_PER_MONTH) * DAYS_WORKED_FOR_GENERAL_CONTRACT
                     # Compensation for the additional years
                     for year in range(2, worked_years + 1):
                         compensation += (basic_monthly_salary / DAYS_PER_MONTH) * DAYS_WORKED_FOR_SALARY_CONTRACT_AFTER_A_YEAR
@@ -86,7 +86,7 @@ def calculate_compensation(employee: Employee, type_of_contract: str, start_date
                     compensation = (basic_monthly_salary / DAYS_PER_MONTH) * DAYS_OF_SALARY_PER_YEAR
                 else:
                     # Compensation for the first year
-                    compensation = (basic_monthly_salary / DAYS_PER_MONTH) * DAYS_WORKED_FOR_SALARY_CONTRACT_AFTER_A_YEAR
+                    compensation = (basic_monthly_salary / DAYS_PER_MONTH) * DAYS_OF_SALARY_PER_YEAR
                     # Compensation for the additional years
                     for year in range(2, worked_years + 1):
                         compensation += (basic_monthly_salary / DAYS_PER_MONTH) * DAYS_WORKED_FOR_HIGH_SALARY_CONTRACT
