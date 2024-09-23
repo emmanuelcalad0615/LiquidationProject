@@ -60,8 +60,8 @@ def calculate_compensation(employee: Employee, type_of_contract: str, start_date
         # Fixed-term contract of less than 1 year
         elif type_of_contract == 'fijo_inferior_1_año':
             remaining_months = MONTHS_OF_THE_YEAR - worked_months
-            compensation = max(employee.basic_monthly_salary * (remaining_months / MONTHS_OF_THE_YEAR) * DAYS_PER_MONTH,
-                               employee.basic_monthly_salary * (MINIMUM_COMPENSATION_DAYS / DAYS_PER_MONTH))
+            compensation = max(employee.basic_monthly_salary * remaining_months / MONTHS_OF_THE_YEAR,
+                               employee.basic_monthly_salary * MINIMUM_COMPENSATION_DAYS / DAYS_PER_MONTH)
 
         # Indefinite-term contract
         elif type_of_contract == 'indefinido':
