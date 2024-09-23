@@ -6,6 +6,7 @@ from kivy.uix.spinner import Spinner
 from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.uix.popup import Popup
 import os
 import sys
 sys.path.append("src")
@@ -17,7 +18,7 @@ from Logic.Liquidation import (
     calculate_severance_pay_interest,
     calculate_service_bonus,
     calculate_vacation,
-    verify_exceptions,  
+    verify_exceptions,
     EmployeeException,
     NegativeValueError,
     IncorrectDataTypeError,
@@ -29,6 +30,18 @@ from Logic.Compensation import calculate_compensation
 # Definir variables globales de fuente
 FONT_NAME = 'Londona-reguler.otf'  # Cambia esto por la ruta a tu archivo .ttf
 FONT_SIZE = '30sp'  # Tamaño de la fuente para todos los textos
+
+# Función para mostrar pop-ups de error
+def show_error_popup(error_message):
+    content = BoxLayout(orientation='vertical')
+    label = Label(text=error_message, font_size=FONT_SIZE, font_name=FONT_NAME)
+    close_button = Button(text="Cerrar", size_hint=(1, 0.6), font_size='25sp', font_name=FONT_NAME)
+    content.add_widget(label)
+    content.add_widget(close_button)
+    
+    popup = Popup(title="Error", content=content, size_hint=(1, 0.6))
+    close_button.bind(on_release=popup.dismiss)
+    popup.open()
 
 # Pantalla de bienvenida
 class WelcomeScreen(Screen):
@@ -76,6 +89,10 @@ class EmployeeDataScreen(Screen):
             transportation_allowance = float(self.transport_input.text)
             worked_days = int(self.days_input.text)
 
+            # Check for negative or zero values
+            if basic_monthly_salary <= 0 or transportation_allowance < 0 or worked_days <= 0:
+                raise NegativeValueError("El salario básico, el auxilio de transporte y los días trabajados deben ser positivos.")
+
             employee = Employee(
                 basic_monthly_salary=basic_monthly_salary,
                 transportation_allowance=transportation_allowance,
@@ -90,9 +107,11 @@ class EmployeeDataScreen(Screen):
             self.manager.current = 'result'
             
         except (NegativeValueError, IncorrectDataTypeError, DivisionByZeroError, NumberOutOfRangeError) as e:
-            print(f"Error: {str(e)}")
+            show_error_popup(f"Error: {str(e)}")
+        except ValueError:
+            show_error_popup("Por favor, ingrese valores numéricos válidos.")
         except Exception as e:
-            print(f"Error al crear el objeto empleado: {str(e)}")
+            show_error_popup(f"Por favor ingrese numeros positivos o mayores que cero")
 
 # Screen for showing liquidation results
 class ResultScreen(Screen):
@@ -131,7 +150,7 @@ class ResultScreen(Screen):
             service_bonus = calculate_service_bonus(employee)
             vacation = calculate_vacation(employee)
             
-            total_liquidation = severance_pay + severance_pay_interest + service_bonus + vacation
+            total_liquidation = round(severance_pay + severance_pay_interest + service_bonus + vacation)
 
             # Showing results
             results = (f"Cesantías: {severance_pay}\n"
@@ -167,13 +186,13 @@ class CompensationScreen(Screen):
         self.contract_type_spinner = Spinner(text="Seleccione el tipo de contrato", values=("fijo_1_año", "fijo_inferior_1_año", "indefinido"))
         self.layout.add_widget(self.contract_type_spinner)
 
-        start_date_label = Label(text="Fecha de inicio del contrato", font_size=FONT_SIZE, font_name=FONT_NAME)
+        start_date_label = Label(text="Fecha de inicio del contrato(Año-Mes-Día):", font_size=FONT_SIZE, font_name=FONT_NAME)
         self.layout.add_widget(start_date_label)
 
         self.start_date_input = TextInput(multiline=False, font_size=FONT_SIZE, font_name=FONT_NAME)
         self.layout.add_widget(self.start_date_input)
 
-        end_date_label = Label(text="Fecha de Fin del contrato:", font_size=FONT_SIZE, font_name=FONT_NAME)
+        end_date_label = Label(text="Fecha de Fin del contrato(Año-Mes-Día):", font_size=FONT_SIZE, font_name=FONT_NAME)
         self.layout.add_widget(end_date_label)
 
         self.end_date_input = TextInput(multiline=False, font_size=FONT_SIZE, font_name=FONT_NAME)
@@ -182,8 +201,7 @@ class CompensationScreen(Screen):
         calculate_button = Button(text="Calcular Indemnización", font_size=FONT_SIZE, font_name=FONT_NAME)
         calculate_button.bind(on_release=self.calculate_compensation_button)
         self.layout.add_widget(calculate_button)
-        #      
-    
+        
         self.compensation_details = Label(text="", font_size=FONT_SIZE, font_name=FONT_NAME)
         self.layout.add_widget(self.compensation_details)
         
@@ -212,7 +230,11 @@ class CompensationScreen(Screen):
             self.compensation_details.text = results
 
         except EmployeeException as e:
-            self.compensation_details.text = f"Error al calcular la indemnización: {str(e)}"
+            show_error_popup(f"Error al calcular la indemnización: {str(e)}")
+        except ValueError:
+            show_error_popup("Por favor, ingrese fechas válidas en el formato Año-Mes-Día.")
+        except Exception as e:
+            show_error_popup(f"Error al calcular la indemnización: {str(e)}")
     
     def go_back(self, *args):
         self.manager.current = 'result'
