@@ -62,17 +62,27 @@ El proyecto está organizado en tres carpetas principales, cada una con un prop�
 Esta carpeta almacena configuraciones específicas del editor Visual Studio Code. Dentro de ella se encuentra el archivo ```settings.json```, que configura el entorno para usar la librería ```unittest```, la cual ejecuta las pruebas unitarias del proyecto.
 
 2. **src**:
-Esta carpeta contiene un archivo ```__init__.py``` que permite que Python reconozca la carpeta como un módulo, facilitando la importación de sus componentes. Además, incluye dos subcarpetas:
+Esta carpeta contiene un archivo ```__init__.py``` que permite que Python reconozca la carpeta como un módulo, facilitando la importación de sus componentes. Además, incluye tres subcarpetas:
 
 - *Console*: Contiene dos archivos: ```__init__.py```, que permite el reconocimiento de la carpeta como un módulo, y LiquidationConsole.py, que implementa la interfaz con el usuario.
 
 - *Logic*: Esta carpeta alberga tres archivos:
 
-1. ```__init__.py```, que permite el reconocimiento de la carpeta como un módulo.
+1. ```__init__.py```: que permite el reconocimiento de la carpeta como un módulo.
 
-2. ```employee.py```, que define las variables necesarias para la lógica del programa.
+2. ```employee.py```: que define las variables necesarias para la lógica del programa.
 
-3. ```Liquidation.py```, que contiene la lógica completa del proceso de liquidación, importando las variables desde ```employee.py```.También incluye una subcarpeta ```__pycache__```, una optimización automática de Python para acelerar la ejecución del código.
+3. ```Liquidation.py```: que contiene la lógica completa del proceso de liquidación, importando las variables desde ```employee.py```.También incluye una subcarpeta ```__pycache__```, una optimización automática de Python para acelerar la ejecución del código.
+
+- *GUI*: Esta carpeta alberga cuatro archivos esenciales para la interfaz gráfica del proyecto:
+
+1. ```__init__.py```: Este archivo vacío permite que Python reconozca la carpeta como un módulo, facilitando la importación de sus contenidos.
+
+2. ```FUNNY SUNSHINE.ttf```: Un archivo de fuente que proporciona un estilo visual específico para elementos de la interfaz gráfica
+
+3. ``` Liquidation_gui.py```: Contiene toda la lógica y estructura de la interfaz gráfica de usuario, siendo el componente principal para la presentación visual del programa
+
+4. ``` Londona-regular.otf```: Otro archivo de fuente que ofrece un estilo alternativo para los textos en la interfaz, permitiendo una mayor variedad en el diseño visual
 
 
 3. **tests**:
