@@ -31,16 +31,16 @@ Es un proyecto de liquidación de nómina para un empleado del sector privado. S
 3. Navegar al Directorio del Proyecto: Después de clonar el repositorio, ir al directorio del proyecto.
 ```cd nombre-del-repositorio```
 
-4. Ejecutar el proyecto: Navegar al directiorio principal del proyecto
+4. Ejecutar el proyecto: Navegar al directorio principal del proyecto
 ``` src\Console\LiquidationConsole.py```
 
 ## **Ejecución de la interfaz gráfica**
 
 Para ejecutar la interfaz gráfica del proyecto se debe de realizar lo siguiente:
 
-1. Abrir la consola de windows: Presiona ```Windows + R```, escribe cmd y presiona ```Enter```. Esto abrirá la consola de comandos
+1. Abrir la consola de windows: Presiona ```Windows + R```, escribe ```cmd``` y presiona ```Enter```. Esto abrirá la consola de comandos
 
-2. Instalar kivy: Asegurarse de tener instalada la librería de kivy en el entorno. Luego, ejecuta el siguiente comando para instalar kivy ```pip install kivy```
+2. Instalar kivy: Asegurarse de tener instalada la librería de kivy en el entorno. Luego, ejecutar el siguiente comando para instalar kivy ```pip install kivy```
 
 3. Ubicarse en la carpeta dentro del proyecto: Navegar al directorio principal donde se encuentra la interfaz
 ``` src\GUI\Liquidation_gui.py```
