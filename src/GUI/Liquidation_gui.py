@@ -124,7 +124,8 @@ class EmployeeDataScreen(Screen):
         except ValueError:
             show_error_popup("Por favor, ingrese valores numéricos válidos.")
         except Exception as e:
-            show_error_popup(f"Por favor ingrese numeros positivos o mayores que cero")
+            # Catch all other exceptions and display the exact error message
+            show_error_popup(f"Por favor, ingrese números positivos o mayores que cero")
 
 # Screen for showing liquidation results
 class ResultScreen(Screen):
