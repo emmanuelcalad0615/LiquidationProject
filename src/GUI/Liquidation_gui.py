@@ -7,6 +7,7 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.popup import Popup
+from datetime import datetime
 import os
 import sys
 sys.path.append("src")
@@ -42,6 +43,16 @@ def show_error_popup(error_message):
     popup = Popup(title="Error", content=content, size_hint=(1, 0.6))
     close_button.bind(on_release=popup.dismiss)
     popup.open()
+# Función para validar el formato de las fechas
+
+# Función para validar el formato de las fechas
+def validate_date_format(date_str):
+    try:
+        # Intentar parsear la fecha
+        datetime.strptime(date_str, '%Y-%m-%d')
+    except ValueError:
+        # Si falla, se lanza una excepción
+        raise ValueError("Las fechas deben estar en el formato YYYY-MM-DD.")
 
 # Pantalla de bienvenida
 class WelcomeScreen(Screen):
@@ -171,6 +182,7 @@ class ResultScreen(Screen):
         self.manager.current = 'compensation'
 
 # Screen for calculating compensation
+# Screen for calculating compensation
 class CompensationScreen(Screen):
     def __init__(self, **kwargs):
         super(CompensationScreen, self).__init__(**kwargs)
@@ -179,20 +191,20 @@ class CompensationScreen(Screen):
         self.compensation_label = Label(text="Cálculo de la Indemnización", font_size=FONT_SIZE, font_name=FONT_NAME)
         self.layout.add_widget(self.compensation_label)
 
-        # Add the type of contract
+        # Agregar el tipo de contrato
         contract_type_label = Label(text="Tipo de contrato", font_size=FONT_SIZE, font_name=FONT_NAME)
         self.layout.add_widget(contract_type_label)
 
-        self.contract_type_spinner = Spinner(text="Seleccione el tipo de contrato", values=("fijo_1_año", "fijo_inferior_1_año", "indefinido"))
+        self.contract_type_spinner = Spinner(text="Seleccione el tipo de contrato",font_name=FONT_NAME, values=("fijo_1_año", "fijo_inferior_1_año", "indefinido"))
         self.layout.add_widget(self.contract_type_spinner)
 
-        start_date_label = Label(text="Fecha de inicio del contrato(Año-Mes-Día):", font_size=FONT_SIZE, font_name=FONT_NAME)
+        start_date_label = Label(text="Fecha de inicio del contrato (YYYY-MM-DD):", font_size=FONT_SIZE, font_name=FONT_NAME)
         self.layout.add_widget(start_date_label)
 
         self.start_date_input = TextInput(multiline=False, font_size=FONT_SIZE, font_name=FONT_NAME)
         self.layout.add_widget(self.start_date_input)
 
-        end_date_label = Label(text="Fecha de Fin del contrato(Año-Mes-Día):", font_size=FONT_SIZE, font_name=FONT_NAME)
+        end_date_label = Label(text="Fecha de Fin del contrato (YYYY-MM-DD):", font_size=FONT_SIZE, font_name=FONT_NAME)
         self.layout.add_widget(end_date_label)
 
         self.end_date_input = TextInput(multiline=False, font_size=FONT_SIZE, font_name=FONT_NAME)
@@ -210,29 +222,33 @@ class CompensationScreen(Screen):
         self.layout.add_widget(back_button)
         
         self.add_widget(self.layout)
-    
-    def on_enter(self, *args):
-        self.calculate_compensation_button()
 
-    def calculate_compensation_button(self, *args):            
+    # Eliminar la llamada a calculate_compensation_button() en on_enter
+    # para que solo se ejecute cuando el botón sea presionado.
+    
+    def calculate_compensation_button(self, *args):
         try:
             type_of_contract = self.contract_type_spinner.text
             start_date = self.start_date_input.text
             end_date = self.end_date_input.text
 
+            # Validar el formato de las fechas
+            validate_date_format(start_date)
+            validate_date_format(end_date)
+
             employee = self.manager.employee
 
-            # Calculate compensation
+            # Calcular la indemnización
             compensation = calculate_compensation(employee, type_of_contract, start_date, end_date)
 
-            # Showing results
+            # Mostrar resultados
             results = f"Indemnización Total: {compensation}"
             self.compensation_details.text = results
 
         except EmployeeException as e:
             show_error_popup(f"Error al calcular la indemnización: {str(e)}")
-        except ValueError:
-            show_error_popup("Por favor, ingrese fechas válidas en el formato Año-Mes-Día.")
+        except ValueError as ve:
+            show_error_popup(str(ve))
         except Exception as e:
             show_error_popup(f"Error al calcular la indemnización: {str(e)}")
     
