@@ -92,7 +92,8 @@ class EmployeeDataScreen(Screen):
         self.layout.add_widget(submit_button)
         
         self.add_widget(self.layout)
-    
+
+    # Function that shows the calculation of liquidation
     def calculate_liquidation(self, *args):
         try:
             basic_monthly_salary = float(self.salary_input.text)
@@ -221,34 +222,34 @@ class CompensationScreen(Screen):
         
         self.add_widget(self.layout)
 
-    
+    # Function that shows compensation
     def calculate_compensation_button(self, *args):
         try:
             type_of_contract = self.contract_type_spinner.text
             start_date = self.start_date_input.text
             end_date = self.end_date_input.text
 
-            # Validar el formato de las fechas
+            # Validate the format of the dates
             validate_date_format(start_date)
             validate_date_format(end_date)
 
-            # Verificar que la fecha de inicio no sea posterior a la fecha de fin
+            # Verify that the start date is not later than the end date
             if datetime.strptime(start_date, '%Y-%m-%d') > datetime.strptime(end_date, '%Y-%m-%d'):
                 raise ValueError("La fecha de inicio de contrato debe ser menor que la de finalización")
 
             employee = self.manager.employee
 
-            # Calcular la indemnización
+            # Calculate compensation
             compensation = calculate_compensation(employee, type_of_contract, start_date, end_date)
 
-            # Mostrar resultados
+            # Showing results
             results = f"Indemnización Total: {compensation}"
             self.compensation_details.text = results
 
         except EmployeeException as e:
             show_error_popup(f"Error al calcular la indemnización: {str(e)}")
         except ValueError as ve:
-            # Mostrar un popup con el mensaje de error si la validación de fechas falla
+            # Show a pop-up with the error message if the date validation fails
             show_error_popup(str(ve))
         except Exception as e:
             show_error_popup(f"Error al calcular la indemnización: {str(e)}")
