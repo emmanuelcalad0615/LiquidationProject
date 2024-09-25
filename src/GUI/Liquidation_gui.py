@@ -12,7 +12,7 @@ import os
 import sys
 sys.path.append("src")
 
-# Importar los módulos necesarios
+# Import the necessary modules
 from Logic.employee import Employee
 from Logic.Liquidation import (
     calculate_severance_pay_amount,
@@ -28,14 +28,14 @@ from Logic.Liquidation import (
 )
 from Logic.Compensation import calculate_compensation
 
-# Definir variables globales de fuente
-FONT_NAME = 'Londona-reguler.otf'  # Cambia esto por la ruta a tu archivo .ttf
-FONT_SIZE = '30sp'  # Tamaño de la fuente para todos los textos
+# Define source global variables
+FONT_NAME = 'Londona-reguler.otf' #mention the name of the font for all texts
+FONT_SIZE = '30sp'  # Font size for all texts
 
-# Función para mostrar pop-ups de error
+# Function to show error pop-ups
 def show_error_popup(error_message):
     content = BoxLayout(orientation='vertical')
-    label = Label(text=error_message, font_size=FONT_SIZE, font_name=FONT_NAME)
+    label = Label(text=error_message, font_size='25sp', font_name=FONT_NAME)
     close_button = Button(text="Cerrar", size_hint=(1, 0.6), font_size='25sp', font_name=FONT_NAME)
     content.add_widget(label)
     content.add_widget(close_button)
@@ -43,18 +43,17 @@ def show_error_popup(error_message):
     popup = Popup(title="Error", content=content, size_hint=(1, 0.6))
     close_button.bind(on_release=popup.dismiss)
     popup.open()
-# Función para validar el formato de las fechas
 
-# Función para validar el formato de las fechas
+# Function to validate the date format
 def validate_date_format(date_str):
     try:
-        # Intentar parsear la fecha
+        # Try to pass the date
         datetime.strptime(date_str, '%Y-%m-%d')
     except ValueError:
-        # Si falla, se lanza una excepción
+        # If it fails, an exception is thrown
         raise ValueError("Las fechas deben estar en el formato YYYY-MM-DD.")
 
-# Pantalla de bienvenida
+# Welcome screen
 class WelcomeScreen(Screen):
     def __init__(self, **kwargs):
         super(WelcomeScreen, self).__init__(**kwargs)
@@ -182,7 +181,6 @@ class ResultScreen(Screen):
         self.manager.current = 'compensation'
 
 # Screen for calculating compensation
-# Screen for calculating compensation
 class CompensationScreen(Screen):
     def __init__(self, **kwargs):
         super(CompensationScreen, self).__init__(**kwargs)
@@ -191,7 +189,7 @@ class CompensationScreen(Screen):
         self.compensation_label = Label(text="Cálculo de la Indemnización", font_size=FONT_SIZE, font_name=FONT_NAME)
         self.layout.add_widget(self.compensation_label)
 
-        # Agregar el tipo de contrato
+         # Add the type of contract
         contract_type_label = Label(text="Tipo de contrato", font_size=FONT_SIZE, font_name=FONT_NAME)
         self.layout.add_widget(contract_type_label)
 
@@ -223,8 +221,6 @@ class CompensationScreen(Screen):
         
         self.add_widget(self.layout)
 
-    # Eliminar la llamada a calculate_compensation_button() en on_enter
-    # para que solo se ejecute cuando el botón sea presionado.
     
     def calculate_compensation_button(self, *args):
         try:
@@ -235,6 +231,10 @@ class CompensationScreen(Screen):
             # Validar el formato de las fechas
             validate_date_format(start_date)
             validate_date_format(end_date)
+
+            # Verificar que la fecha de inicio no sea posterior a la fecha de fin
+            if datetime.strptime(start_date, '%Y-%m-%d') > datetime.strptime(end_date, '%Y-%m-%d'):
+                raise ValueError("La fecha de inicio de contrato debe ser menor que la de finalización")
 
             employee = self.manager.employee
 
@@ -248,9 +248,11 @@ class CompensationScreen(Screen):
         except EmployeeException as e:
             show_error_popup(f"Error al calcular la indemnización: {str(e)}")
         except ValueError as ve:
+            # Mostrar un popup con el mensaje de error si la validación de fechas falla
             show_error_popup(str(ve))
         except Exception as e:
             show_error_popup(f"Error al calcular la indemnización: {str(e)}")
+
     
     def go_back(self, *args):
         self.manager.current = 'result'
