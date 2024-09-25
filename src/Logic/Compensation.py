@@ -90,7 +90,8 @@ def calculate_compensation(employee: Employee, type_of_contract: str, start_date
                     for year in range(2, worked_years + 1):
                         compensation += (basic_monthly_salary / DAYS_PER_MONTH) * DAYS_WORKED_FOR_HIGH_SALARY_CONTRACT
 
-        return compensation
+        # Round the compensation to 2 decimal places
+        return round(compensation)
 
     except Exception as e:
         print(f"Error en el cálculo de la indemnización: {str(e)}")
