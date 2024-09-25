@@ -193,7 +193,7 @@ class CompensationScreen(Screen):
         self.compensation_label = Label(text="Cálculo de la Indemnización", font_size=FONT_SIZE, font_name=FONT_NAME)
         self.layout.add_widget(self.compensation_label)
 
-        # Agregar el tipo de contrato
+        # Add contract type
         contract_type_label = Label(text="Tipo de contrato", font_size=FONT_SIZE, font_name=FONT_NAME)
         self.layout.add_widget(contract_type_label)
 
@@ -225,26 +225,27 @@ class CompensationScreen(Screen):
         
         self.add_widget(self.layout)
 
+    # Function to shows compensation 
     def calculate_compensation_button(self, *args):
         try:
             type_of_contract = self.contract_type_spinner.text
             start_date = self.start_date_input.text
             end_date = self.end_date_input.text
 
-            # Validar si el tipo de contrato no ha sido seleccionado
+            # Validate if the contract type has not been selected
             if type_of_contract == "Seleccione el tipo de contrato":
                 raise ValueError("Debe seleccionar un tipo de contrato.")
 
-            # Validar el formato de las fechas
+            # Validate dates format
             validate_date_format(start_date)
             validate_date_format(end_date)
 
             employee = self.manager.employee
 
-            # Calcular la indemnización
+            # Calculate compensation
             compensation = calculate_compensation(employee, type_of_contract, start_date, end_date)
 
-            # Mostrar resultados
+            # Show results
             results = f"Indemnización Total: {compensation}"
             self.compensation_details.text = results
 
