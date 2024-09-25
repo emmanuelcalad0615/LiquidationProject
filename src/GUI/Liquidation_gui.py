@@ -159,10 +159,10 @@ class ResultScreen(Screen):
         
         try:
             # Calculate the different components of the liquidation
-            severance_pay = calculate_severance_pay_amount(employee)
-            severance_pay_interest = calculate_severance_pay_interest(employee, severance_pay)
-            service_bonus = calculate_service_bonus(employee)
-            vacation = calculate_vacation(employee)
+            severance_pay = round(calculate_severance_pay_amount(employee))
+            severance_pay_interest = round(calculate_severance_pay_interest(employee, severance_pay))
+            service_bonus = round(calculate_service_bonus(employee))
+            vacation = round(calculate_vacation(employee))
             
             total_liquidation = round(severance_pay + severance_pay_interest + service_bonus + vacation)
 
