@@ -10,7 +10,9 @@ from kivy.uix.popup import Popup
 from datetime import datetime
 import os
 import sys
-sys.path.append("src")
+
+# Add src folder to the path
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
 # Import the necessary modules
 from Logic.employee import Employee
