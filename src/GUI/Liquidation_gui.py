@@ -193,7 +193,7 @@ class CompensationScreen(Screen):
         self.compensation_label = Label(text="Cálculo de la Indemnización", font_size=FONT_SIZE, font_name=FONT_NAME)
         self.layout.add_widget(self.compensation_label)
 
-         # Add the type of contract
+        # Agregar el tipo de contrato
         contract_type_label = Label(text="Tipo de contrato", font_size=FONT_SIZE, font_name=FONT_NAME)
         self.layout.add_widget(contract_type_label)
 
@@ -225,41 +225,40 @@ class CompensationScreen(Screen):
         
         self.add_widget(self.layout)
 
-    # Function that shows compensation
     def calculate_compensation_button(self, *args):
         try:
             type_of_contract = self.contract_type_spinner.text
             start_date = self.start_date_input.text
             end_date = self.end_date_input.text
 
-            # Validate the format of the dates
+            # Validar si el tipo de contrato no ha sido seleccionado
+            if type_of_contract == "Seleccione el tipo de contrato":
+                raise ValueError("Debe seleccionar un tipo de contrato.")
+
+            # Validar el formato de las fechas
             validate_date_format(start_date)
             validate_date_format(end_date)
 
-            # Verify that the start date is not later than the end date
-            if datetime.strptime(start_date, '%Y-%m-%d') > datetime.strptime(end_date, '%Y-%m-%d'):
-                raise ValueError("La fecha de inicio de contrato debe ser menor que la de finalización")
-
             employee = self.manager.employee
 
-            # Calculate compensation
+            # Calcular la indemnización
             compensation = calculate_compensation(employee, type_of_contract, start_date, end_date)
 
-            # Showing results
+            # Mostrar resultados
             results = f"Indemnización Total: {compensation}"
             self.compensation_details.text = results
 
+        except ValueError as ve:
+            show_error_popup(str(ve))
         except EmployeeException as e:
             show_error_popup(f"Error al calcular la indemnización: {str(e)}")
-        except ValueError as ve:
-            # Show a pop-up with the error message if the date validation fails
-            show_error_popup(str(ve))
         except Exception as e:
-            show_error_popup(f"Error al calcular la indemnización: {str(e)}")
+            show_error_popup(f"Error inesperado: {str(e)}")
 
-    
     def go_back(self, *args):
         self.manager.current = 'result'
+
+
 
 # Main screen for navigating
 class LiquidationApp(App):
