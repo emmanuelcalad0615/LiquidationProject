@@ -17,7 +17,7 @@ class EmployeeController:
                 host=SecretConfig.PGHOST,
                 port=SecretConfig.PGPORT
             )
-            return connection.cursor(), connection  # Retorna tanto el cursor como la conexión
+            return connection.cursor(), connection  
         except Exception as e:
             print(f"Error al conectar a la base de datos: {e}")
             raise e
@@ -67,11 +67,11 @@ class EmployeeController:
             connection.commit()
             print(f"Empleado '{name}' insertado correctamente.")
         except psycopg2.IntegrityError as e:
-            connection.rollback()  # Deshacer cambios en caso de error
-            raise DuplicateEntryError("Entrada duplicada para el documento.")  # Lanza una excepción específica
+            connection.rollback()  
+            raise DuplicateEntryError("Entrada duplicada para el documento.") 
         except Exception as e:
             print(f"Error al insertar empleado: {e}")
-            raise e  # Asegúrate de volver a lanzar la excepción
+            raise e 
         finally:
             cursor.close()
             connection.close()
@@ -96,7 +96,7 @@ class EmployeeController:
             print(f"Empleado con documento '{employee_document}' actualizado correctamente.")
         except Exception as e:
             print(f"Error al actualizar empleado: {e}")
-            raise e  # Asegúrate de volver a lanzar la excepción
+            raise e  
         finally:
             cursor.close()
             connection.close()
@@ -116,7 +116,7 @@ class EmployeeController:
             print(f"Empleado con documento '{employee_document}' eliminado correctamente.")
         except Exception as e:
             print(f"Error al eliminar empleado: {e}")
-            raise e  # Asegúrate de volver a lanzar la excepción
+            raise e  
         finally:
             cursor.close()
             connection.close()
@@ -128,7 +128,7 @@ class EmployeeController:
         
         try:
             cursor.execute("SELECT * FROM employees WHERE document = %s;", (document,))
-            employee = cursor.fetchone()  # Devuelve una sola fila
+            employee = cursor.fetchone()
             
             if not employee:
                 raise EntryNotFoundError("Empleado no encontrado.")

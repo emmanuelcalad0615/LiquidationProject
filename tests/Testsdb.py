@@ -19,7 +19,7 @@ class TestEmployeeController(unittest.TestCase):
     def tearDown(self):
         """Elimina la tabla después de cada prueba."""
         cursor, connection = EmployeeController.get_cursor()
-        cursor.execute("DROP TABLE IF EXISTS employees CASCADE;")  # Usar CASCADE
+        cursor.execute("DROP TABLE IF EXISTS employees CASCADE;")  
         connection.commit()
         cursor.close()
         connection.close()
@@ -49,13 +49,13 @@ class TestEmployeeController(unittest.TestCase):
 
     def test_update_employee_nonexistent(self):
         """Prueba de actualización de un empleado que no existe."""
-        with self.assertRaises(Exception):  # Cambia a una excepción más específica si es necesario
+        with self.assertRaises(Exception): 
             EmployeeController.update_employee(9999999999, department='Bogotá')
 
     def test_update_employee_invalid_field(self):
         """Prueba de actualización con un campo que no existe."""
         EmployeeController.insert_employee(1193563679, 'Maria Lopez', 'Desarrolladora', 'Medellín', '2021-05-01', 'indefinido', 6000000)
-        with self.assertRaises(Exception):  # Cambia a una excepción más específica si es necesario
+        with self.assertRaises(Exception):  
             EmployeeController.update_employee(1193563679, invalid_field='valor')
 
     # Pruebas para delete_employee
@@ -69,7 +69,7 @@ class TestEmployeeController(unittest.TestCase):
 
     def test_delete_employee_nonexistent(self):
         """Prueba de eliminación de un empleado que no existe."""
-        with self.assertRaises(Exception):  # Cambia a una excepción más específica si es necesario
+        with self.assertRaises(Exception): 
             EmployeeController.delete_employee(9999999999)
 
     # Pruebas para get_employee_by_document
@@ -78,11 +78,11 @@ class TestEmployeeController(unittest.TestCase):
         EmployeeController.insert_employee(1193563681, 'Ana Torres', 'Gerente', 'Cali', '2021-02-01', 'indefinido', 7500000)
         result = EmployeeController.get_employee_by_document(1193563681)
         self.assertIsNotNone(result)
-        self.assertEqual(result[1], 1193563681)  # Verifica que el documento coincida
+        self.assertEqual(result[1], 1193563681) 
 
     def test_delete_employee_nonexistent(self):
         """Prueba de eliminación de un empleado que no existe."""
-        with self.assertRaises(Exception):  # Cambia a una excepción más específica si es necesario
+        with self.assertRaises(Exception): 
             EmployeeController.delete_employee(9999999999)
 
 if __name__ == '__main__':
