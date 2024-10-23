@@ -39,12 +39,12 @@ Es un proyecto de liquidación de nómina para un empleado del sector privado. S
 
 2. Clonar el Repositorio: Usar el comando **git clone** seguido de la URL del repositorio:
    ```bash
-   git clone https://github.com/usuario/nombre-del-repositorio.git
+   git clone https://github.com/JHONCE79/Liquidation-proyect.git
    ```
 
 3. Navegar al Directorio del Proyecto: Después de clonar el repositorio, ir al directorio del proyecto:
    ```bash
-   cd nombre-del-repositorio
+   cd Liquidation-proyect
    ```
 
 4. Ejecutar el proyecto: Navegar al directorio principal del proyecto:
