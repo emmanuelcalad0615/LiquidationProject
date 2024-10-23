@@ -9,6 +9,7 @@ Aquí tienes el README actualizado con las instrucciones para ejecutar los casos
 Los integrantes y colaboradores del proyecto son:
 
 - John Steven Ceballos Agudelo
+- Gustavo Mendez 
 
 ## **Qué es y para qué es?**
 
@@ -103,7 +104,7 @@ El archivo `consoledb.py` es otro componente del proyecto que se puede ejecutar 
 
 1. **Navegar al directorio donde se encuentra el archivo**:
    ```bash
-   cd src\Console\
+   cd src\View\
    ```
 
 2. **Ejecutar el archivo**:
