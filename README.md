@@ -86,7 +86,7 @@ Para asegurar que todo el código funciona correctamente, se han creado pruebas 
 
 2. **Ubicarse en el directorio de pruebas**: Navegar al directorio donde están los archivos de prueba:
    ```bash
-   cd src\tests
+   cd tests\
    ```
 
 3. **Ejecutar las pruebas unitarias**: Ejecuta el archivo `Testsdb.py` con el siguiente comando:
