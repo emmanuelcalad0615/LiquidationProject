@@ -22,6 +22,14 @@ Es un proyecto de liquidación de nómina para un empleado del sector privado. S
 
 2. **Instalar Git**: Descargar e instalar Git desde [git-scm.com](http://git-scm.com).
 
+3. **Instalar pandas**: 
+
+   ```bash
+    pip install pandas 
+   ```
+
+
+
 ### **Pasos para ejecutar el proyecto desde la consola de Windows:**
 
 1. Abrir la Consola de Windows y navegar al directorio donde deseas clonar el repositorio:
@@ -89,7 +97,7 @@ Esto ejecutará todas las pruebas unitarias y mostrará los resultados de cada u
 
 ---
 
-## **Ejecución del archivo consoledb.py**
+## **Ejecución del archivo de consola de la base de datos "consoledb.py"**
 
 El archivo `consoledb.py` es otro componente del proyecto que se puede ejecutar directamente desde la consola. Para hacerlo, sigue estos pasos:
 
@@ -115,9 +123,50 @@ Para la realización de este proyecto se hizo uso de varias librerías, como:
 - **unittest**: Permite crear y ejecutar pruebas para asegurarse de que el código funcione correctamente.
 - **sys**: Proporciona acceso a las variables y funciones relacionadas con el sistema.
 
-El proyecto está organizado en tres carpetas principales, cada una con un propósito específico...
+El proyecto está organizado en tres carpetas principales, cada una con un propósito específico:
 
-(El resto del README permanece igual.)
+1. **.vscode**:
+Esta carpeta almacena configuraciones específicas del editor Visual Studio Code. Dentro de ella se encuentra el archivo ```settings.json```, que configura el entorno para usar la librería ```unittest```, la cual ejecuta las pruebas unitarias del proyecto.
 
---- 
+2. **src**:
+Esta carpeta contiene un archivo ```__init__.py``` que permite que Python reconozca la carpeta como un módulo, facilitando la importación de sus componentes. Además, incluye tres subcarpetas:
 
+- *Console*: Contiene dos archivos: ```__init__.py```, que permite el reconocimiento de la carpeta como un módulo, y LiquidationConsole.py, que implementa la interfaz con el usuario.
+
+- *Logic*: Esta carpeta alberga tres archivos:
+
+1. ```__init__.py```: que permite el reconocimiento de la carpeta como un módulo.
+
+2. ```employee.py```: que define las variables necesarias para la lógica del programa.
+
+3. ```Liquidation.py```: que contiene la lógica completa del proceso de liquidación, importando las variables desde ```employee.py```.También incluye una subcarpeta ```__pycache__```, una optimización automática de Python para acelerar la ejecución del código.
+
+- *GUI*: Esta carpeta alberga cuatro archivos esenciales para la interfaz gráfica del proyecto:
+
+1. ```__init__.py```: Este archivo vacío permite que Python reconozca la carpeta como un módulo, facilitando la importación de sus contenidos.
+
+2. ```FUNNY SUNSHINE.ttf```: Un archivo de fuente que proporciona un estilo visual específico para elementos de la interfaz gráfica
+
+3. ``` Liquidation_gui.py```: Contiene toda la lógica y estructura de la interfaz gráfica de usuario, siendo el componente principal para la presentación visual del programa
+
+4. ``` Londona-regular.otf```: Otro archivo de fuente que ofrece un estilo alternativo para los textos en la interfaz, permitiendo una mayor variedad en el diseño visual
+
+
+3. **tests**:
+
+Esta carpeta está dedicada a las pruebas unitarias del proyecto. Contiene dos archivos:
+
+1. ```__init__.py```, que permite que la carpeta sea reconocida como un módulo.
+
+2. ```LiquidationTests.py```, que agrupa todas las pruebas unitarias del proyecto. También incluye una subcarpeta ```__pycache__```, similar a la encontrada en ```Logic```, para optimizar la ejecución del código.
+
+
+En la carpeta principal del proyecto, **Liquidation-proyect**, se encuentran los siguientes archivos:
+
+- ```__init__.py```: Permite que toda la carpeta principal sea reconocida como un módulo.
+
+- ```.gitignore```: Contiene las rutas y archivos que se excluyen del control de versiones con Git.
+
+- ```LICENSE```: Especifica los términos y condiciones bajo los cuales se puede utilizar, modificar y distribuir el código fuente del proyecto.
+
+- ```README.md```: Proporciona la documentación y explicación necesarias para entender y trabajar con el proyecto.
