@@ -1,6 +1,7 @@
 import sys
+import os
 sys.path.append("src")
-
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from Controller.ControladorUsuarios import EmployeeController  # Importa el controlador de empleados
 import pandas as pd
 

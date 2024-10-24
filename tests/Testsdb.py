@@ -2,8 +2,8 @@ import unittest
 import psycopg2
 import sys
 sys.path.append("src")
-sys.path.append("./")   
-
+sys.path.append("../")
+sys.path.append("./")
 
 import unittest
 import psycopg2
@@ -35,8 +35,10 @@ class TestEmployeeController(unittest.TestCase):
     def test_insert_employee_duplicate(self):
         """Prueba de inserción de un empleado duplicado."""
         EmployeeController.insert_employee(1193563677, 'Steven Ceballos', 'Gerente', 'Antioquia', '2020-02-01', 'indefinido', 90000000)
-        with self.assertRaises(psycopg2.IntegrityError):
+        
+        with self.assertRaises(DuplicateEntryError):
             EmployeeController.insert_employee(1193563677, 'Otro Nombre', 'Otro Puesto', 'Otro Departamento', '2021-01-01', 'fijo_1_año', 80000000)
+
 
     # Pruebas para update_employee
     def test_update_employee_valid(self):

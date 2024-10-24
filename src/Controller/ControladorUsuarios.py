@@ -1,6 +1,6 @@
 import sys
 import psycopg2
-sys.path.append("src")
+sys.path.append('../src')
 from Controller import SecretConfig
 from Model.Usuario import EmployeeInput, DuplicateEntryError, EntryNotFoundError, DataValidationError
 
@@ -54,7 +54,6 @@ class EmployeeController:
         # Verifica si el documento ya existe antes de insertar
         EmployeeInput.check_primary_key(document, EmployeeController.get_employee_by_document)
 
-        # Crea una instancia de EmployeeInput y valida los datos
         employee_input = EmployeeInput(document, name, position, department, hire_date, contract_type, salary)
         employee_input.validate()
 
@@ -66,15 +65,16 @@ class EmployeeController:
             """, (document, name, position, department, hire_date, contract_type, salary))
             connection.commit()
             print(f"Empleado '{name}' insertado correctamente.")
-        except psycopg2.IntegrityError as e:
-            connection.rollback()  
-            raise DuplicateEntryError("Entrada duplicada para el documento.") 
+        except psycopg2.IntegrityError:
+            connection.rollback()
+            raise DuplicateEntryError(f"Ya existe un empleado con el documento {document}.")
         except Exception as e:
             print(f"Error al insertar empleado: {e}")
             raise e 
         finally:
             cursor.close()
             connection.close()
+
 
     @staticmethod
     def update_employee(employee_document, **kwargs):
@@ -140,4 +140,4 @@ class EmployeeController:
         finally:
             cursor.close()
             connection.close()
-#
+
