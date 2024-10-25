@@ -1,6 +1,4 @@
 import unittest
-from unittest.mock import patch, MagicMock
-import psycopg2
 import sys
 import os
 from datetime import date
@@ -17,9 +15,9 @@ class TestEmployeeController(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         """Configuración inicial antes de ejecutar todas las pruebas."""
-        EmployeeController.drop_table()  # Asegúrate de que la tabla esté limpia antes de las pruebas
-        EmployeeController.create_table()  # Luego crea la tabla nuevamente
-
+        EmployeeController.drop_table() 
+        EmployeeController.create_table()  
+    
     def setUp(self):
         """Configuración inicial antes de ejecutar cada prueba."""
         cursor, connection = EmployeeController.get_cursor()

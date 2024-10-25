@@ -72,13 +72,11 @@ class EmployeeController:
         employee_input = EmployeeInput(document, name, position, department, hire_date, contract_type, salary)
         employee_input.validate()
         
-        # Verifica si el documento ya existe antes de insertar
         try:
             EmployeeController.get_employee_by_document(document)
             raise DuplicateEntryError(f"Ya existe un empleado con el documento {document}.")
         except EntryNotFoundError:
-            pass  # Si no encuentra el empleado, podemos continuar con la inserción
-
+            pass  
         cursor, connection = EmployeeController.get_cursor()
         try:
             cursor.execute("""
@@ -101,7 +99,6 @@ class EmployeeController:
     @staticmethod
     def update_employee(document, **kwargs):
         """Actualiza los datos de un empleado en la tabla 'employees'."""
-        # Verificar si el empleado existe
         EmployeeController.get_employee_by_document(document)
 
         cursor, connection = EmployeeController.get_cursor()
@@ -147,7 +144,6 @@ class EmployeeController:
     @staticmethod
     def delete_employee(document):
         """Elimina un empleado de la tabla 'employees'."""
-        # Verificar si el empleado existe
         EmployeeController.get_employee_by_document(document)
         
         cursor, connection = EmployeeController.get_cursor()

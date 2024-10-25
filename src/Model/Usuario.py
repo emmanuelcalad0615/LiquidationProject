@@ -1,7 +1,6 @@
 import sys
 sys.path.append("src")
 
-# Definición de excepciones personalizadas
 class DuplicateEntryError(Exception):
     """Excepción para entradas duplicadas en la base de datos."""
     pass
