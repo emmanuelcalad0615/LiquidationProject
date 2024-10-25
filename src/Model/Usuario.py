@@ -47,3 +47,6 @@ class EmployeeOutput:
     def validate_employee_found(found, operation):
         if not found:
             raise EntryNotFoundError(f"Empleado no encontrado para la operación: {operation}.")
+        
+
+    
