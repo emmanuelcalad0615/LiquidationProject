@@ -1,15 +1,21 @@
 import sys
 import os
+import pandas as pd
+
 sys.path.append("src")
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from Controller.ControladorUsuarios import EmployeeController  # Importa el controlador de empleados
-import pandas as pd
 
-def create_tables():
-    """Crea la tabla de empleados en la base de datos."""
-    EmployeeController.create_employees_table()
-    print("Tabla de empleados creada con éxito.")
+# Crear la tabla automáticamente al iniciar el script
+def initialize_database():
+    """Crea la tabla de empleados si no existe en la base de datos."""
+    try:
+        EmployeeController.create_table()
+        print("Tabla de empleados creada o verificada exitosamente.")
+    except Exception as e:
+        print(f"Error al crear o verificar la tabla: {e}")
 
+# Funciones CRUD
 def insert_employee():
     """Recoge información del empleado e inserta en la base de datos."""
     print("Ingresa la siguiente información del empleado:")
@@ -62,7 +68,8 @@ def query_employee():
     else:
         print("No se encontró ningún empleado con ese documento.")
 
-create_tables()  # Crea las tablas necesarias al iniciar el programa.
+# Inicializar la base de datos y mostrar el menú
+initialize_database()
 
 while True:
     # Menú principal en español
