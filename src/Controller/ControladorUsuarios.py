@@ -1,10 +1,63 @@
 import sys
 import psycopg2
 import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+sys.path.append("src")
 
 from Controller import SecretConfig
 from Model.Usuario import EmployeeInput, DuplicateEntryError, EntryNotFoundError, DataValidationError
+
+# Base exception for database errors
+class DatabaseError(Exception):
+    """ 
+    Base exception class for database-related errors.
+    """
+    pass
+
+class NotFound(DatabaseError):
+    """ 
+    Exception raised when an income declaration is not found in the database.
+    """
+    pass
+
+class DatabaseConnection(DatabaseError):
+    """ 
+    Exception raised for errors during database connection.
+    """
+    pass
+
+class TableCreationError(DatabaseError):
+    """ 
+    Exception raised when there is an error creating a table.
+    """
+    pass
+
+class InsertionError(DatabaseError):
+    """ 
+    Exception raised when there is an error inserting an income declaration.
+    """
+    pass
+
+class UpdateError(DatabaseError):
+    """ 
+    Exception raised when there is an error updating an income declaration.
+    """
+    pass
+
+class DeletionError(DatabaseError):
+    """ 
+    Exception raised when there is an error deleting an income declaration.
+    """
+    pass
+
+class SearchError(DatabaseError):
+    """ 
+    Exception raised when there is an error searching for an income declaration.
+    """
+    pass
+class ClearError(DatabaseError):
+    pass
+class DropTableError(DatabaseError): 
+    pass
 
 class EmployeeController:
     
@@ -21,8 +74,7 @@ class EmployeeController:
             )
             return connection.cursor(), connection  
         except Exception as e:
-            print(f"Error al conectar a la base de datos: {e}")
-            raise e
+            raise DatabaseConnection(f"Error al conectar a la base de datos: {e}")
 
     @staticmethod
     def drop_table():
@@ -31,13 +83,27 @@ class EmployeeController:
         try:
             cursor.execute("DROP TABLE IF EXISTS employees;")
             connection.commit()
-            print("Tabla 'employees' eliminada con éxito.")
         except Exception as e:
-            print(f"Error al eliminar la tabla 'employees': {e}")
-            raise e
+            raise DropTableError(f"Error al eliminar la tabla 'employees': {e}")
         finally:
             cursor.close()
             connection.close()
+
+    @staticmethod
+    def clear_table():
+        cursor, connection = EmployeeController.get_cursor()
+        try:
+            sql = "DELETE from employees"
+            cursor.execute(sql)
+            connection.commit()
+
+        except Exception as e:
+            raise ClearError(f"Error deleting tables: {e}")
+        
+        finally:
+            cursor.close()  
+            connection.close()
+                
 
     @staticmethod
     def create_table():
@@ -58,10 +124,9 @@ class EmployeeController:
                 );
             """)
             connection.commit()
-            print("Tabla 'employees' creada con éxito.")
+
         except Exception as e:
-            print(f"Error al crear la tabla 'employees': {e}")
-            raise e
+            raise TableCreationError(f"Error creating the table: {e}")
         finally:
             cursor.close()
             connection.close()
@@ -84,14 +149,12 @@ class EmployeeController:
                 VALUES (%s, %s, %s, %s, %s, %s, %s);
             """, (document, name, position, department, hire_date, contract_type, salary))
             connection.commit()
-            print(f"Empleado '{name}' insertado correctamente.")
         except psycopg2.IntegrityError:
             connection.rollback()
             raise DuplicateEntryError(f"Ya existe un empleado con el documento {document}.")
         except Exception as e:
             connection.rollback()
-            print(f"Error al insertar empleado: {e}")
-            raise e
+            InsertionError(f"Error al insertar empleado: {e}")
         finally:
             cursor.close()
             connection.close()
@@ -132,11 +195,9 @@ class EmployeeController:
             """, values)
             
             connection.commit()
-            print(f"Empleado con documento '{document}' actualizado correctamente.")
         except Exception as e:
             connection.rollback()
-            print(f"Error al actualizar empleado: {e}")
-            raise e
+            raise UpdateError(f"Error updating natural person: {e}")
         finally:
             cursor.close()
             connection.close()
@@ -150,11 +211,10 @@ class EmployeeController:
         try:
             cursor.execute("DELETE FROM employees WHERE document = %s;", (document,))
             connection.commit()
-            print(f"Empleado con documento '{document}' eliminado correctamente.")
         except Exception as e:
             connection.rollback()
-            print(f"Error al eliminar empleado: {e}")
-            raise e
+            
+            raise DeletionError(f"Error al eliminar empleado: {e}")
         finally:
             cursor.close()
             connection.close()
@@ -174,8 +234,7 @@ class EmployeeController:
         except EntryNotFoundError as e:
             raise e
         except Exception as e:
-            print(f"Error al consultar empleado: {e}")
-            raise e
+            raise SearchError(f"Error al consultar empleado: {e}")
         finally:
             cursor.close()
             connection.close()

@@ -1,14 +1,12 @@
 import unittest
 import sys
-import os
+sys.path.append("src")
 from datetime import date
 
-sys.path.append("src")
-sys.path.append("./")   
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from src.Controller.ControladorUsuarios import EmployeeController
-from src.Model.Usuario import DataValidationError, EntryNotFoundError, DuplicateEntryError
+from Controller.ControladorUsuarios import EmployeeController, InsertionError
+from Model.Usuario import DataValidationError, EntryNotFoundError, DuplicateEntryError
+
 
 class TestEmployeeController(unittest.TestCase):
 
@@ -93,7 +91,7 @@ class TestEmployeeController(unittest.TestCase):
         
     def test_get_employee_by_document_nonexistent(self):
         """Prueba de consulta de un empleado que no existe."""
-        with self.assertRaises(EntryNotFoundError) as context:
+        with self.assertRaises(EntryNotFoundError):
             EmployeeController.get_employee_by_document(9999999999)
 
 
