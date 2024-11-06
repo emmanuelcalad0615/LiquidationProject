@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Eliminar Empleado</title>
+  
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            text-align: center;
+        }
+        .contenedor {
+            max-width: 700px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+        .form-control {
+            border: 2px solid #0ac2d2;
+            margin-bottom: 20px;
+        }
+        .form-label {
+            text-align: left;
+            margin-bottom: 5px;
+        }
+        .btn {
+            background-color: #0ac2d2;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            margin-right: 10px;
+        }
+        .btn-blue {
+            background-color: #007bff;
+        }
+        .btn:disabled {
+            background-color: #ccc;
+        }
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="alert-container">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- Formulario para Eliminar Empleado -->
+        <form method="POST">
+            <div class="contenedor">
+                <h2>Eliminar Empleado</h2>
+
+                <!-- ID -->
+                <div class="mb-3">
+                    <label for="document" class="form-label">Documento:</label>
+                    <input type="number" id="document" name="document" class="form-control" required>
+                </div>
+
+                <!-- Botones sobre la misma fila -->
+                <div class="form-row">
+                    <button type="submit" class="btn">Eliminar</button>
+                    <a href="{{ url_for('main.crud') }}" class="btn btn-blue">Regresar</a>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

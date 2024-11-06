@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Editar Empleado</title>
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            text-align: center;
+        }
+        .contenedor {
+            max-width: 700px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+        .form-control {
+            border: 2px solid #0ac2d2;
+            margin-bottom: 20px;
+        }
+        .form-label {
+            text-align: left;
+            margin-bottom: 5px;
+        }
+        .btn {
+            background-color: #0ac2d2;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            margin-right: 10px;
+        }
+        .btn-blue {
+            background-color: #007bff;
+        }
+        .btn:disabled {
+            background-color: #ccc;
+        }
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="alert-container">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- Formulario de Edición de Empleado -->
+        <form method="POST">
+            <div class="contenedor">
+                <h2>Formulario de Edición de Empleado</h2>
+
+                <!-- Documento (No editable) -->
+                <div class="mb-3">
+                    <label for="document" class="form-label">Documento:</label>
+                    <input type="text" id="document" name="document" class="form-control" value="{{ employee.document }}" readonly>
+                    <!-- Campo oculto para enviar el documento -->
+                    <input type="hidden" name="document" value="{{ employee.document }}">
+                </div>
+
+                <!-- Nombre -->
+                <div class="mb-3">
+                    <label for="name" class="form-label">Nombre:</label>
+                    <input type="text" id="name" name="name" class="form-control" value="{{ employee.name }}" required>
+                </div>
+
+                <!-- Cargo -->
+                <div class="mb-3">
+                    <label for="position" class="form-label">Cargo:</label>
+                    <input type="text" id="position" name="position" class="form-control" value="{{ employee.position }}">
+                </div>
+
+                <!-- Departamento -->
+                <div class="mb-3">
+                    <label for="department" class="form-label">Departamento:</label>
+                    <input type="text" id="department" name="department" class="form-control" value="{{ employee.department }}">
+                </div>
+
+                <!-- Fecha de contratación -->
+                <div class="mb-3">
+                    <label for="hire_date" class="form-label">Fecha de Contratación:</label>
+                    <input type="date" id="hire_date" name="hire_date" class="form-control" value="{{ employee.hire_date }}">
+                </div>
+
+                <!-- Tipo de contrato -->
+                <div class="mb-3">
+                    <label for="contract_type" class="form-label">Tipo de Contrato:</label>
+                    <select id="contract_type" name="contract_type" class="form-select" required>
+                        <option value="fijo_1_año" {% if employee.contract_type == 'fijo_1_año' %}selected{% endif %}>Fijo 1 Año</option>
+                        <option value="fijo_inferior_1_año" {% if employee.contract_type == 'fijo_inferior_1_año' %}selected{% endif %}>Fijo Inferior a 1 Año</option>
+                        <option value="indefinido" {% if employee.contract_type == 'indefinido' %}selected{% endif %}>Indefinido</option>
+                    </select>
+                </div>
+
+                <!-- Salario -->
+                <div class="mb-3">
+                    <label for="salary" class="form-label">Salario:</label>
+                    <input type="number" id="salary" name="salary" class="form-control" value="{{ employee.salary }}" required>
+                </div>
+
+                <!-- Estado -->
+                <div class="mb-3">
+                    <label for="status" class="form-label">Estado:</label>
+                    <select id="status" name="status" class="form-select" required>
+                        <option value="activo" {% if employee.status == 'activo' %}selected{% endif %}>Activo</option>
+                        <option value="inactivo" {% if employee.status == 'inactivo' %}selected{% endif %}>Inactivo</option>
+                    </select>
+                </div>
+
+                <!-- Botones -->
+                <div class="form-row">
+                    <button type="submit" class="btn">Actualizar</button>
+                    <a href="{{ url_for('main.crud') }}" class="btn btn-blue">Regresar</a>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

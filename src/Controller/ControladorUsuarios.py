@@ -104,7 +104,7 @@ class EmployeeController:
             cursor.close()  
             connection.close()
                 
-
+    
     @staticmethod
     def create_table():
         """Crea la tabla de empleados."""
