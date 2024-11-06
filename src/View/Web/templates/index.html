@@ -27,33 +27,43 @@
             background-color: white;
         }
         
-        .logo img {
-            height: 70px;
-            margin-right: 250px;
+        .logo {
+            width: 200px;
+            margin-right: 0px;  /* Reduje el espacio entre el logo y el menú */
         }
         
+        nav {
+            flex: 1;
+            display: flex;
+            justify-content: center;  /* Centra los elementos del menú */
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;  /* Asegura que los elementos estén centrados dentro del ul */
+        }
+
+        nav li {
+            margin: 0 20px;  /* Ajusta el espacio entre los elementos del menú */
+        }
+
         nav a {
-            margin: 0 10px;
-            color: black;
+            color: #333;
             text-decoration: none;
-            position: relative;
+            font-weight: normal;
         }
-        
-        nav a::after {
-            content: '';
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .logo-centrado {
+            width: 200px;
+            margin: 0 auto 20px;
             display: block;
-            height: 2px;
-            background: black;
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: -5px;
-            transform: scaleX(0);
-            transition: transform 0.3s;
-        }
-        
-        nav a.active::after {
-            transform: scaleX(1);
         }
         
         .hero {
@@ -205,15 +215,15 @@
 <body>
 
     <header>
-        <div class="logo">
-            <img src="static\img\liquidacion_segura.jpg" alt="Logo" />
-        </div>
+        <img src="static\img\liquidacion_segura.jpg" alt="Logo" class="logo">
         <nav>
-            <a href="/" id="inicio">INICIO</a>
-            <a href="#acerca" id="acerca">ACERCA</a>
-            <a href="/como-funciona" >¿CÓMO FUNCIONA?</a>
-            <a href="/calculadora" >CALCULADORA</a>
-            <a href="/calculadora" >USUARIOS</a>
+            <ul>
+                <li><a style="text-decoration: none;" href="/">INICIO</a></li>
+                <li><a style="text-decoration: none;" href="/#acerca">ACERCA</a></li>
+                <li><a style="text-decoration: none;" href="/como-funciona">¿CÓMO FUNCIONA?</a></li>
+                <li><a style="text-decoration: none;" href="/calculadora">CALCULADORA</a></li>
+                <li><a style="text-decoration: none;" href="/crud">USUARIOS</a></li>
+            </ul>
         </nav>
     </header>
 

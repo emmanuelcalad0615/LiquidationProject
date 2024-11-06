@@ -9,29 +9,45 @@
     <link rel="icon" type="image/png" href="static\img\liquidacion_segura.jpg">
     
     <style>
+        .logo {
+            width: 200px;
+            margin-right: 0px;  /* Reduje el espacio entre el logo y el menú */
+        }
+        
+        nav {
+            flex: 1;
+            display: flex;
+            justify-content: center;  /* Centra los elementos del menú */
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;  /* Asegura que los elementos estén centrados dentro del ul */
+        }
+
+        nav li {
+            margin: 0 20px;  /* Ajusta el espacio entre los elementos del menú */
+        }
+
         nav a {
-            margin: 0 10px;
-            color: black;
+            color: #333;
             text-decoration: none;
-            position: relative;
+            font-weight: normal;
         }
-        
-        nav a::after {
-            content: '';
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .logo-centrado {
+            width: 200px;
+            margin: 0 auto 20px;
             display: block;
-            height: 2px;
-            background: black;
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: -5px;
-            transform: scaleX(0);
-            transition: transform 0.3s;
         }
         
-        nav a.active::after {
-            transform: scaleX(1);
-        }
         body {
             font-family: 'Poppins', sans-serif;
             background-color: #f9f9f9;
@@ -57,7 +73,7 @@
             text-align: left;
             margin-bottom: 5px;
         }
-        .btn {
+        .btn_form {
             background-color: #0ac2d2;
             color: white;
             padding: 10px 20px;
@@ -91,29 +107,32 @@
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
-        .logo {
-            width: 300px;
-            margin-bottom: 20px;
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            background-color: white;
+            border-bottom: 2px solid #ccc;
         }
-        .logo2 img {
-            height: 70px;
-            margin-right: 250px;
-        }
+        
+        
     </style>
 </head>
 <body>
     <header>
-        <div class="logo2"></div>
-        <img src="static\img\liquidacion_segura.jpg" alt="Logo" class="logo2">
-    </div>
+        <img src="static\img\liquidacion_segura.jpg" alt="Logo" class="logo">
         <nav>
-            <a href="/" id="inicio">INICIO</a>
-            <a href="/acerca" id="acerca">ACERCA</a>
-            <a href="/como-funciona" >¿CÓMO FUNCIONA?</a>
-            <a href="/calculadora" >CALCULADORA</a>
-            <a href="/crud" >USUARIOS</a>
+            <ul>
+                <li><a style="text-decoration: none;" href="/">INICIO</a></li>
+                <li><a style="text-decoration: none;" href="/#acerca">ACERCA</a></li>
+                <li><a style="text-decoration: none;" href="/como-funciona">¿CÓMO FUNCIONA?</a></li>
+                <li><a style="text-decoration: none;" href="/calculadora">CALCULADORA</a></li>
+                <li><a style="text-decoration: none;" href="/crud">USUARIOS</a></li>
+            </ul>
         </nav>
     </header>
+    <main>
     <div class="container mt-5">
         
         {% with messages = get_flashed_messages(with_categories=true) %}
@@ -192,10 +211,10 @@
 
                 <!-- Botones sobre la misma fila -->
                 <div class="form-row">
-                    <button type="submit" class="btn">Agregar</button>
-                    <a href="{{ url_for('main.eliminar') }}" class="btn">Eliminar</a>
-                    <a href="{{ url_for('main.editar') }}" class="btn">Editar</a>
-                    <a href="{{ url_for('main.buscar') }}" class="btn">Buscar</a>
+                    <button type="submit" class="btn_form" style="text-decoration: none;">Agregar</button>
+                    <a href="{{ url_for('main.eliminar') }}" class="btn_form" style="text-decoration: none;">Eliminar</a>
+                    <a href="{{ url_for('main.editar') }}" class="btn_form" style="text-decoration: none;">Editar</a>
+                    <a href="{{ url_for('main.buscar') }}" class="btn_form" style="text-decoration: none;">Buscar</a>
                     
                 </div>
             </div>
@@ -223,8 +242,9 @@
             </table>
         </div>
     </div>
+</main>
 
-    <footer class="text-center">
+    <footer class="text-center mt-5">
         <!-- Full-width background for social media section -->
         <div style="background-color: rgb(245, 245, 245); padding: 20px 0;">
           <!-- Grid container -->

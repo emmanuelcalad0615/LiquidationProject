@@ -26,61 +26,53 @@ body {
 
 /* Header */
 header {
-    display: flex;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: white;
-}
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            background-color: white;
+            border-bottom: 2px solid #ccc;
+        }
 
-.logo img {
-    height: 70px;
-    margin-right: 250px;
-}
+.logo {
+            width: 200px;
+            margin-right: 0px;  /* Reduje el espacio entre el logo y el menú */
+        }
+        
+        nav {
+            flex: 1;
+            display: flex;
+            justify-content: center;  /* Centra los elementos del menú */
+        }
 
-/* Navegación */
-nav {
-    margin-top: 10px;
-    margin-bottom: 30px; /* Añadido margen inferior para mayor separación */
-    display: flex;
-    justify-content: center; /* Asegura que el contenedor de enlaces se centre horizontalmente */
-    align-items: center; /* Asegura que el contenedor de enlaces se centre verticalmente */
-}
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;  /* Asegura que los elementos estén centrados dentro del ul */
+        }
 
-.nav-links {
-    display: flex; /* Utilizamos flexbox para los enlaces */
-    justify-content: center; /* Centra los enlaces horizontalmente */
-    align-items: center; /* Centra los enlaces verticalmente */
-    gap: 20px; /* Espaciado entre los enlaces */
-    margin: 0;
-}
+        nav li {
+            margin: 0 20px;  /* Ajusta el espacio entre los elementos del menú */
+        }
 
-/* Estilo de los enlaces en el navbar */
-nav a {
-    color: black; /* Color negro para los enlaces */
-    text-decoration: none;
-    position: relative;
-    font-family: 'Poppins', sans-serif; /* Asegúrate de que la fuente Poppins esté aplicada */
-    font-weight: 600; /* Si quieres que sea la misma negrita que tenía */
-    margin: 0 10px; /* Espaciado horizontal entre los enlaces */
-}
+        nav a {
+            color: #333;
+            text-decoration: none;
+            font-weight: normal;
+        }
 
-/* Añadir el efecto hover con subrayado */
-nav a::after {
-    content: '';
-    display: block;
-    height: 2px;
-    background: black;
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -5px;
-    transform: scaleX(0);
-    transition: transform 0.3s;
-}
+        nav a:hover {
+            text-decoration: underline;
+        }
 
-nav a.active::after {
-    transform: scaleX(1);
-}
+        .logo-centrado {
+            width: 200px;
+            margin: 0 auto 20px;
+            display: block;
+        }
+        
 
 /* Contenedor de contenido principal */
 main {
@@ -180,18 +172,18 @@ h1 {
 </head>
 <body>
     <header>
-        <div class="logo">
-            <img src="static\img\liquidacion_segura.jpg" alt="Logo">
-        </div>
-        
-        <div class="nav-links">
-            <a style="color: black; text-decoration: none;" href="/" id="inicio">INICIO</a>
-            <a style="color: black; text-decoration: none;"  href="/acerca" id="acerca">ACERCA</a>
-            <a style="color: black; text-decoration: none;"  href="/como-funciona">¿CÓMO FUNCIONA?</a>
-            <a style="color: black; text-decoration: none;"  href="/calculadora">CALCULADORA</a>
-            <a style="color: black; text-decoration: none;"  href="/crud">USUARIOS</a>
-        </div>
+        <img src="static\img\liquidacion_segura.jpg" alt="Logo" class="logo">
+        <nav>
+            <ul>
+                <li><a style="text-decoration: none;" href="/">INICIO</a></li>
+                <li><a style="text-decoration: none;" href="/#acerca">ACERCA</a></li>
+                <li><a style="text-decoration: none;" href="/como-funciona">¿CÓMO FUNCIONA?</a></li>
+                <li><a style="text-decoration: none;" href="/calculadora">CALCULADORA</a></li>
+                <li><a style="text-decoration: none;" href="/crud">USUARIOS</a></li>
+            </ul>
+        </nav>
     </header>
+
     <main>
     <div class="container">
         <h1>¿Cómo Funciona la Calculadora de Nómina?</h1>
