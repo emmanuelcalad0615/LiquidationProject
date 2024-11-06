@@ -3,21 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acerca de Nosotros</title>
+    <title>About Us</title>
+    <!-- Linking Google Fonts (Poppins font family) -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
+        /* General Reset */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
         
+        /* Body styling, applying the font and background color */
         body {
             font-family: 'Poppins', sans-serif;
             color: #333;
             background-color: #f9f9f9;
         }
         
+        /* Header styling with a white background and flex layout */
         header {
             display: flex;
             align-items: center;
@@ -25,11 +29,13 @@
             background-color: white;
         }
         
+        /* Logo image styling, setting height and margin */
         .logo img {
             height: 70px;
             margin-right: 250px;
         }
         
+        /* Navigation link styling */
         nav a {
             margin: 0 10px;
             color: black;
@@ -37,6 +43,7 @@
             position: relative;
         }
         
+        /* Navigation link underline animation */
         nav a::after {
             content: '';
             display: block;
@@ -50,10 +57,12 @@
             transition: transform 0.3s;
         }
         
+        /* When a link has the "active" class, show the underline */
         nav a.active::after {
             transform: scaleX(1);
         }
         
+        /* Hero section styling with background image and centered content */
         .hero {
             background-image: url('https://www.p2cinfo-tech.com/images/services/service-single/3.jpg');
             background-size: cover;
@@ -66,6 +75,7 @@
             justify-content: center;
         }
         
+        /* Hero content with a semi-transparent dark background for text legibility */
         .hero-content {
             background: rgba(0, 0, 0, 0.7);
             display: flex;
@@ -80,16 +90,19 @@
             max-width: 800px;
         }
         
+        /* Hero section heading */
         .hero h1 {
             font-size: 2.5em;
             margin-bottom: 10px;
         }
         
+        /* Hero section paragraph styling */
         .hero p {
             font-size: 1em;
             margin-bottom: 20px;
         }
         
+        /* Button styling in the hero section with hover effect */
         .hero button.calculate-btn {
             margin-top: 20px;
             padding: 15px 30px;
@@ -102,15 +115,18 @@
             transition: background-color 0.3s;
         }
         
+        /* Hover effect for the button */
         .hero button.calculate-btn:hover {
             background-color: #09b0bf;
         }
         
+        /* About section with light background and padding */
         .about {
             background-color: #f9f9f9;
             padding: 50px 20px;
         }
         
+        /* Container in the about section with a centered, white semi-transparent background */
         .about .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -121,6 +137,7 @@
             text-align: center;
         }
         
+        /* About section content alignment */
         .about-content {
             display: flex;
             flex-direction: column;
@@ -128,18 +145,20 @@
             gap: 20px;
         }
         
+        /* About section image styling - circular with border and shadow */
         .about-image img {
             width: 250px;
             height: 250px;
             border-radius: 50%;
             object-fit: cover;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            border: 5px solid #0ac2d2; /* Primer borde azul */
+            border: 5px solid #0ac2d2; /* Blue border */
             padding: 5px;
-            border-radius: 50%; /* Redondez aplicada a ambos bordes */
-            border: double 5px #0ac2d2; /* Segundo borde azul */
+            border-radius: 50%; /* Double border for a rounded effect */
+            border: double 5px #0ac2d2; /* Double blue border */
         }
         
+        /* About text container styling */
         .about-text {
             display: flex;
             flex-direction: column;
@@ -147,6 +166,7 @@
             text-align: center;
         }
         
+        /* Main and small containers inside the about section */
         .main-container, .small-container {
             background-color: #ffffff;
             padding: 20px;
@@ -154,19 +174,20 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
         
-        /* Ajuste de tamaño para títulos más pequeños */
+        /* Styling the headings with a smaller font size for sub-sections */
         .main-container h2, .small-container h3 {
             margin-bottom: 10px;
-            font-size: 1.5em; /* Tamaño reducido */
+            font-size: 1.5em; /* Smaller font size */
             color: #0ac2d2;
         }
         
+        /* Styling the paragraph text inside containers */
         .main-container p, .small-container p {
             font-size: 1em;
             color: #333;
         }
         
-        /* Estilo del botón de regreso al inicio en forma cuadrada */
+        /* "Back to top" button styling */
         .back-to-top {
             display: inline-block;
             margin-top: 20px;
@@ -179,16 +200,17 @@
             transition: background-color 0.3s;
         }
         
+        /* Hover effect for the "Back to Top" button */
         .back-to-top:hover {
             background-color: #09b0bf;
         }
         
-        /* Estilo para el botón "Volver al inicio" */
+        /* Styling for the "Back to the beginning" button */
         .btn-volver {
             display: block;
-            margin: 20px auto; /* Centra el botón horizontalmente */
+            margin: 20px auto; /* Center button horizontally */
             padding: 15px 30px;
-            background-color: #09b0bf; /* Azul */
+            background-color: #09b0bf; /* Blue color */
             border: none;
             border-radius: 5px;
             color: white;
@@ -198,47 +220,52 @@
             transition: background-color 0.3s;
         }
         
+        /* Hover effect for the "Back to the beginning" button */
         .btn-volver:hover {
-            background-color: #09b0bf; /* Azul más oscuro al pasar el ratón */
+            background-color: #09b0bf; /* Darker blue on hover */
         }
     </style> 
 </head>
 <body>
     <header>
+        <!-- Logo section with image -->
         <div class="logo">
             <img src="static\img\liquidacion_segura.jpg" alt="Logo" />
         </div>
         <nav>
-            <a href="/" id="inicio">INICIO</a>
-            <a href="/acerca" id="acerca">ACERCA</a>
-            <a href="/como-funciona" >¿CÓMO FUNCIONA?</a>
-            <a href="/calculadora">CALCULADORA</a>
-           
+            <!-- Navigation links -->
+            <a href="/" id="inicio">HOME</a>
+            <a href="/acerca" id="acerca">ABOUT</a>
+            <a href="/como-funciona" >HOW IT WORKS?</a>
+            <a href="/calculadora">CALCULATOR</a>
         </nav>
     </header>
-    <!-- Sección Acerca de Nosotros -->
+
+    <!-- "About Us" Section -->
     <section class="about" id="acerca">
         <div class="container">
             <div class="about-content">
                 <div class="about-image">
-                    <img src="https://www.p2cinfo-tech.com/images/services/service-single/3.jpg" alt="Sobre nosotros" />
+                    <!-- Image for the About section -->
+                    <img src="https://www.p2cinfo-tech.com/images/services/service-single/3.jpg" alt="About Us" />
                 </div>
                 <div class="about-text">
                     <div class="main-container">
-                        <h2>Acerca de Nosotros</h2>
-                        <p>En Liquidación Segura, ofrecemos una calculadora de liquidación definitiva que facilita a los trabajadores calcular su liquidación de manera rápida y precisa. Nuestro objetivo es brindar herramientas útiles que empoderen a las personas a tomar decisiones informadas sobre sus derechos laborales.</p>
+                        <h2>About Us</h2>
+                        <p>At Liquidación Segura, we offer a definitive liquidation calculator that helps workers calculate their severance pay quickly and accurately. Our goal is to provide useful tools that empower individuals to make informed decisions about their labor rights.</p>
                     </div>
                     <div class="small-container">
-                        <h3>Nuestra Visión</h3>
-                        <p>Ser el recurso de referencia en cálculo de liquidaciones, promoviendo la transparencia y el conocimiento de los derechos laborales.</p>
+                        <h3>Our Vision</h3>
+                        <p>To be the reference resource for liquidation calculations, promoting transparency and knowledge of labor rights.</p>
                     </div>
                     <div class="small-container">
-                        <h3>Nuestros Valores</h3>
-                        <p>Transparencia, compromiso con el usuario y respeto por los derechos laborales de todos los trabajadores.</p>
+                        <h3>Our Values</h3>
+                        <p>Transparency, commitment to the user, and respect for the labor rights of all workers.</p>
                     </div>
                 </div>
             </div>
-            <button class="btn-volver" onclick="window.location.href='index'">↑ Volver al inicio</button>
+            <!-- Back to the top button -->
+            <button class="btn-volver" onclick="window.location.href='index'">↑ Back to Home</button>
         </div>
     </section>
 </body>
