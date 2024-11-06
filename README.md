@@ -7,9 +7,13 @@
 ## **¿Quién hizo esto?**
 
 Los integrantes y colaboradores del proyecto son:
-
+- **Version 2:**
 - John Steven Ceballos Agudelo
-- Gustavo Mendez 
+- Gustavo Mendez
+- **Version 3:**
+- Emmanuel Calad
+- Sofia Correa
+
 
 ## **¿Qué es y para qué es?**
 
@@ -17,15 +21,28 @@ Es un proyecto de liquidación de nómina para un empleado del sector privado. S
 
 ## **¿Cómo hacerlo funcionar?**
 
-Antes de poder ejecutar el proyecto, asegúrate de cumplir con los siguientes requisitos:
+### Requisitos previos
 
-1. **Instalar Python**: Descargar e instalar Python desde [python.org](http://python.org). Asegúrate de marcar la opción "Add Python to PATH" para facilitar la ejecución de comandos de Python desde la terminal.
+Antes de ejecutar el proyecto, asegúrate de tener instalados los siguientes programas en tu sistema:
 
-2. **Instalar Git**: Descargar e instalar Git desde [git-scm.com](http://git-scm.com).
+1. **Python**: [Descargar Python](https://www.python.org) (Asegúrate de agregar Python al PATH durante la instalación).
+2. **Git**: [Descargar Git](https://git-scm.com).
 
-3. **Instalar pandas**: Ejecuta el siguiente comando en la terminal:
+### Instalar dependencias
+
+## Crear y activar un ambiente virtual
+
+Es recomendable usar un ambiente virtual para gestionar las dependencias de Python de manera aislada. Para crear y activar un ambiente virtual, sigue estos pasos:
+
+Navega al directorio de tu proyecto y ejecuta el siguiente comando en la consola para crear un ambiente virtual:
+   
    ```bash
-   pip install pandas 
+   python -m venv venv
+
+Para instalar todas las librerías necesarias para el funcionamiento del proyecto, usa el archivo `requirements.txt`. Este archivo contiene las bibliotecas que debes instalar de manera automática usando el siguiente comando:
+
+```bash
+pip install -r requirements.txt
    ```
 
 ### **Pasos para ejecutar el proyecto desde la consola de Windows:**
@@ -51,6 +68,36 @@ Antes de poder ejecutar el proyecto, asegúrate de cumplir con los siguientes re
    ```
 
 ---
+## Paso a paso desde la terminal para ejecutar la interfaz web
+
+### 1. Clonar el Repositorio
+
+Primero, clona el repositorio usando el siguiente comando:
+
+```bash
+git clone https://github.com/emmanuelcalad0615/LiquidationProject.git
+ ```
+
+### 2. Ejecutar el archivo `app.py`
+
+Una vez clonado el repositorio, navega a la carpeta que contiene el archivo `app.py`. Este archivo está ubicado en la raíz del proyecto, por lo que si tienes el repositorio clonado en tu máquina, accede a él con el siguiente comando:
+
+```bash
+cd LiquidationProject
+ ```
+```bash
+python app.py
+
+```bash
+* Running on http://127.0.0.1:5000
+* Press CTRL+C to quit
+* Restarting with stat
+* Debugger is active!
+* Debugger PIN: 142-577-729
+```
+- Copia el enlace de "Running on" (en este caso, http://127.0.0.1:5000) y pégalo en tu navegador, o presiona ctrl y haz clic en el enlace para seguirlo directamente.
+
+
 
 ## **Ejecución de la Interfaz Gráfica**
 
