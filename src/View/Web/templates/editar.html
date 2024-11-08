@@ -73,7 +73,7 @@
         <form method="POST">
             <div class="contenedor">
                 <h2>Formulario de Edición de Empleado</h2>
-
+        
                 <!-- Documento (No editable) -->
                 <div class="mb-3">
                     <label for="document" class="form-label">Documento:</label>
@@ -81,31 +81,31 @@
                     <!-- Campo oculto para enviar el documento -->
                     <input type="hidden" name="document" value="{{ employee.document }}">
                 </div>
-
+        
                 <!-- Nombre -->
                 <div class="mb-3">
                     <label for="name" class="form-label">Nombre:</label>
                     <input type="text" id="name" name="name" class="form-control" value="{{ employee.name }}" required>
                 </div>
-
+        
                 <!-- Cargo -->
                 <div class="mb-3">
                     <label for="position" class="form-label">Cargo:</label>
                     <input type="text" id="position" name="position" class="form-control" value="{{ employee.position }}">
                 </div>
-
+        
                 <!-- Departamento -->
                 <div class="mb-3">
                     <label for="department" class="form-label">Departamento:</label>
                     <input type="text" id="department" name="department" class="form-control" value="{{ employee.department }}">
                 </div>
-
+        
                 <!-- Fecha de contratación -->
                 <div class="mb-3">
                     <label for="hire_date" class="form-label">Fecha de Contratación:</label>
                     <input type="date" id="hire_date" name="hire_date" class="form-control" value="{{ employee.hire_date }}">
                 </div>
-
+        
                 <!-- Tipo de contrato -->
                 <div class="mb-3">
                     <label for="contract_type" class="form-label">Tipo de Contrato:</label>
@@ -115,13 +115,13 @@
                         <option value="indefinido" {% if employee.contract_type == 'indefinido' %}selected{% endif %}>Indefinido</option>
                     </select>
                 </div>
-
+        
                 <!-- Salario -->
                 <div class="mb-3">
                     <label for="salary" class="form-label">Salario:</label>
                     <input type="number" id="salary" name="salary" class="form-control" value="{{ employee.salary }}" required>
                 </div>
-
+        
                 <!-- Estado -->
                 <div class="mb-3">
                     <label for="status" class="form-label">Estado:</label>
@@ -130,7 +130,7 @@
                         <option value="inactivo" {% if employee.status == 'inactivo' %}selected{% endif %}>Inactivo</option>
                     </select>
                 </div>
-
+        
                 <!-- Botones -->
                 <div class="form-row">
                     <button type="submit" class="btn">Actualizar</button>

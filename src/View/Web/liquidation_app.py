@@ -118,14 +118,22 @@ def eliminar():
 
 @main_bp.route('/editar', methods=['GET', 'POST'])
 def editar():
-    """
-    The route for the 'edit' page.
-    - On GET: Displays the edit form pre-filled with the current employee data based on the document number.
-    - On POST: Handles form submission to update an existing employee's information.
-    """
+    # Obtener el documento desde la URL
+    document = request.args.get('document')
+    
+    if not document:
+        flash('El documento no ha sido proporcionado', 'danger')
+        return redirect(url_for('main.crud'))
+
+    # Obtener el empleado con ese documento
+    employee = EmployeeController.get_employee_by_document(document)
+    
+    if not employee:
+        flash('Empleado no encontrado', 'danger')
+        return redirect(url_for('main.crud'))
+
+    # Si es un POST, actualizar los datos del empleado
     if request.method == 'POST':
-        # Get the updated data from the form.
-        document = request.form.get('document')
         name = request.form.get('name')
         position = request.form.get('position')
         department = request.form.get('department')
@@ -135,7 +143,6 @@ def editar():
         status = request.form.get('status')
 
         try:
-            # Call the controller to update the employee data.
             EmployeeController.update_employee(
                 document,
                 name=name,
@@ -146,20 +153,15 @@ def editar():
                 salary=salary,
                 status=status
             )
-            flash('Empleado actualizado exitosamente', 'success')
+            flash('Empleado actualizado', 'success')
+            return redirect(url_for('main.crud'))
+
         except Exception as e:
-            flash(f"Error: {str(e)}", "danger")
+            flash(f"Error: {str(e)}", 'danger')
 
-        return redirect(url_for('main.crud'))
+    # Si es un GET, mostrar los datos del empleado
+    return render_template('editar.html', employee=employee)
 
-    # On GET, fetch employee data by document and display in the edit form.
-    document = request.args.get('document')
-    employee = EmployeeController.get_employee_by_document(document)
-    if not employee:
-        flash('Empleado no encontrado', 'danger')
-        return redirect(url_for('main.crud'))
-
-    return render_template('editar_empleado.html', employee=employee)
 
 @main_bp.route('/buscar', methods=['GET', 'POST'])
 def buscar():

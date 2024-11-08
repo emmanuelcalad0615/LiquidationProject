@@ -121,7 +121,7 @@
 </head>
 <body>
     <header>
-        <img src="static\img\liquidacion_segura.jpg" alt="Logo" class="logo">
+        <a href="/"><img src="static\img\liquidacion_segura.jpg" alt="Logo" class="logo"></a>
         <nav>
             <ul>
                 <li><a style="text-decoration: none;" href="/">INICIO</a></li>
@@ -213,7 +213,7 @@
                 <div class="form-row">
                     <button type="submit" class="btn_form" style="text-decoration: none;">Agregar</button>
                     <a href="{{ url_for('main.eliminar') }}" class="btn_form" style="text-decoration: none;">Eliminar</a>
-                    <a href="{{ url_for('main.editar') }}" class="btn_form" style="text-decoration: none;">Editar</a>
+                    <a href="{{ url_for('main.editar', document=employee.document) }}" class="btn_form" style="text-decoration: none;">Editar</a>
                     <a href="{{ url_for('main.buscar') }}" class="btn_form" style="text-decoration: none;">Buscar</a>
                     
                 </div>
