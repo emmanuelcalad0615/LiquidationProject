@@ -116,10 +116,43 @@ def eliminar():
     # Render the 'eliminar.html' template to show the delete form.
     return render_template('eliminar.html')
 
-@main_bp.route('/editar', methods=['GET', 'POST'])
-def editar():
-    # Obtener el documento desde la URL
-    document = request.args.get('document')
+
+
+
+@main_bp.route('/buscar', methods=['GET', 'POST'])
+def buscar():
+    """
+    The route for the 'search' page.
+    - On GET: Displays an empty search form.
+    - On POST: Handles form submission to search for an employee by their document number.
+    """
+    employee = None  # Initialize the employee variable to None.
+    if request.method == 'POST':
+        # Get the document entered in the form.
+        document = request.form.get('document')
+
+        if document:
+            try:
+                # Call the controller to search for the employee by document number.
+                employee = EmployeeController.get_employee_by_document(document)
+                if not employee:
+                    flash('Empleado no encontrado.', 'danger')
+            except Exception as e:
+                flash(f"Error al buscar el empleado: {str(e)}", 'danger')
+        else:
+            flash('Por favor, ingresa un documento.', 'warning')
+
+    # Render the 'buscar.html' template and pass the employee data if found.
+    return render_template('buscar.html', employee=employee)
+
+
+@main_bp.route('/editar/<document>', methods=['GET', 'POST'])
+def editar(document):
+    """
+    The route for the 'edit employee' page.
+    - On GET: Displays the employee's details for editing based on the provided document.
+    - On POST: Handles form submission to update the employee's information.
+    """
     
     if not document:
         flash('El documento no ha sido proporcionado', 'danger')
@@ -127,6 +160,7 @@ def editar():
 
     # Obtener el empleado con ese documento
     employee = EmployeeController.get_employee_by_document(document)
+    print(employee)
     
     if not employee:
         flash('Empleado no encontrado', 'danger')
@@ -163,28 +197,4 @@ def editar():
     return render_template('editar.html', employee=employee)
 
 
-@main_bp.route('/buscar', methods=['GET', 'POST'])
-def buscar():
-    """
-    The route for the 'search' page.
-    - On GET: Displays an empty search form.
-    - On POST: Handles form submission to search for an employee by their document number.
-    """
-    employee = None  # Initialize the employee variable to None.
-    if request.method == 'POST':
-        # Get the document entered in the form.
-        document = request.form.get('document')
 
-        if document:
-            try:
-                # Call the controller to search for the employee by document number.
-                employee = EmployeeController.get_employee_by_document(document)
-                if not employee:
-                    flash('Empleado no encontrado.', 'danger')
-            except Exception as e:
-                flash(f"Error al buscar el empleado: {str(e)}", 'danger')
-        else:
-            flash('Por favor, ingresa un documento.', 'warning')
-
-    # Render the 'buscar.html' template and pass the employee data if found.
-    return render_template('buscar.html', employee=employee)

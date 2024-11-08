@@ -224,7 +224,9 @@ class EmployeeController:
         """Consulta un empleado por su documento y devuelve sus datos."""
         cursor, connection = EmployeeController.get_cursor()
         try:
-            cursor.execute("SELECT * FROM employees WHERE document = %s;", (document,))
+            cursor.execute("""SELECT document, name, position, department, hire_date, contract_type, salary, status 
+                           FROM employees 
+                           WHERE document = %s;""", (document,))
             employee = cursor.fetchone()
             
             if not employee:
