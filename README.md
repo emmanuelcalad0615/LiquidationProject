@@ -1,6 +1,7 @@
 Proyecto de Liquidación de Empleados del Sector Privado
 ¿Quién hizo esto?
 Los integrantes y colaboradores del proyecto son:
+<<<<<<< HEAD
 •	Emmanuel Calad
 •	Sofia Correa Carmona
 ¿Qué es y para qué es?
@@ -25,6 +26,46 @@ source venv/bin/activate
 Requisitos de instalación
 Una vez activado el entorno virtual, instale los paquetes necesarios mediante el archivo requirements.txt:
 pip install -r requirements.txt
+=======
+- **Version 2:**
+- John Steven Ceballos Agudelo
+- Gustavo Mendez
+- **Version 3:**
+- Emmanuel Calad
+- Sofia Correa
+
+
+## **¿Qué es y para qué es?**
+
+Es un proyecto de liquidación de nómina para un empleado del sector privado. Se encarga de realizar la liquidación de un empleado cuando ha finalizado su contrato laboral.
+
+## **¿Cómo hacerlo funcionar?**
+
+### Requisitos previos
+
+Antes de ejecutar el proyecto, asegúrate de tener instalados los siguientes programas en tu sistema:
+
+1. **Python**: [Descargar Python](https://www.python.org) (Asegúrate de agregar Python al PATH durante la instalación).
+2. **Git**: [Descargar Git](https://git-scm.com).
+
+### Instalar dependencias
+
+## Crear y activar un ambiente virtual
+
+Es recomendable usar un ambiente virtual para gestionar las dependencias de Python de manera aislada. Para crear y activar un ambiente virtual, sigue estos pasos:
+
+Navega al directorio de tu proyecto y ejecuta el siguiente comando en la consola para crear un ambiente virtual:
+   
+   ```bash
+   python -m venv venv
+```
+
+Para instalar todas las librerías necesarias para el funcionamiento del proyecto, usa el archivo `requirements.txt`. Este archivo contiene las bibliotecas que debes instalar de manera automática usando el siguiente comando:
+
+```bash
+pip install -r requirements.txt
+   ```
+>>>>>>> 19f372428d7974dcfea3be8380837e3a0a4372bb
 
 
 Ejecutar el programa
@@ -32,10 +73,23 @@ Ejecución de la consola:
 Ejecute el archivo console.py:
 py src\Console\console.py
 
+<<<<<<< HEAD
 
+=======
+2. **Clonar el Repositorio**: Usar el comando **git clone** seguido de la URL del repositorio:
+   ```bash
+   git clone "https://github.com/emmanuelcalad0615/LiquidationProject.git"
+   ```
+
+3. **Navegar al Directorio del Proyecto**: Después de clonar el repositorio, ve al directorio del proyecto:
+   ```bash
+   cd LiquidationProject
+   ```
+>>>>>>> 19f372428d7974dcfea3be8380837e3a0a4372bb
 
 Paso a paso desde la terminal para ejecutar la interfaz web:
 
+<<<<<<< HEAD
 1.	Clonar el Repositorio: Usar el comando git clone seguido de la URL del repositorio:
 git clone https://github.com/emmanuelcalad0615/LiquidationProject.git
 Ahora habrás clonado el repositorio en tu máquina local y podrás comenzar a trabajar con él.________________________________________
@@ -50,6 +104,40 @@ python app.py
 •	 * Debugger PIN: 142-577-729
 •	Copia el enlace de "Running on" (en este caso, http://127.0.0.1:5000) y pégalo en tu navegador, o presiona ctrl y haz clic en el enlace para seguirlo directamente. Ahora podrás acceder a tu aplicación web en el navegador utilizando la dirección proporcionada. Gracias por la corrección. Aquí está la guía actualizada:
 Cómo ejecutar los test
+=======
+---
+## Paso a paso desde la terminal para ejecutar la interfaz web
+
+### 1. Clonar el Repositorio
+
+Primero, clona el repositorio usando el siguiente comando:
+
+```bash
+git clone https://github.com/emmanuelcalad0615/LiquidationProject.git
+ ```
+
+### 2. Ejecutar el archivo `app.py`
+
+Una vez clonado el repositorio, navega a la carpeta que contiene el archivo `app.py`. Este archivo está ubicado en la raíz del proyecto, por lo que si tienes el repositorio clonado en tu máquina, accede a él con el siguiente comando:
+
+```bash
+cd LiquidationProject
+ ```
+```bash
+python app.py
+```
+
+```bash
+* Running on http://127.0.0.1:5000
+* Press CTRL+C to quit
+* Restarting with stat
+* Debugger is active!
+* Debugger PIN: 142-577-729
+```
+- Copia el enlace de "Running on" (en este caso, http://127.0.0.1:5000) y pégalo en tu navegador, o presiona ctrl y haz clic en el enlace para seguirlo directamente.
+
+
+>>>>>>> 19f372428d7974dcfea3be8380837e3a0a4372bb
 
 Para ejecutar los casos de prueba deberá de escribir en la terminal de python los siguientes comandos:
 Este ejecutará los casos de prueba para la calculadora de hipoteca inversa: 
