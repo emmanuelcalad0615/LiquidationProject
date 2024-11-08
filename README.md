@@ -59,7 +59,9 @@ py src\Console\console.py
 ## Paso a paso desde la terminal para ejecutar la interfaz web:
  
 1. Clonar el Repositorio: Usar el comando gitclone seguido de la URL del repositorio:
+```bash
 git clonehttps://github.com/emmanuelcalad0615/LiquidationProject.git
+```
 Ahora habrás clonado el repositorio en tu máquina local y podrás comenzar a trabajar con él.
 
 ### Ejecutar el Archivo app.py:
