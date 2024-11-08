@@ -38,6 +38,7 @@ Navega al directorio de tu proyecto y ejecuta el siguiente comando en la consola
    
    ```bash
    python -m venv venv
+```
 
 Para instalar todas las librerías necesarias para el funcionamiento del proyecto, usa el archivo `requirements.txt`. Este archivo contiene las bibliotecas que debes instalar de manera automática usando el siguiente comando:
 
@@ -54,12 +55,12 @@ pip install -r requirements.txt
 
 2. **Clonar el Repositorio**: Usar el comando **git clone** seguido de la URL del repositorio:
    ```bash
-   git clone https://github.com/JHONCE79/Liquidation-proyect.git
+   git clone "https://github.com/emmanuelcalad0615/LiquidationProject.git"
    ```
 
 3. **Navegar al Directorio del Proyecto**: Después de clonar el repositorio, ve al directorio del proyecto:
    ```bash
-   cd Liquidation-proyect
+   cd LiquidationProject
    ```
 
 4. **Ejecutar el proyecto**: Navegar al directorio principal del proyecto:
@@ -87,6 +88,7 @@ cd LiquidationProject
  ```
 ```bash
 python app.py
+```
 
 ```bash
 * Running on http://127.0.0.1:5000
