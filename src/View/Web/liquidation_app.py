@@ -154,47 +154,59 @@ def editar(document):
     - On POST: Handles form submission to update the employee's information.
     """
     
-    if not document:
-        flash('El documento no ha sido proporcionado', 'danger')
-        return redirect(url_for('main.crud'))
-
-    # Obtener el empleado con ese documento
-    employee = EmployeeController.get_employee_by_document(document)
-    print(employee)
-    
-    if not employee:
-        flash('Empleado no encontrado', 'danger')
-        return redirect(url_for('main.crud'))
-
-    # Si es un POST, actualizar los datos del empleado
-    if request.method == 'POST':
-        name = request.form.get('name')
-        position = request.form.get('position')
-        department = request.form.get('department')
-        hire_date = request.form.get('hire_date')
-        contract_type = request.form.get('contract_type')
-        salary = request.form.get('salary')
-        status = request.form.get('status')
-
-        try:
-            EmployeeController.update_employee(
-                document,
-                name=name,
-                position=position,
-                department=department,
-                hire_date=hire_date,
-                contract_type=contract_type,
-                salary=salary,
-                status=status
-            )
-            flash('Empleado actualizado', 'success')
+    try:
+        # If no document is provided, flash an error and redirect to CRUD page
+        if not document:
+            flash('El documento no ha sido proporcionado', 'danger')
             return redirect(url_for('main.crud'))
 
-        except Exception as e:
-            flash(f"Error: {str(e)}", 'danger')
+        # Try to retrieve the employee using the provided document
+        employee = EmployeeController.get_employee_by_document(document)
 
-    # Si es un GET, mostrar los datos del empleado
-    return render_template('editar.html', employee=employee)
+        # If no employee is found, flash an error and redirect to CRUD page
+        if not employee:
+            flash('Empleado no encontrado', 'danger')
+            return redirect(url_for('main.crud'))
+
+        # Handle the POST request to update employee details
+        if request.method == 'POST':
+            # Get the form data
+            name = request.form.get('name')
+            position = request.form.get('position')
+            department = request.form.get('department')
+            hire_date = request.form.get('hire_date')
+            contract_type = request.form.get('contract_type')
+            salary = request.form.get('salary')
+            status = request.form.get('status')
+
+            try:
+                # Attempt to update the employee's data
+                EmployeeController.update_employee(
+                    document,
+                    name=name,
+                    position=position,
+                    department=department,
+                    hire_date=hire_date,
+                    contract_type=contract_type,
+                    salary=salary,
+                    status=status
+                )
+                # If successful, flash a success message and redirect
+                flash('Empleado actualizado', 'success')
+                return redirect(url_for('main.crud'))
+
+            except Exception as e:
+                # If there is an error during update, flash the error message
+                flash(f"Error al actualizar el empleado: {str(e)}", 'danger')
+
+        # If it's a GET request, display the employee data in the form
+        return render_template('editar.html', employee=employee)
+
+    except Exception as e:
+        # This will catch any other unexpected errors (e.g., issues in the GET process)
+        flash(f" {str(e)}", 'danger')
+        return redirect(url_for('main.crud'))
+
 
 
 

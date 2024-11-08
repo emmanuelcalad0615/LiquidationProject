@@ -231,7 +231,7 @@
                     <button type="submit" class="btn_form" style="text-decoration: none;">Agregar</button>
                     <a href="{{ url_for('main.eliminar') }}" class="btn_form" style="text-decoration: none;">Eliminar</a>
                     <div id="editar-enlace" >
-                        <a href="/editar/" id="editar-link" class="btn_form" style="text-decoration: none;">Editar</a>
+                        <a href="{{ url_for('main.editar', document = False) }}" id="editar-link" class="btn_form" style="text-decoration: none;">Editar</a>
                     </div>
 
                     <a href="{{ url_for('main.buscar') }}" class="btn_form" style="text-decoration: none;">Buscar</a>

@@ -197,7 +197,7 @@ class EmployeeController:
             connection.commit()
         except Exception as e:
             connection.rollback()
-            raise UpdateError(f"Error updating natural person: {e}")
+            raise UpdateError(f"Error updating employee")
         finally:
             cursor.close()
             connection.close()
@@ -236,7 +236,7 @@ class EmployeeController:
         except EntryNotFoundError as e:
             raise e
         except Exception as e:
-            raise SearchError(f"Error al consultar empleado: {e}")
+            raise SearchError(f"Error al consultar empleado")
         finally:
             cursor.close()
             connection.close()
